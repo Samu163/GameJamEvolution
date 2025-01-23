@@ -138,4 +138,14 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Death"))
+        {
+            transform.position = startPosition;
+            rb.velocity = Vector3.zero;
+        }
+    }
 }
+
