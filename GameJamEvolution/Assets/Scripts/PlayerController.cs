@@ -11,10 +11,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float movSpeed;
     [SerializeField] private float movSpeedRunning;
     private float currentMovSpeed;
-    [Range(0, 0.5f)]
+    [Range(0, 2f)]
     [SerializeField] private float smoothTime;
     private Vector3 velocity = Vector3.zero;
     private bool isLookingRight = true;
+    public PhysicMaterial playerPhysicMaterial;
 
     [Header("Player Jump")]
     [SerializeField] private float jumpForce;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 boxSize;
     [SerializeField] private bool isGrounded;
     private bool jump = false;
+    private bool isJumping = false;
 
     [Header("Player Wall Jump")]
     [SerializeField] private float wallJumpForce;
@@ -60,10 +62,17 @@ public class PlayerController : MonoBehaviour
 
         movHorizontal = Input.GetAxisRaw("Horizontal") * currentMovSpeed;
 
+        if (isGrounded && !isJumping)
+        {
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+        }
+
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
             wallJump = true;
+            isJumping = true;
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         }
     }
 
@@ -137,6 +146,16 @@ public class PlayerController : MonoBehaviour
             transform.position = startPosition;
             rb.velocity = Vector3.zero;
         }
+
+        if (collision.collider.CompareTag("SlideGround"))
+        {
+            smoothTime = 1f;
+        }
+
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isJumping = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -145,6 +164,22 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = startPosition;
             rb.velocity = Vector3.zero;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.CompareTag("SlideGround"))
+        {
+            smoothTime = 1f;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("SlideGround"))
+        {
+            smoothTime = 0.3f;
         }
     }
 }

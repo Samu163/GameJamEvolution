@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7386086689691473628}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.7735896, y: -6.9312105, z: -1.2458334}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 8062232683218858392}
   m_Layer: 7
   m_Name: WallCube
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +123,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7679846398112320484}
-  m_Material: {fileID: 13400000, guid: a1574d868ed9c96479136aca0131d6fa, type: 2}
+  m_Material: {fileID: 13400000, guid: 70c53669eee0f904087a9095d46582c8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

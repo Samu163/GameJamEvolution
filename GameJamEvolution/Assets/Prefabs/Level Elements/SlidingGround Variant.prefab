@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7947968467488868120
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 441428684153306881, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_Name
+      value: SlidingGround Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2483614623031700646, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 1fa47301fdf3671468dba1b795b91063,
+        type: 2}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -22.22641
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.9312105
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.2458334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355210546924525336, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4666488540196003994, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7454766207179543942, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_Name
+      value: SlideCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 7454766207179543942, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7454766207179543942, guid: 9a9f23e81839b2947bfaddd2d9d6bdef,
+        type: 3}
+      propertyPath: m_TagString
+      value: SlideGround
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9a9f23e81839b2947bfaddd2d9d6bdef, type: 3}

@@ -9,13 +9,7 @@ public class Aspiradora : MonoBehaviour
     [SerializeField] private float aspirationTime;
     [SerializeField] private float aspirationTimeCounter;
     [SerializeField] private bool isAspiring = false;
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+   
 
     // Update is called once per frame
     void Update()
