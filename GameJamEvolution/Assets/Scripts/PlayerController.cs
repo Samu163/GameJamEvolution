@@ -32,12 +32,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isTouchingWall;
     [SerializeField] private bool canWallJump = true;
     private bool wallJump = false;
-    
+
+    [Header("Player Death")]
+    [SerializeField] private Vector3 startPosition;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        startPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -123,5 +128,14 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireCube(groundCheck.position, boxSize);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(wallCheck.position, boxSizeWall);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Death"))
+        {
+            transform.position = startPosition;
+            rb.velocity = Vector3.zero;
+        }
     }
 }
