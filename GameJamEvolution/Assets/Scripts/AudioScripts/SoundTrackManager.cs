@@ -25,10 +25,13 @@ public class SoundTrackManager : MonoBehaviour
     [SerializeField] private List<MusicTrack> musicTracks = new List<MusicTrack>();
     [SerializeField] private float masterVolume = 1f;
     [SerializeField] private float defaultFadeTime = 1f;
+    [SerializeField] private float scheduleAheadTime = 0.1f;
 
     private Dictionary<string, List<AudioSource>> trackSources = new Dictionary<string, List<AudioSource>>();
     private Dictionary<string, Dictionary<int, Coroutine>> trackFadeCoroutines = new Dictionary<string, Dictionary<int, Coroutine>>();
     private string currentTrackName;
+    private double nextStartTime;
+    private bool isPlaying = false;
 
     private void Awake()
     {
@@ -56,7 +59,7 @@ public class SoundTrackManager : MonoBehaviour
             {
                 AudioSource source = gameObject.AddComponent<AudioSource>();
                 source.clip = track.layers[i].clip;
-                source.loop = true;
+                source.loop = false;
                 source.playOnAwake = false;
                 source.volume = 0f;
                 source.priority = 0;
@@ -65,34 +68,64 @@ public class SoundTrackManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (!isPlaying || string.IsNullOrEmpty(currentTrackName)) return;
+
+        double currentTime = AudioSettings.dspTime;
+        if (currentTime + scheduleAheadTime > nextStartTime)
+        {
+            ScheduleNextLoop();
+        }
+    }
+
+    private void ScheduleNextLoop()
+    {
+        if (!trackSources.ContainsKey(currentTrackName)) return;
+
+        var sources = trackSources[currentTrackName];
+        if (sources.Count == 0 || sources[0].clip == null) return;
+
+        double currentTime = AudioSettings.dspTime;
+        
+        if (nextStartTime <= currentTime)
+        {
+            nextStartTime = currentTime + scheduleAheadTime;
+        }
+
+        foreach (var source in sources)
+        {
+            source.PlayScheduled(nextStartTime);
+        }
+
+        nextStartTime += sources[0].clip.length;
+    }
+
     public void PlayTrack(string trackName)
     {
         if (!trackSources.ContainsKey(trackName)) return;
 
-        // Stop current track if different
         if (currentTrackName != null && currentTrackName != trackName)
         {
             StopTrack(currentTrackName);
         }
 
         currentTrackName = trackName;
-        double startTime = AudioSettings.dspTime + 0.1;
-        foreach (var source in trackSources[trackName])
-        {
-            source.PlayScheduled(startTime);
-        }
+        isPlaying = true;
+        nextStartTime = AudioSettings.dspTime;
+        ScheduleNextLoop();
     }
 
     public void StopTrack(string trackName)
     {
         if (!trackSources.ContainsKey(trackName)) return;
 
+        isPlaying = false;
         foreach (var source in trackSources[trackName])
         {
             source.Stop();
         }
 
-        // Clear any active fades
         if (trackFadeCoroutines.ContainsKey(trackName))
         {
             foreach (var coroutine in trackFadeCoroutines[trackName].Values)
@@ -111,7 +144,6 @@ public class SoundTrackManager : MonoBehaviour
 
         var fadeCoroutines = trackFadeCoroutines[trackName];
         
-        // Cancel existing fade for this layer
         if (fadeCoroutines.ContainsKey(layerIndex))
         {
             if (fadeCoroutines[layerIndex] != null)
@@ -119,7 +151,6 @@ public class SoundTrackManager : MonoBehaviour
             fadeCoroutines.Remove(layerIndex);
         }
 
-        // Start new fade
         fadeCoroutines[layerIndex] = StartCoroutine(
             FadeLayerCoroutine(trackName, layerIndex, targetVolume, fadeTime < 0 ? defaultFadeTime : fadeTime));
     }

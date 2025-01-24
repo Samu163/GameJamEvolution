@@ -20,7 +20,20 @@ public class AdaptiveMusicController : MonoBehaviour
     [SerializeField] private List<LayerConfig> musicLayers = new List<LayerConfig>();
     
     private HashSet<int> activeLayerIndices = new HashSet<int>();
-    public int deathCount { get; private set; } = 0;
+    [Header("Debug Info")]
+    [SerializeField, ReadOnly] private int _deathCount = 0; // Add this for inspector visibility
+    public int deathCount 
+    { 
+        get => _deathCount;
+        private set 
+        {
+            _deathCount = value;
+            #if UNITY_EDITOR
+            // Force inspector update in editor
+            UnityEditor.EditorUtility.SetDirty(this);
+            #endif
+        }
+    }
 
     private void Awake()
     {
