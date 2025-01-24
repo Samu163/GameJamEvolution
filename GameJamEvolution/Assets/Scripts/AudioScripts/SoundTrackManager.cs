@@ -25,10 +25,13 @@ public class SoundTrackManager : MonoBehaviour
     [SerializeField] private List<MusicTrack> musicTracks = new List<MusicTrack>();
     [SerializeField] private float masterVolume = 1f;
     [SerializeField] private float defaultFadeTime = 1f;
+    [SerializeField] private float scheduledAheadTime = 0.1f;
+    [SerializeField] private float crossScheduleTime = 0.1f; // Small overlap for perfect loops
 
     private Dictionary<string, List<AudioSource>> trackSources = new Dictionary<string, List<AudioSource>>();
     private Dictionary<string, Dictionary<int, Coroutine>> trackFadeCoroutines = new Dictionary<string, Dictionary<int, Coroutine>>();
     private string currentTrackName;
+    private Dictionary<string, double> nextScheduleTime = new Dictionary<string, double>();
 
     private void Awake()
     {
@@ -56,11 +59,27 @@ public class SoundTrackManager : MonoBehaviour
             {
                 AudioSource source = gameObject.AddComponent<AudioSource>();
                 source.clip = track.layers[i].clip;
-                source.loop = true;
+                source.loop = false; // Changed to false since we're handling looping manually
                 source.playOnAwake = false;
                 source.volume = 0f;
                 source.priority = 0;
+                source.hideFlags = HideFlags.HideInInspector; // Hide sources in inspector to avoid clutter
                 sources.Add(source);
+            }
+        }
+    }
+
+    private void Update()
+    {
+        // Check if we need to schedule the next loop for any playing tracks
+        if (string.IsNullOrEmpty(currentTrackName)) return;
+
+        if (nextScheduleTime.ContainsKey(currentTrackName))
+        {
+            double currentTime = AudioSettings.dspTime;
+            if (currentTime + scheduledAheadTime >= nextScheduleTime[currentTrackName])
+            {
+                ScheduleNextLoop(currentTrackName);
             }
         }
     }
@@ -77,10 +96,31 @@ public class SoundTrackManager : MonoBehaviour
 
         currentTrackName = trackName;
         double startTime = AudioSettings.dspTime + 0.1;
+        nextScheduleTime[trackName] = startTime;
+
         foreach (var source in trackSources[trackName])
         {
             source.PlayScheduled(startTime);
         }
+    }
+
+    private void ScheduleNextLoop(string trackName)
+    {
+        if (!trackSources.ContainsKey(trackName)) return;
+
+        var sources = trackSources[trackName];
+        if (sources.Count == 0 || sources[0].clip == null) return;
+
+        double currentScheduleTime = nextScheduleTime[trackName];
+        double clipDuration = (double)sources[0].clip.samples / sources[0].clip.frequency;
+        double nextStartTime = currentScheduleTime + clipDuration - crossScheduleTime;
+
+        foreach (var source in sources)
+        {
+            source.SetScheduledStartTime(nextStartTime);
+        }
+
+        nextScheduleTime[trackName] = nextStartTime;
     }
 
     public void StopTrack(string trackName)
@@ -90,6 +130,11 @@ public class SoundTrackManager : MonoBehaviour
         foreach (var source in trackSources[trackName])
         {
             source.Stop();
+        }
+
+        if (nextScheduleTime.ContainsKey(trackName))
+        {
+            nextScheduleTime.Remove(trackName);
         }
 
         // Clear any active fades

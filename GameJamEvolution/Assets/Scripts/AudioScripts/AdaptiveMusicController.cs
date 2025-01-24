@@ -20,7 +20,22 @@ public class AdaptiveMusicController : MonoBehaviour
     [SerializeField] private List<LayerConfig> musicLayers = new List<LayerConfig>();
     
     private HashSet<int> activeLayerIndices = new HashSet<int>();
-    public int deathCount { get; private set; } = 0;
+    
+    // Make death count visible in inspector but still controlled through code
+    [SerializeField, ReadOnly] 
+    private int _deathCount = 0;
+    public int deathCount 
+    { 
+        get => _deathCount;
+        private set 
+        {
+            _deathCount = value;
+            #if UNITY_EDITOR
+            // Force inspector refresh when value changes
+            UnityEditor.EditorUtility.SetDirty(this);
+            #endif
+        }
+    }
 
     private void Awake()
     {
@@ -142,4 +157,20 @@ public class AdaptiveMusicController : MonoBehaviour
             SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layerIndex, volume, 0f); // Instant volume change
         }
     }
-} 
+}
+
+// Add this attribute class to make fields read-only in inspector
+public class ReadOnlyAttribute : PropertyAttribute { }
+
+#if UNITY_EDITOR
+[UnityEditor.CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+public class ReadOnlyDrawer : UnityEditor.PropertyDrawer
+{
+    public override void OnGUI(Rect position, UnityEditor.SerializedProperty property, GUIContent label)
+    {
+        GUI.enabled = false;
+        UnityEditor.EditorGUI.PropertyField(position, property, label, true);
+        GUI.enabled = true;
+    }
+}
+#endif 
