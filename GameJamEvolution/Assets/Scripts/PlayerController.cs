@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 boxSize;
     [SerializeField] private bool isGrounded;
     private bool jump = false;
-    private bool isJumping = false;
+    private bool isJumping = true;
 
     [Header("Player Wall Jump")]
     [SerializeField] private float wallJumpForce;
