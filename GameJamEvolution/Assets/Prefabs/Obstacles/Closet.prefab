@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4326738285238590261}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 1, z: 0}
+  m_LocalPosition: {x: 1, y: 1, z: 1}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -138,7 +138,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 1}
-  m_Center: {x: 1, y: 1, z: -1}
+  m_Center: {x: 1, y: 1, z: 0}
 --- !u!114 &3381395633585263571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bc2d3e3392de5f40b401ad4033c0545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: {x: 2, y: 2}
+  gridPos: {x: 0, y: 0}
+  cellType: 2
+  id: 1
   activateDuration: 0.5
   delay: 1
   childColliderObject: {fileID: 8565814957814879179}
@@ -180,7 +184,7 @@ Transform:
   m_GameObject: {fileID: 8565814957814879179}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
