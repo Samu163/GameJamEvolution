@@ -5027,7 +5027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - {fileID: 11400000, guid: 144e1d33a94b1aa4e8f47f7c965ea7ec, type: 2}
+  - {fileID: 11400000, guid: 6bb4f5c6ba25eeb4aa4a11ad2dd933dd, type: 2}
   gridSystem: {fileID: 257990016}
   player: {fileID: 0}
 --- !u!4 &1356543649
@@ -5990,12 +5990,12 @@ PrefabInstance:
     - target: {fileID: 2325826636150258659, guid: 169b4dbb36b3f3845801c6d168a9b807,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.85804
+      value: -0.14196014
       objectReference: {fileID: 0}
     - target: {fileID: 2325826636150258659, guid: 169b4dbb36b3f3845801c6d168a9b807,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9973578
+      value: -4.997358
       objectReference: {fileID: 0}
     - target: {fileID: 2325826636150258659, guid: 169b4dbb36b3f3845801c6d168a9b807,
         type: 3}
@@ -6036,6 +6036,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2994787091901498638, guid: 169b4dbb36b3f3845801c6d168a9b807,
+        type: 3}
+      propertyPath: cellType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2994787091901498638, guid: 169b4dbb36b3f3845801c6d168a9b807,
+        type: 3}
+      propertyPath: radiusSize.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2994787091901498638, guid: 169b4dbb36b3f3845801c6d168a9b807,
+        type: 3}
+      propertyPath: radiusSize.y
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8096386145965285417, guid: 169b4dbb36b3f3845801c6d168a9b807,
         type: 3}

@@ -97,10 +97,10 @@ public class FallingPlatform : Obstacle
                 {
                     for (int k = 0; k < radiusSize.y; k++)
                     {
-                        int checkYradius = position.y + k;
-                        int checkXradius = position.x + j;
+                        int checkYradius = position.y - 2 + k;
+                        int checkXradius = position.x - 2 + j;
 
-                        if (checkXradius < gridWidth && checkYradius < gridHeight)
+                        if (checkXradius < gridWidth && checkYradius < gridHeight && checkXradius >= 0 && checkYradius >= 0)
                         {
                             if (grid[checkXradius, checkYradius].type == GridSystem.CellType.Ground)
                             {
