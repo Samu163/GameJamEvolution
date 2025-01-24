@@ -4,6 +4,8 @@ using UnityEngine;
 public abstract class Obstacle : MonoBehaviour
 {
     public Vector2Int size;
+    public Vector2Int gridPos;
+    public int id;
 
     public bool Init(GridSystem gridSystem)
     {
@@ -12,6 +14,7 @@ public abstract class Obstacle : MonoBehaviour
         {
             Vector3 worldPosition = gridSystem.GridToWorldPosition(position);
             transform.position = worldPosition;
+            gridPos = gridSystem.WorldToGridPosition(worldPosition);
             return true;
         }
         else

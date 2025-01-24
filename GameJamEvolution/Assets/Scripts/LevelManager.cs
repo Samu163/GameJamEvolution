@@ -36,7 +36,8 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("El nivel está lleno. No se generaron más obstáculos.");
         }
-        obstaclesOnCurrentLevel.Add(obstacleInstance);     
+        obstaclesOnCurrentLevel.Add(obstacleInstance);
+        obstacleInstance.id = obstaclesOnCurrentLevel.Count;
     }
 
 
@@ -46,4 +47,31 @@ public class LevelManager : MonoBehaviour
         player.RespawnPlayer();
         levelCount++;
     }
+
+    public void DestroyObstacle(Vector2Int gridPosition, Vector2Int size)
+    {
+
+        List<Vector2Int> obstacleGridPositions = gridSystem.GetPositionsWithObstacles(new Vector2Int(1, 1));
+
+        for (int i = 0; i < obstaclesOnCurrentLevel.Count; i++)
+        {
+            for (int j = 0; j < size.x; j++)
+            {
+                for (int k = 0; k < size.y; k++)
+                {
+                    Vector2Int obstacleGridPos = gridPosition + new Vector2Int(j, k);
+                    if (obstaclesOnCurrentLevel[i].gridPos == obstacleGridPos)
+                    {
+                        gridSystem.DestroyObstacle(obstacleGridPos, size);
+                        Destroy(obstaclesOnCurrentLevel[i].gameObject);
+                        obstaclesOnCurrentLevel.RemoveAt(i);
+
+                    }
+                }
+            }
+
+        }
+    }
+
+    
 }

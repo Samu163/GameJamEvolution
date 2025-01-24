@@ -77,6 +77,25 @@ public class GridSystem : MonoBehaviour
         return validPositions;
     }
 
+    public List<Vector2Int> GetPositionsWithObstacles(Vector2Int size)
+    {
+        List<Vector2Int> positionsWithObstacles = new List<Vector2Int>();
+
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridHeight; y++)
+            {
+                Vector2Int position = new Vector2Int(x, y);
+                if (!CanPlaceObstacle(position, size))
+                {
+                    positionsWithObstacles.Add(position);
+                }
+            }
+        }
+
+        return positionsWithObstacles;
+    }
+
     public bool TryPlaceObstacle(Vector2Int size, out Vector2Int placedPosition)
     {
         List<Vector2Int> validPositions = GetValidPositions(size);
@@ -96,6 +115,31 @@ public class GridSystem : MonoBehaviour
     public Vector3 GridToWorldPosition(Vector2Int gridPosition)
     {
         return new Vector3(gridPosition.x * cellSize, gridPosition.y * cellSize, 0) + transform.position;
+    }
+
+    // Método para convertir coordenadas de mundo a coordenadas de cuadrícula
+    public Vector2Int WorldToGridPosition(Vector3 worldPosition)
+    {
+        Vector3 relativePosition = worldPosition - transform.position;
+        int x = Mathf.FloorToInt(relativePosition.x / cellSize);
+        int y = Mathf.FloorToInt(relativePosition.y / cellSize);
+
+        // Limitar las coordenadas a los límites de la cuadrícula
+        x = Mathf.Clamp(x, 0, gridWidth - 1);
+        y = Mathf.Clamp(y, 0, gridHeight - 1);
+
+        return new Vector2Int(x, y);
+    }
+
+    public void DestroyObstacle(Vector2Int position, Vector2Int size)
+    {
+        for (int x = 0; x < size.x; x++)
+        {
+            for (int y = 0; y < size.y; y++)
+            {
+                grid[position.x + x, position.y + y] = false;
+            }
+        }
     }
 
     // Método para dibujar la cuadrícula y las celdas ocupadas/libres
