@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Aspiradora : MonoBehaviour
+public class Aspiradora : Obstacle
 {
 
     [SerializeField] private Vector3 aspirationForce;
