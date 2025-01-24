@@ -10,18 +10,17 @@ public class AdaptiveMusicController : MonoBehaviour
     {
         public int layerIndex;
         public float targetVolume = 1f;
-        public float fadeSpeed = 2f;
+        public float fadeTime = 1f;
     }
 
     [Header("Music Configuration")]
-    [SerializeField] private string trackName = "Track1";
-    [SerializeField] private float crossFadeSpeed = 2f;
+    [SerializeField] private string currentTrackName = "Track1";
     
     [Header("Layer Settings")]
     [SerializeField] private List<LayerConfig> musicLayers = new List<LayerConfig>();
-
+    
     private HashSet<int> activeLayerIndices = new HashSet<int>();
-    public int deathCount = 0;
+    public int deathCount { get; private set; } = 0;
 
     private void Awake()
     {
@@ -40,92 +39,69 @@ public class AdaptiveMusicController : MonoBehaviour
     {
         if (SoundTrackManager.Instance != null)
         {
-            // Start playing the base track
-            SoundTrackManager.Instance.PlayMusic(trackName, false);
-            
-            // Initially disable ALL layers including layer 1
+            SoundTrackManager.Instance.PlayTrack(currentTrackName);
+            // Start with all layers faded out
             foreach (var layer in musicLayers)
             {
-                SoundTrackManager.Instance.SetLayerVolume(layer.layerIndex, 0f);
+                SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layer.layerIndex, 0f, 0f);
             }
+            // Enable first layer
+            EnableLayer(0);
+        }
+    }
 
-            // Explicitly enable only layer 1
-            var layer1Config = musicLayers.Find(l => l.layerIndex == 1);
-            if (layer1Config != null)
+    public void ChangeTrack(string newTrackName)
+    {
+        if (SoundTrackManager.Instance != null && currentTrackName != newTrackName)
+        {
+            currentTrackName = newTrackName;
+            SoundTrackManager.Instance.PlayTrack(newTrackName);
+            
+            // Reset layers for new track
+            foreach (var layer in musicLayers)
             {
-                EnableLayer(1);
-                Debug.Log("Starting with Layer 1 only");
+                SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layer.layerIndex, 0f, 0f);
             }
+            EnableLayer(0);
         }
     }
 
     public void EnableLayer(int layerIndex)
     {
-        if (!activeLayerIndices.Contains(layerIndex))
+        var layerConfig = musicLayers.Find(l => l.layerIndex == layerIndex);
+        if (layerConfig != null && SoundTrackManager.Instance != null)
         {
             activeLayerIndices.Add(layerIndex);
-            if (SoundTrackManager.Instance != null)
-            {
-                SoundTrackManager.Instance.StartLayer(layerIndex - 1); // Convert from 1-based to 0-based index
-                StartFade(layerIndex, true);
-            }
+            SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layerIndex, 
+                layerConfig.targetVolume, layerConfig.fadeTime);
         }
     }
 
     public void DisableLayer(int layerIndex)
     {
-        if (activeLayerIndices.Contains(layerIndex))
+        var layerConfig = musicLayers.Find(l => l.layerIndex == layerIndex);
+        if (layerConfig != null && SoundTrackManager.Instance != null)
         {
             activeLayerIndices.Remove(layerIndex);
-            StartFade(layerIndex, false);
+            SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layerIndex, 0f, layerConfig.fadeTime);
         }
     }
 
-    public void ToggleLayer(int layerIndex)
+    public void FadeLayer(int layerIndex, float targetVolume, float fadeTime)
     {
-        if (activeLayerIndices.Contains(layerIndex))
+        if (SoundTrackManager.Instance != null)
         {
-            DisableLayer(layerIndex);
-        }
-        else
-        {
-            EnableLayer(layerIndex);
-        }
-    }
-
-    private void StartFade(int layerIndex, bool fadeIn)
-    {
-        var layerConfig = musicLayers.Find(l => l.layerIndex == layerIndex);
-        if (layerConfig == null || SoundTrackManager.Instance == null) return;
-
-        float targetVolume = fadeIn ? layerConfig.targetVolume : 0f;
-        SoundTrackManager.Instance.SetLayerVolume(layerIndex, targetVolume);
-    }
-
-    // Example methods for game events
-    public void OnLevelComplete()
-    {
-        // Example: Enable layer 1 after completing first level
-        if (LevelManager.Instance.levelCount == 1)
-        {
-            EnableLayer(1);
-        }
-        // Example: Enable layer 2 after level 3
-        else if (LevelManager.Instance.levelCount == 3)
-        {
-            EnableLayer(2);
+            SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layerIndex, targetVolume, fadeTime);
         }
     }
 
     public void OnPlayerDeath()
     {
         deathCount++;
-        
-        // Every two deaths, add a new layer
         if (deathCount % 2 == 0)
         {
-            int layerToEnable = (deathCount / 2) + 1; // Start with layer 2
-            if (layerToEnable <= 4) // Only up to layer 4
+            int layerToEnable = deathCount / 2;
+            if (layerToEnable < musicLayers.Count)
             {
                 EnableLayer(layerToEnable);
                 Debug.Log($"Death count: {deathCount}. Enabling layer {layerToEnable}");
@@ -138,21 +114,32 @@ public class AdaptiveMusicController : MonoBehaviour
         deathCount = 0;
         activeLayerIndices.Clear();
         
-        // Reset all layers to 0 volume except layer 1
         foreach (var layer in musicLayers)
         {
-            if (SoundTrackManager.Instance != null)
+            if (layer.layerIndex == 0)
             {
-                if (layer.layerIndex == 1)
-                {
-                    SoundTrackManager.Instance.SetLayerVolume(layer.layerIndex, layer.targetVolume);
-                    activeLayerIndices.Add(1);
-                }
-                else
-                {
-                    SoundTrackManager.Instance.SetLayerVolume(layer.layerIndex, 0f);
-                }
+                EnableLayer(0);
             }
+            else
+            {
+                DisableLayer(layer.layerIndex);
+            }
+        }
+    }
+
+    // Example of a custom layer control method
+    public void SetIntensityByHeight(float height)
+    {
+        float normalizedHeight = Mathf.Clamp01(height / 20f); // Assuming 20 units is max height
+        SetLayerVolume(1, normalizedHeight * 0.7f); // Layer 2 fades in with height
+        SetLayerVolume(2, Mathf.Max(0, normalizedHeight - 0.5f) * 2 * 0.5f); // Layer 3 starts at half height
+    }
+
+    public void SetLayerVolume(int layerIndex, float volume)
+    {
+        if (SoundTrackManager.Instance != null)
+        {
+            SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layerIndex, volume, 0f); // Instant volume change
         }
     }
 } 

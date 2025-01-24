@@ -6,14 +6,29 @@ public class SoundTrackManager : MonoBehaviour
 {
     public static SoundTrackManager Instance { get; private set; }
 
-    [SerializeField] private SoundTrack[] musicTracks;
-    [SerializeField] private float masterVolume = 1f;
+    [System.Serializable]
+    public class MusicLayer
+    {
+        public string name;
+        public AudioClip clip;
+        [Range(0f, 1f)]
+        public float volume = 1f;
+    }
 
-    private Dictionary<string, SoundTrack> trackDictionary = new Dictionary<string, SoundTrack>();
-    private AudioSource mainSource;
-    private AudioSource[] layerSources;
+    [System.Serializable]
+    public class MusicTrack
+    {
+        public string trackName;
+        public List<MusicLayer> layers = new List<MusicLayer>();
+    }
+
+    [SerializeField] private List<MusicTrack> musicTracks = new List<MusicTrack>();
+    [SerializeField] private float masterVolume = 1f;
+    [SerializeField] private float defaultFadeTime = 1f;
+
+    private Dictionary<string, List<AudioSource>> trackSources = new Dictionary<string, List<AudioSource>>();
+    private Dictionary<string, Dictionary<int, Coroutine>> trackFadeCoroutines = new Dictionary<string, Dictionary<int, Coroutine>>();
     private string currentTrackName;
-    private Coroutine fadeCoroutine;
 
     private void Awake()
     {
@@ -22,7 +37,6 @@ public class SoundTrackManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
             InitializeAudioSources();
-            InitializeTrackDictionary();
         }
         else
         {
@@ -32,202 +46,117 @@ public class SoundTrackManager : MonoBehaviour
 
     private void InitializeAudioSources()
     {
-        mainSource = gameObject.AddComponent<AudioSource>();
-        mainSource.playOnAwake = false;
-        mainSource.loop = true;
-        mainSource.priority = 0;
-        
-        // Initialize layer sources (for adaptive music)
-        layerSources = new AudioSource[4]; // Support up to 4 layers
-        for (int i = 0; i < layerSources.Length; i++)
-        {
-            layerSources[i] = gameObject.AddComponent<AudioSource>();
-            layerSources[i].playOnAwake = false;
-            layerSources[i].loop = true;
-            layerSources[i].priority = 0;
-        }
-    }
-
-    private void InitializeTrackDictionary()
-    {
         foreach (var track in musicTracks)
         {
-            if (!string.IsNullOrEmpty(track.name) && track.clip != null)
+            List<AudioSource> sources = new List<AudioSource>();
+            trackSources[track.trackName] = sources;
+            trackFadeCoroutines[track.trackName] = new Dictionary<int, Coroutine>();
+
+            for (int i = 0; i < track.layers.Count; i++)
             {
-                trackDictionary[track.name] = track;
+                AudioSource source = gameObject.AddComponent<AudioSource>();
+                source.clip = track.layers[i].clip;
+                source.loop = true;
+                source.playOnAwake = false;
+                source.volume = 0f;
+                source.priority = 0;
+                sources.Add(source);
             }
         }
     }
 
-    public void PlayMusic(string trackName, bool fadeIn = true)
+    public void PlayTrack(string trackName)
     {
-        if (!trackDictionary.ContainsKey(trackName)) return;
-        if (currentTrackName == trackName) return;
+        if (!trackSources.ContainsKey(trackName)) return;
 
-        var track = trackDictionary[trackName];
-
-        if (fadeCoroutine != null)
+        // Stop current track if different
+        if (currentTrackName != null && currentTrackName != trackName)
         {
-            StopCoroutine(fadeCoroutine);
-        }
-
-        // If we're already playing something, fade it out first
-        if (mainSource.isPlaying && fadeIn)
-        {
-            fadeCoroutine = StartCoroutine(CrossFade(track));
-        }
-        else
-        {
-            PlayTrackDirectly(track, fadeIn);
+            StopTrack(currentTrackName);
         }
 
         currentTrackName = trackName;
-    }
-
-    private void PlayTrackDirectly(SoundTrack track, bool fadeIn)
-    {
-        // Setup main source (base layer)
-        mainSource.clip = track.clip;
-        mainSource.loop = track.loop;
-        mainSource.volume = fadeIn ? 0f : track.volume * masterVolume;
-        
         double startTime = AudioSettings.dspTime + 0.1;
-        mainSource.PlayScheduled(startTime);
-
-        if (fadeIn)
+        foreach (var source in trackSources[trackName])
         {
-            fadeCoroutine = StartCoroutine(FadeIn(track.fadeInDuration, track.volume));
-        }
-
-        // Setup layers if they exist
-        if (track.layers != null && track.layers.Length > 0)
-        {
-            for (int i = 0; i < track.layers.Length && i < layerSources.Length; i++)
-            {
-                layerSources[i].clip = track.layers[i];
-                layerSources[i].loop = track.loop;
-                layerSources[i].volume = 0f; // Start all layers muted
-                
-                // Only schedule the base layer (index 0) to play initially
-                if (i == 0)
-                {
-                    layerSources[i].PlayScheduled(startTime);
-                    layerSources[i].volume = track.layerVolumes != null && track.layerVolumes.Length > i 
-                        ? track.layerVolumes[i] * masterVolume 
-                        : track.volume * masterVolume;
-                }
-            }
+            source.PlayScheduled(startTime);
         }
     }
 
-    private IEnumerator CrossFade(SoundTrack newTrack)
+    public void StopTrack(string trackName)
     {
-        float fadeOutDuration = trackDictionary[currentTrackName].fadeOutDuration;
-        float fadeInDuration = newTrack.fadeInDuration;
-        float elapsed = 0f;
+        if (!trackSources.ContainsKey(trackName)) return;
 
-        // Store the initial volumes
-        float startVolume = mainSource.volume;
-        AudioSource nextSource = gameObject.AddComponent<AudioSource>();
-        nextSource.clip = newTrack.clip;
-        nextSource.loop = newTrack.loop;
-        nextSource.volume = 0f;
-        nextSource.Play();
-
-        while (elapsed < fadeOutDuration)
-        {
-            elapsed += Time.deltaTime;
-            mainSource.volume = Mathf.Lerp(startVolume, 0f, elapsed / fadeOutDuration);
-            nextSource.volume = Mathf.Lerp(0f, newTrack.volume * masterVolume, elapsed / fadeInDuration);
-            yield return null;
-        }
-
-        mainSource.Stop();
-        mainSource.clip = newTrack.clip;
-        mainSource.loop = newTrack.loop;
-        mainSource.volume = newTrack.volume * masterVolume;
-        mainSource.Play();
-
-        Destroy(nextSource);
-    }
-
-    private IEnumerator FadeIn(float duration, float targetVolume)
-    {
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            mainSource.volume = Mathf.Lerp(0f, targetVolume * masterVolume, elapsed / duration);
-            yield return null;
-        }
-    }
-
-    public void SetLayerVolume(int layerIndex, float volume)
-    {
-        if (layerIndex >= 0 && layerIndex < layerSources.Length)
-        {
-            layerSources[layerIndex].volume = Mathf.Clamp01(volume) * masterVolume;
-        }
-    }
-
-    public void StopMusic(bool fadeOut = true)
-    {
-        if (fadeOut)
-        {
-            if (fadeCoroutine != null)
-            {
-                StopCoroutine(fadeCoroutine);
-            }
-            fadeCoroutine = StartCoroutine(FadeOut(trackDictionary[currentTrackName].fadeOutDuration));
-        }
-        else
-        {
-            mainSource.Stop();
-            foreach (var source in layerSources)
-            {
-                source.Stop();
-            }
-        }
-    }
-
-    private IEnumerator FadeOut(float duration)
-    {
-        float startVolume = mainSource.volume;
-        float elapsed = 0f;
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            mainSource.volume = Mathf.Lerp(startVolume, 0f, elapsed / duration);
-            yield return null;
-        }
-
-        mainSource.Stop();
-        foreach (var source in layerSources)
+        foreach (var source in trackSources[trackName])
         {
             source.Stop();
         }
+
+        // Clear any active fades
+        if (trackFadeCoroutines.ContainsKey(trackName))
+        {
+            foreach (var coroutine in trackFadeCoroutines[trackName].Values)
+            {
+                if (coroutine != null)
+                    StopCoroutine(coroutine);
+            }
+            trackFadeCoroutines[trackName].Clear();
+        }
+    }
+
+    public void FadeTrackLayer(string trackName, int layerIndex, float targetVolume, float fadeTime = -1)
+    {
+        if (!trackSources.ContainsKey(trackName)) return;
+        if (layerIndex < 0 || layerIndex >= trackSources[trackName].Count) return;
+
+        var fadeCoroutines = trackFadeCoroutines[trackName];
+        
+        // Cancel existing fade for this layer
+        if (fadeCoroutines.ContainsKey(layerIndex))
+        {
+            if (fadeCoroutines[layerIndex] != null)
+                StopCoroutine(fadeCoroutines[layerIndex]);
+            fadeCoroutines.Remove(layerIndex);
+        }
+
+        // Start new fade
+        fadeCoroutines[layerIndex] = StartCoroutine(
+            FadeLayerCoroutine(trackName, layerIndex, targetVolume, fadeTime < 0 ? defaultFadeTime : fadeTime));
+    }
+
+    private IEnumerator FadeLayerCoroutine(string trackName, int layerIndex, float targetVolume, float fadeTime)
+    {
+        AudioSource source = trackSources[trackName][layerIndex];
+        float startVolume = source.volume;
+        float elapsed = 0;
+
+        while (elapsed < fadeTime)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / fadeTime;
+            source.volume = Mathf.Lerp(startVolume, targetVolume * masterVolume, t);
+            yield return null;
+        }
+
+        source.volume = targetVolume * masterVolume;
+        trackFadeCoroutines[trackName].Remove(layerIndex);
     }
 
     public void SetMasterVolume(float volume)
     {
         masterVolume = Mathf.Clamp01(volume);
-        if (mainSource.isPlaying)
+        foreach (var sources in trackSources.Values)
         {
-            mainSource.volume = trackDictionary[currentTrackName].volume * masterVolume;
+            foreach (var source in sources)
+            {
+                float currentLayerVolume = source.volume / masterVolume;
+                source.volume = currentLayerVolume * masterVolume;
+            }
         }
     }
 
-    // Add this method to start playing a specific layer
-    public void StartLayer(int layerIndex)
+    public string GetCurrentTrackName()
     {
-        if (layerIndex >= 0 && layerIndex < layerSources.Length && layerSources[layerIndex] != null)
-        {
-            if (!layerSources[layerIndex].isPlaying)
-            {
-                double startTime = AudioSettings.dspTime + 0.1;
-                layerSources[layerIndex].PlayScheduled(startTime);
-            }
-        }
+        return currentTrackName;
     }
 } 

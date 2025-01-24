@@ -5995,22 +5995,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b39649844595e4baf038101b889f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackName: Track1
-  crossFadeSpeed: 2
+  currentTrackName: Track1
   musicLayers:
   - layerIndex: 1
     targetVolume: 1
-    fadeSpeed: 1
+    fadeTime: 1
   - layerIndex: 2
     targetVolume: 1
-    fadeSpeed: 1
+    fadeTime: 1
   - layerIndex: 3
     targetVolume: 1
-    fadeSpeed: 1
+    fadeTime: 1
   - layerIndex: 4
     targetVolume: 1
-    fadeSpeed: 1
-  deathCount: 0
+    fadeTime: 1
 --- !u!4 &1747690672
 Transform:
   m_ObjectHideFlags: 0
@@ -7367,6 +7365,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
+      propertyPath: masterVolume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
       propertyPath: musicTracks.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -7388,7 +7391,22 @@ PrefabInstance:
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
       propertyPath: musicTracks.Array.data[0].volume
-      value: 0.6
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].trackName
+      value: Track1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].fadeInDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].fadeOutDuration
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
@@ -7422,23 +7440,83 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5eea419521b773a4b93e9c5bef580192, type: 3}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[0].name
+      value: layer1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 76f26a6e65d77bf4d843c09a62f8b4e5, type: 3}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[1].name
+      value: layer2
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 97e6f35776dbc2342bae88b25e7e8d30, type: 3}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[2].name
+      value: layer3
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 85cc34db15227d84899a917e374fffe1, type: 3}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[3].name
+      value: layer4
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
       propertyPath: musicTracks.Array.data[0].layerVolumes.Array.data[0]
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
       propertyPath: musicTracks.Array.data[0].layerVolumes.Array.data[1]
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
       propertyPath: musicTracks.Array.data[0].layerVolumes.Array.data[2]
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
       propertyPath: musicTracks.Array.data[0].layerVolumes.Array.data[3]
-      value: 0.6
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[2].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[3].volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6016552398496295119, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
