@@ -137,7 +137,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &2003186809732151620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,14 +153,16 @@ MonoBehaviour:
   movSpeed: 5
   movSpeedRunning: 10
   smoothTime: 0.3
-  jumpForce: 7
+  playerPhysicMaterial: {fileID: 13400000, guid: 2307850b62e525745a8f0f4412fafc6c,
+    type: 2}
+  jumpForce: 8
   groundCheck: {fileID: 8131617509199267660}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   boxSize: {x: 1.5, y: 0.5, z: 1}
   isGrounded: 0
-  wallJumpForce: 7
+  wallJumpForce: 8
   wallCheck: {fileID: 4054165917273520904}
   wallLayer:
     serializedVersion: 2

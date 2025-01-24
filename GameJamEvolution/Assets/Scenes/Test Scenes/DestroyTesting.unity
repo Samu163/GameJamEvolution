@@ -832,22 +832,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 596625566782231928, guid: efe63ee41cd45644cb0c09392543465c,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1467965402211855242, guid: efe63ee41cd45644cb0c09392543465c,
         type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2003186809732151620, guid: efe63ee41cd45644cb0c09392543465c,
-        type: 3}
-      propertyPath: playerPhysicMaterial
-      value: 
-      objectReference: {fileID: 13400000, guid: 2307850b62e525745a8f0f4412fafc6c,
-        type: 2}
     - target: {fileID: 5450798285649331820, guid: efe63ee41cd45644cb0c09392543465c,
         type: 3}
       propertyPath: m_LocalPosition.x
