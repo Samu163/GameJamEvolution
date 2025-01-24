@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
     public GridSystem gridSystem;
     public PlayerController player;
     private List<Obstacle> obstaclesOnCurrentLevel;
-    private int levelCount;
+    public int levelCount;
 
     private void Awake()
     {
