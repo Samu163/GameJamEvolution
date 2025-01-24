@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Cuadro : MonoBehaviour
 {
-    [Header("Enemy Settings")]
-    public Transform player;
+    [Header("Settings")]
+    private Transform player;
     public float rotationSpeed = 2f;
 
     [Header("Laser Settings")]
@@ -20,6 +20,7 @@ public class Cuadro : MonoBehaviour
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         currentLaserDirection = transform.forward;
         laserRenderer.enabled = true;
         laserCollider = gameObject.AddComponent<CapsuleCollider>();
@@ -44,6 +45,7 @@ public class Cuadro : MonoBehaviour
         currentLaserDirection = Vector3.Slerp(currentLaserDirection, targetDirection, rotationSpeed * Time.deltaTime).normalized;
     }
 
+
     private void FireLaser()
     {
         if (laserRenderer == null || laserCollider == null) return;
@@ -59,7 +61,7 @@ public class Cuadro : MonoBehaviour
         {
             laserEnd = laserStart + currentLaserDirection * laserMaxDistance;
         }
-
+        laserEnd.z = 0.5f;
         laserRenderer.SetPosition(0, laserStart);
         laserRenderer.SetPosition(1, laserEnd);
 
