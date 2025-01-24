@@ -43,4 +43,9 @@ public class Aspiradora : Obstacle
             other.gameObject.GetComponent<Rigidbody>().velocity -= aspirationForce;
         }
     }
+
+    public override List<Vector2Int> SpawnPreference(List<Vector2Int> posicionesValidas, GridSystem.Cell[,] grid)
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -29,16 +29,23 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnLevelObstacles(int index)
     {
-        Obstacle obstaclePrefab = levels[index].obstaclesToSpawn[Random.Range(0, levels[index].obstaclesToSpawn.Count)];
-        var obstacleInstance = Instantiate(obstaclePrefab);
-        bool placed = obstacleInstance.Init(gridSystem);
-        if (!placed)
+        foreach (var obstaclePrefab in levels[index].obstaclesToSpawn)
         {
-            Debug.Log("El nivel está lleno. No se generaron más obstáculos.");
+            Obstacle obstacleInstance = Instantiate(obstaclePrefab, Vector3.zero, Quaternion.identity);
+
+            bool placed = obstacleInstance.Init(gridSystem);
+            if (placed)
+            {
+                obstaclesOnCurrentLevel.Add(obstacleInstance);
+            }
+            else
+            {
+                Debug.LogWarning($"No se pudo colocar el obstáculo {obstaclePrefab.name}. No hay posiciones válidas.");
+                Destroy(obstacleInstance.gameObject);
+            }
         }
-        obstaclesOnCurrentLevel.Add(obstacleInstance);
-        obstacleInstance.id = obstaclesOnCurrentLevel.Count;
     }
+
 
 
     public void InitNewLevel()

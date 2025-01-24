@@ -5,12 +5,13 @@ public abstract class Obstacle : MonoBehaviour
 {
     public Vector2Int size;
     public Vector2Int gridPos;
+    public GridSystem.CellType cellType;
     public int id;
 
     public bool Init(GridSystem gridSystem)
     {
         
-        if (gridSystem.TryPlaceObstacle(size, out Vector2Int position))
+        if (gridSystem.TryPlaceObstacle(size,this, out Vector2Int position))
         {
             Vector3 worldPosition = gridSystem.GridToWorldPosition(position);
             transform.position = worldPosition;
@@ -24,5 +25,7 @@ public abstract class Obstacle : MonoBehaviour
             return false;
         }
     }
+    public abstract List<Vector2Int> SpawnPreference(List<Vector2Int> validPositions, GridSystem.Cell[,] grid);
+
 }
 

@@ -57,4 +57,9 @@ public class Clock : Obstacle
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackCollider.transform.position, attackCollider.radius);
     }
+
+    public override List<Vector2Int> SpawnPreference(List<Vector2Int> posicionesValidas, GridSystem.Cell[,] grid)
+    {
+        throw new System.NotImplementedException();
+    }
 }
