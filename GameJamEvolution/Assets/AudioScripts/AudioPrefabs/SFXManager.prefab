@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5214685529630625025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3343201572889347066}
+  - component: {fileID: 3331099247939799326}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &3343201572889347066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214685529630625025}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 27.59, z: -14.109595}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3331099247939799326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214685529630625025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c968196205593eb48be0adca8204b2a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundGroups:
+  - {fileID: 11400000, guid: 4c3d8427ad8899142b4bda8cc8af6aee, type: 2}
+  - {fileID: 11400000, guid: c98e5945bfe7b1844910d5e7d2206aab, type: 2}
+  - {fileID: 11400000, guid: 544783828fe54964799549421b6379bf, type: 2}
+  - {fileID: 11400000, guid: 85ee24b6481106b4ba1174893b6f9733, type: 2}
+  - {fileID: 11400000, guid: 745e8e8c9218b2242bf53a7fef8d63b2, type: 2}
+  - {fileID: 11400000, guid: f8eac91c93a8cd440996ca2a834e535d, type: 2}
+  - {fileID: 11400000, guid: 3ae6d6c2cf23d264e813a34d037f6644, type: 2}
+  - {fileID: 11400000, guid: 4611c4db888738c41839745eba31fe00, type: 2}
+  - {fileID: 11400000, guid: 598d8571d084b7b4994aa16d53333fd5, type: 2}
