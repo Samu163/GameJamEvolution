@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d9f78c1894a7e4ca0a69039dd32b17, type: 3}
   m_Name: LevelData 2
   m_EditorClassIdentifier: 
-  obstaclesToSpawn:
-  - {fileID: 3042129722833130356, guid: b65b3bfd28d99ba4f9f02be546583123, type: 3}
-  - {fileID: 3042129722833130356, guid: b65b3bfd28d99ba4f9f02be546583123, type: 3}
+  obstaclesToSpawn: []
   index: 1
