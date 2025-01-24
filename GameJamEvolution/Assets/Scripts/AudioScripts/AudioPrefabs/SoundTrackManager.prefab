@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6146484683117256620}
-  - component: {fileID: 2065610947617090763}
+  - component: {fileID: 798516730753950258}
   m_Layer: 0
   m_Name: SoundTrackManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2065610947617090763
+--- !u!114 &798516730753950258
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,16 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6016552398496295119}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826c9f187b0f20a45ad51de1bf8d86ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 6268afd0e18d6954090f057520c1aa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicTracks:
-  - name: Track1
-    clip: {fileID: 8300000, guid: 7911a9192a7cf4b4a91379fefa85e79d, type: 3}
-    volume: 1
-    loop: 1
-    fadeInDuration: 1
-    fadeOutDuration: 1
-    layers: []
-    layerVolumes: []
+  musicTracks: []
   masterVolume: 1

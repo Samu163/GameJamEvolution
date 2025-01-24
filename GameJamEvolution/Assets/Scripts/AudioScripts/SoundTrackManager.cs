@@ -34,13 +34,17 @@ public class SoundTrackManager : MonoBehaviour
     {
         mainSource = gameObject.AddComponent<AudioSource>();
         mainSource.playOnAwake = false;
-
+        mainSource.loop = true;
+        mainSource.priority = 0;
+        
         // Initialize layer sources (for adaptive music)
         layerSources = new AudioSource[4]; // Support up to 4 layers
         for (int i = 0; i < layerSources.Length; i++)
         {
             layerSources[i] = gameObject.AddComponent<AudioSource>();
             layerSources[i].playOnAwake = false;
+            layerSources[i].loop = true;
+            layerSources[i].priority = 0;
         }
     }
 
@@ -58,7 +62,6 @@ public class SoundTrackManager : MonoBehaviour
     public void PlayMusic(string trackName, bool fadeIn = true)
     {
         if (!trackDictionary.ContainsKey(trackName)) return;
-
         if (currentTrackName == trackName) return;
 
         var track = trackDictionary[trackName];
@@ -83,10 +86,13 @@ public class SoundTrackManager : MonoBehaviour
 
     private void PlayTrackDirectly(SoundTrack track, bool fadeIn)
     {
+        // Setup main source (base layer)
         mainSource.clip = track.clip;
         mainSource.loop = track.loop;
         mainSource.volume = fadeIn ? 0f : track.volume * masterVolume;
-        mainSource.Play();
+        
+        double startTime = AudioSettings.dspTime + 0.1;
+        mainSource.PlayScheduled(startTime);
 
         if (fadeIn)
         {
@@ -100,10 +106,16 @@ public class SoundTrackManager : MonoBehaviour
             {
                 layerSources[i].clip = track.layers[i];
                 layerSources[i].loop = track.loop;
-                layerSources[i].volume = track.layerVolumes != null && track.layerVolumes.Length > i 
-                    ? track.layerVolumes[i] * masterVolume 
-                    : 0f;
-                layerSources[i].Play();
+                layerSources[i].volume = 0f; // Start all layers muted
+                
+                // Only schedule the base layer (index 0) to play initially
+                if (i == 0)
+                {
+                    layerSources[i].PlayScheduled(startTime);
+                    layerSources[i].volume = track.layerVolumes != null && track.layerVolumes.Length > i 
+                        ? track.layerVolumes[i] * masterVolume 
+                        : track.volume * masterVolume;
+                }
             }
         }
     }
@@ -203,6 +215,19 @@ public class SoundTrackManager : MonoBehaviour
         if (mainSource.isPlaying)
         {
             mainSource.volume = trackDictionary[currentTrackName].volume * masterVolume;
+        }
+    }
+
+    // Add this method to start playing a specific layer
+    public void StartLayer(int layerIndex)
+    {
+        if (layerIndex >= 0 && layerIndex < layerSources.Length && layerSources[layerIndex] != null)
+        {
+            if (!layerSources[layerIndex].isPlaying)
+            {
+                double startTime = AudioSettings.dspTime + 0.1;
+                layerSources[layerIndex].PlayScheduled(startTime);
+            }
         }
     }
 } 

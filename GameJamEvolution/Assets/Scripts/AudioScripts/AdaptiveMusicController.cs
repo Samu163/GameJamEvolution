@@ -21,7 +21,7 @@ public class AdaptiveMusicController : MonoBehaviour
     [SerializeField] private List<LayerConfig> musicLayers = new List<LayerConfig>();
 
     private HashSet<int> activeLayerIndices = new HashSet<int>();
-    Public int deathCount = 0;
+    public int deathCount = 0;
 
     private void Awake()
     {
@@ -41,16 +41,21 @@ public class AdaptiveMusicController : MonoBehaviour
         if (SoundTrackManager.Instance != null)
         {
             // Start playing the base track
-            SoundTrackManager.Instance.PlayMusic(trackName);
+            SoundTrackManager.Instance.PlayMusic(trackName, false);
             
-            // Initially disable all layers
+            // Initially disable ALL layers including layer 1
             foreach (var layer in musicLayers)
             {
                 SoundTrackManager.Instance.SetLayerVolume(layer.layerIndex, 0f);
             }
 
-            // Enable layer 1 at start
-            EnableLayer(1);
+            // Explicitly enable only layer 1
+            var layer1Config = musicLayers.Find(l => l.layerIndex == 1);
+            if (layer1Config != null)
+            {
+                EnableLayer(1);
+                Debug.Log("Starting with Layer 1 only");
+            }
         }
     }
 
@@ -59,7 +64,11 @@ public class AdaptiveMusicController : MonoBehaviour
         if (!activeLayerIndices.Contains(layerIndex))
         {
             activeLayerIndices.Add(layerIndex);
-            StartFade(layerIndex, true);
+            if (SoundTrackManager.Instance != null)
+            {
+                SoundTrackManager.Instance.StartLayer(layerIndex - 1); // Convert from 1-based to 0-based index
+                StartFade(layerIndex, true);
+            }
         }
     }
 
