@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
         }
     }
  
-    private void RespawnPlayer()
+    public void RespawnPlayer()
     {
         transform.position = startPosition;
 
