@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour
 
         if (wallJumping && isTouchingWall && !isGrounded && canWallJump)
         {
+            rb.velocity = Vector3.zero;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isTouchingWall = false;
             canWallJump = false;
