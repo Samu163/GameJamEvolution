@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GridSystem : MonoBehaviour
 {
-    public enum CellType { Empty, Ground, Ocupied }
+    public enum CellType { Empty, Ground, Ocupied, OcupiedLamp }
 
     public struct Cell
     {

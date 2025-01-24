@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ground : Obstacle
+public class SlidingGround : Obstacle
 {
     public int heightMargin = 5;
     public Vector2Int radiusSize;
@@ -37,7 +37,7 @@ public class Ground : Obstacle
                 {
                     break;
                 }
-                
+
 
                 for (int j = 0; j < radiusSize.x; j++)
                 {

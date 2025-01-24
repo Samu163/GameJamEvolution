@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallingLamp : MonoBehaviour
+public class FallingLamp : Obstacle
 {
     [Header("Settings")]
     [SerializeField] private float fallDelay = 1.0f;
@@ -72,5 +72,84 @@ public class FallingLamp : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * raycastDistance);
+    }
+
+    public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid)
+    {
+        List<Vector2Int> possiblePositions = new List<Vector2Int>();
+
+        int gridWidth = grid.GetLength(0);
+        int gridHeight = grid.GetLength(1);
+
+        foreach (var position in availablePositions)
+        {
+            bool isValid = true;
+
+            if (position.y < 4)
+            {
+                isValid = false;
+            }
+
+            if (!isValid)
+            {
+                continue;
+            }
+
+            for (int i = 1; i <= 4; i++)
+            {
+                int checkY = position.y - i;
+
+                for (int offsetX = 0; offsetX < size.x; offsetX++)
+                {
+                    int checkX = position.x + offsetX;
+
+                    if (checkX >= gridWidth || checkY < 0) continue;
+
+                    if (grid[checkX, checkY].type == GridSystem.CellType.Ground)
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                if (!isValid)
+                {
+                    break;
+                }
+            }
+
+            if (!isValid)
+            {
+                continue;
+            }
+
+            for (int offsetX = 0; offsetX < size.x; offsetX++)
+            {
+                int checkX = position.x + offsetX;
+
+                if (checkX >= gridWidth) continue;
+
+                for (int y = 0; y < gridHeight; y++)
+                {
+                    if (grid[checkX, y].type == GridSystem.CellType.OcupiedLamp)
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                if (!isValid)
+                {
+                    break;
+                }
+            }
+
+            if (isValid)
+            {
+                possiblePositions.Add(position);
+            }
+        }
+
+        return possiblePositions;
     }
 }

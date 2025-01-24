@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 2325826636150258659}
   - component: {fileID: 2994787091901498638}
   m_Layer: 0
-  m_Name: WatchObstacle
+  m_Name: ClockObstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,8 +182,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b1fbc76d95ec84883e63c338ee28c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: {x: 1, y: 2}
+  gridPos: {x: 0, y: 0}
+  cellType: 2
+  id: 0
   attackTime: 2
   attackMaxRadius: 5
   radiusAugmentation: 0.01
   attackCollider: {fileID: 6083881625778076643}
   isAttacking: 0
+  radiusSize: {x: 10, y: 10}
+  radiusNoClock: {x: 5, y: 5}
