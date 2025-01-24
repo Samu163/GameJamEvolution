@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallingPlatform : MonoBehaviour
+public class FallingPlatform : Obstacle
 {
 
     [SerializeField] private float fallDelay;

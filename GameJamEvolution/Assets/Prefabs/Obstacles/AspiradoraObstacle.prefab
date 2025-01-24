@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8c0d85f8bd47643ba8e61fee74b762, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: {x: 3, y: 1}
   aspirationForce: {x: 0.1, y: 0, z: 0}
   aspirationTime: 3
   aspirationTimeCounter: 0
