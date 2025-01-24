@@ -21,6 +21,7 @@ public class AdaptiveMusicController : MonoBehaviour
     [SerializeField] private List<LayerConfig> musicLayers = new List<LayerConfig>();
 
     private HashSet<int> activeLayerIndices = new HashSet<int>();
+    Public int deathCount = 0;
 
     private void Awake()
     {
@@ -39,12 +40,17 @@ public class AdaptiveMusicController : MonoBehaviour
     {
         if (SoundTrackManager.Instance != null)
         {
+            // Start playing the base track
             SoundTrackManager.Instance.PlayMusic(trackName);
+            
             // Initially disable all layers
             foreach (var layer in musicLayers)
             {
                 SoundTrackManager.Instance.SetLayerVolume(layer.layerIndex, 0f);
             }
+
+            // Enable layer 1 at start
+            EnableLayer(1);
         }
     }
 
@@ -104,28 +110,39 @@ public class AdaptiveMusicController : MonoBehaviour
 
     public void OnPlayerDeath()
     {
-        // Example: Toggle intensity based on death count
-        // You can implement your own logic here
-        int deathCount = 0; // Get this from your player or game manager
+        deathCount++;
         
-        if (deathCount >= 3)
+        // Every two deaths, add a new layer
+        if (deathCount % 2 == 0)
         {
-            EnableLayer(1);
-        }
-        if (deathCount >= 5)
-        {
-            EnableLayer(2);
+            int layerToEnable = (deathCount / 2) + 1; // Start with layer 2
+            if (layerToEnable <= 4) // Only up to layer 4
+            {
+                EnableLayer(layerToEnable);
+                Debug.Log($"Death count: {deathCount}. Enabling layer {layerToEnable}");
+            }
         }
     }
 
     public void ResetLayers()
     {
+        deathCount = 0;
         activeLayerIndices.Clear();
+        
+        // Reset all layers to 0 volume except layer 1
         foreach (var layer in musicLayers)
         {
             if (SoundTrackManager.Instance != null)
             {
-                SoundTrackManager.Instance.SetLayerVolume(layer.layerIndex, 0f);
+                if (layer.layerIndex == 1)
+                {
+                    SoundTrackManager.Instance.SetLayerVolume(layer.layerIndex, layer.targetVolume);
+                    activeLayerIndices.Add(1);
+                }
+                else
+                {
+                    SoundTrackManager.Instance.SetLayerVolume(layer.layerIndex, 0f);
+                }
             }
         }
     }

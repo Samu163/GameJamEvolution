@@ -181,6 +181,11 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
 
         isJumping = false;
+
+        if (AdaptiveMusicController.Instance != null)
+        {
+            AdaptiveMusicController.Instance.OnPlayerDeath();
+        }
     }
     private void OnCollisionStay(Collision collision)
     {
