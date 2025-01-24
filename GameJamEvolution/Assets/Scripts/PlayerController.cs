@@ -66,6 +66,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         }
+        else
+        {
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+        }
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -143,8 +147,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Death"))
         {
-            transform.position = startPosition;
-            rb.velocity = Vector3.zero;
+            RespawnPlayer();
         }
 
         if (collision.collider.CompareTag("SlideGround"))
@@ -162,11 +165,22 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Death"))
         {
-            transform.position = startPosition;
-            rb.velocity = Vector3.zero;
+            RespawnPlayer();
         }
     }
+ 
+    private void RespawnPlayer()
+    {
+        transform.position = startPosition;
 
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        rb.useGravity = true;
+        rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+
+        isJumping = false;
+    }
     private void OnCollisionStay(Collision collision)
     {
         if (collision.collider.CompareTag("SlideGround"))
