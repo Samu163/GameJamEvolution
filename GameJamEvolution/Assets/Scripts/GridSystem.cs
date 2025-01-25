@@ -162,6 +162,8 @@ public class GridSystem : MonoBehaviour
     }
 
 
+
+
     private void OnDrawGizmos()
     {
         if (grid == null) grid = new Cell[gridWidth, gridHeight];

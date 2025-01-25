@@ -39,4 +39,25 @@ public class GroupInstantiatorManager : MonoBehaviour
         }
     }
 
+    public void DestroyLastGroup(GridSystem gridSystem)
+    {
+        var groupObstacles = new List<Obstacle>();
+
+        foreach (var obstacle in LevelManager.Instance.obstaclesOnCurrentLevel)
+        {
+            if (obstacle.groupObstacle)
+            {
+                groupObstacles.Add(obstacle);
+            }
+        }
+
+        foreach (var obstacle in groupObstacles)
+        {
+            gridSystem.DestroyObstacle(obstacle.gridPos, obstacle.size);
+            Destroy(obstacle.gameObject);
+        }
+
+        LevelManager.Instance.obstaclesOnCurrentLevel.RemoveAll(o => o.groupObstacle);
+    }
+
 }
