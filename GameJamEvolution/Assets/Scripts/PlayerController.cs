@@ -38,7 +38,9 @@ public class PlayerController : MonoBehaviour
     [Header("Player Death")]
     [SerializeField] private Vector3 startPosition;
 
-
+    private int freezeTimer = 5;
+    private int freezeTimerCounter = 0;
+    private bool canFreeze = false;
 
     // Start is called before the first frame update
     void Start()
@@ -62,20 +64,14 @@ public class PlayerController : MonoBehaviour
 
         movHorizontal = Input.GetAxisRaw("Horizontal") * currentMovSpeed;
 
-        if (isGrounded && !isJumping)
-        {
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
-        }
-        else
-        {
-            rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
-        }
+        
 
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
             wallJump = true;
             isJumping = true;
+            canFreeze = false;
             rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         }
     }
@@ -88,6 +84,25 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             canWallJump = true;
+
+            if (!canFreeze)
+            {
+                freezeTimerCounter++;
+                if (freezeTimerCounter >= freezeTimer)
+                {
+                    canFreeze = true;
+                    freezeTimerCounter = 0;
+                }
+            }
+        }
+
+        if (isGrounded && !isJumping && canFreeze)
+        {
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+        }
+        else
+        {
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         }
 
         MovePlayer(movHorizontal * Time.fixedDeltaTime, jump, wallJump);
