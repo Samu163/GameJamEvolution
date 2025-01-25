@@ -64,8 +64,9 @@ public class LevelManager : MonoBehaviour
     public void InitNewLevel()
     {
         SpawnLevelObstacles(levelCount);
-        player.RespawnPlayer();
         levelCount++;
+        player.RespawnPlayer();
+        
     }
 
     public void DestroyObstacle(Vector2Int gridPosition, Vector2Int size)
