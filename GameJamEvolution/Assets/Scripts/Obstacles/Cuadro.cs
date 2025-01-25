@@ -2,88 +2,89 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cuadro : MonoBehaviour
+public class Cuadro : Obstacle
 {
-    [Header("Settings")]
-    private Transform player;
-    public float rotationSpeed = 2f;
-
-    [Header("Laser Settings")]
-    public LineRenderer laserRenderer;
-    public float laserMaxDistance = 20f;
-
-    [Header("Collision Settings")]
-    public LayerMask collisionLayers;
-
-    private CapsuleCollider laserCollider;
-    private Vector3 currentLaserDirection;
-
-    private void Start()
+    public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid)
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        currentLaserDirection = transform.forward;
-        laserRenderer.enabled = true;
-        laserCollider = gameObject.AddComponent<CapsuleCollider>();
-        laserCollider.isTrigger = true;
-        laserCollider.direction = 2;
-    }
+        List<Vector2Int> possiblePositions = new List<Vector2Int>();
 
-    private void Update()
-    {
-        if (player != null)
+        int gridWidth = grid.GetLength(0);
+        int gridHeight = grid.GetLength(1);
+
+        int occupiedPaintingCount = 0;
+
+        for (int x = 0; x < gridWidth; x++)
         {
-            UpdateLaserDirection();
-
-            FireLaser();
+            for (int y = 0; y < gridHeight; y++)
+            {
+                if (grid[x, y].type == GridSystem.CellType.OcupiedPainting)
+                {
+                    occupiedPaintingCount++;
+                }
+            }
         }
-    }
 
-    private void UpdateLaserDirection()
-    {
-        Vector3 targetDirection = (player.position - transform.position).normalized;
-
-        currentLaserDirection = Vector3.Slerp(currentLaserDirection, targetDirection, rotationSpeed * Time.deltaTime).normalized;
-    }
-
-
-    private void FireLaser()
-    {
-        if (laserRenderer == null || laserCollider == null) return;
-
-        Vector3 laserStart = transform.position;
-        RaycastHit hit;
-        Vector3 laserEnd;
-        if (Physics.Raycast(laserStart, currentLaserDirection, out hit, laserMaxDistance, collisionLayers))
+        if (occupiedPaintingCount >= 8)
         {
-            laserEnd = hit.point;
+            return possiblePositions;
         }
-        else
+
+        foreach (var position in availablePositions)
         {
-            laserEnd = laserStart + currentLaserDirection * laserMaxDistance;
+            bool isValid = true;
+
+            if (position.y < 6)
+            {
+                isValid = false;
+                continue;
+            }
+
+            for (int offsetX = -5; offsetX <= 5; offsetX++)
+            {
+                for (int offsetY = -5; offsetY <= 5; offsetY++)
+                {
+                    int checkX = position.x + offsetX;
+                    int checkY = position.y + offsetY;
+
+                    if (checkX >= 0 && checkX < gridWidth && checkY >= 0 && checkY < gridHeight)
+                    {
+                        if (grid[checkX, checkY].type == GridSystem.CellType.OcupiedPainting)
+                        {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (!isValid)
+                {
+                    break;
+                }
+            }
+
+            for (int offsetX = 0; offsetX < size.x; offsetX++)
+            {
+                int currentX = position.x + offsetX;
+
+                if (currentX >= gridWidth || position.y >= gridHeight)
+                {
+                    isValid = false;
+                    break;
+                }
+
+                if (grid[currentX, position.y].type == GridSystem.CellType.OcupiedPainting)
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            if (isValid)
+            {
+                possiblePositions.Add(position);
+            }
         }
-        laserEnd.z = 0.5f;
-        laserRenderer.SetPosition(0, laserStart);
-        laserRenderer.SetPosition(1, laserEnd);
 
-        UpdateLaserCollider(laserStart, laserEnd);
-    }
-
-    private void UpdateLaserCollider(Vector3 start, Vector3 end)
-    {
-        Vector3 center = (start + end) / 2;
-        float length = Vector3.Distance(start, end);
-
-        laserCollider.center = transform.InverseTransformPoint(center);
-        laserCollider.height = length;
-        laserCollider.radius = 0.1f;
-        laserCollider.transform.rotation = Quaternion.LookRotation(end - start);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            other.GetComponent<PlayerController>().RespawnPlayer();
-        }
+        return possiblePositions;
     }
 }

@@ -247,6 +247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3366744768716391906}
+  - component: {fileID: 8347641757536389989}
   m_Layer: 0
   m_Name: Cuadro
   m_TagString: Death
@@ -271,3 +272,19 @@ Transform:
   - {fileID: 43964483246416920}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8347641757536389989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5151481124747852531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08b5f0e8be727447ad1517ae81b48de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: {x: 2, y: 2}
+  gridPos: {x: 0, y: 0}
+  cellType: 4
+  id: 0
