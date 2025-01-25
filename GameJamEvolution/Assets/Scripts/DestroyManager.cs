@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DestroyManager : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class DestroyManager : MonoBehaviour
     public Vector3 debugGridPosition;
     private Vector2Int destroySize;
 
+    [SerializeField] private Button destroyButton;
+    [SerializeField] private Slider rechargeBar;
+    [SerializeField] public float rechargeValue = 0;
+    [SerializeField] public float maxRecharge;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +32,16 @@ public class DestroyManager : MonoBehaviour
     void Update()
     {
         
+        if (rechargeValue < maxRecharge)
+        {
+            destroyButton.interactable = false;
+        }
+        else if (rechargeValue == maxRecharge)
+        {
+            destroyButton.interactable = true;
+        }
+
+        rechargeBar.value = Mathf.Lerp(rechargeValue / 5, rechargeBar.value, Time.deltaTime);
 
         mouseScreenPos = Input.mousePosition;
         mouseScreenPos.z = 55;
@@ -57,6 +73,7 @@ public class DestroyManager : MonoBehaviour
     public void ActivateDestroyMode()
     {
         destroyMode = true;
+        rechargeValue = 0;
     }
 
     private void OnDrawGizmos()
