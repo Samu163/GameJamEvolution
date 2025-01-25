@@ -39,6 +39,12 @@ public class Cuadro : Obstacle
                 continue;
             }
 
+            if (position.x < 20)
+            {
+                isValid = false;
+                continue;
+            }
+
             for (int offsetX = -5; offsetX <= 5; offsetX++)
             {
                 for (int offsetY = -5; offsetY <= 5; offsetY++)
