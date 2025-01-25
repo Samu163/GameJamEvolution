@@ -1940,7 +1940,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6a34b73257044e14bb7252f4e482e615, type: 2}
   - {fileID: 11400000, guid: de430c933c5619c4696b247fc3b55094, type: 2}
   gridSystem: {fileID: 1295247470}
-  player: {fileID: 0}
+  player: {fileID: 637919966}
   obstaclesOnCurrentLevel: []
   groupInstantiatorManager: {fileID: 1485536172}
   fallingPlatformsManager: {fileID: 0}
@@ -5542,6 +5542,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 612315789}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &637919966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2003186809732151620, guid: efe63ee41cd45644cb0c09392543465c,
+    type: 3}
+  m_PrefabInstance: {fileID: 43647650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdfbbcf41d278b044ae79a4b874ae77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &666572455
 GameObject:
   m_ObjectHideFlags: 0
