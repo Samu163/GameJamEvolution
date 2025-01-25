@@ -34,7 +34,16 @@ public class LevelManager : MonoBehaviour
         PlayerPathChecker pathChecker = new PlayerPathChecker(gridSystem);
         Vector2Int start = new Vector2Int(0, 0);
         Vector2Int end = new Vector2Int(gridSystem.gridWidth - 1, gridSystem.gridHeight - 1);
-        int levelIndex = Random.Range(0, levels.Count - 1);
+        int levelIndex;
+
+        if (levelCount == 0)
+        {
+            levelIndex = Random.Range(4, levels.Count);
+        }
+        else
+        {
+            levelIndex = Random.Range(0, levels.Count);
+        }
 
         var obstaclePrefab = levels[levelIndex].obstaclesToSpawn[0];
 
