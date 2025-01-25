@@ -8,7 +8,8 @@ public class LevelManager : MonoBehaviour
     public List<LevelData> levels;
     public GridSystem gridSystem;
     public PlayerController player;
-    private List<Obstacle> obstaclesOnCurrentLevel;
+    public List<Obstacle> obstaclesOnCurrentLevel;
+    public GroupInstantiatorManager groupInstantiatorManager;
     public int levelCount;
 
     private void Awake()
@@ -31,18 +32,29 @@ public class LevelManager : MonoBehaviour
     {
         foreach (var obstaclePrefab in levels[index].obstaclesToSpawn)
         {
-            Obstacle obstacleInstance = Instantiate(obstaclePrefab, Vector3.zero, Quaternion.identity);
 
-            bool placed = obstacleInstance.Init(gridSystem);
-            if (placed)
+            if (obstaclePrefab.groupObstacle)
             {
-                obstaclesOnCurrentLevel.Add(obstacleInstance);
+                groupInstantiatorManager.InstantiateGroupObstacles(obstaclePrefab, gridSystem);
+                continue;
             }
             else
             {
-                Debug.LogWarning($"No se pudo colocar el obstáculo {obstaclePrefab.name}. No hay posiciones válidas.");
-                Destroy(obstacleInstance.gameObject);
+                Obstacle obstacleInstance = Instantiate(obstaclePrefab, Vector3.zero, Quaternion.identity);
+
+                bool placed = obstacleInstance.Init(gridSystem);
+                if (placed)
+                {
+                    obstaclesOnCurrentLevel.Add(obstacleInstance);
+                }
+                else
+                {
+                    Debug.LogWarning($"No se pudo colocar el obstáculo {obstaclePrefab.name}. No hay posiciones válidas.");
+                    Destroy(obstacleInstance.gameObject);
+                }
             }
+
+            
         }
     }
 
@@ -69,7 +81,7 @@ public class LevelManager : MonoBehaviour
                     Vector2Int obstacleGridPos = gridPosition + new Vector2Int(j, k);
                     if (obstaclesOnCurrentLevel[i].gridPos == obstacleGridPos)
                     {
-                        gridSystem.DestroyObstacle(obstacleGridPos, size);
+                        gridSystem.DestroyObstacle(obstacleGridPos, obstaclesOnCurrentLevel[i].size);
                         Destroy(obstaclesOnCurrentLevel[i].gameObject);
                         obstaclesOnCurrentLevel.RemoveAt(i);
 

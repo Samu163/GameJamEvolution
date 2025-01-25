@@ -182,6 +182,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   cellType: 1
   id: 0
+  groupObstacle: 1
   fallDelay: 1
   destroyDelay: 1
   startPosition: {x: 0, y: 0, z: 0}

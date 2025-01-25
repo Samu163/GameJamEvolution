@@ -7,6 +7,9 @@ public abstract class Obstacle : MonoBehaviour
     public Vector2Int gridPos;
     public GridSystem.CellType cellType;
     public int id;
+    public bool groupObstacle;
+
+    
 
     public bool Init(GridSystem gridSystem)
     {
