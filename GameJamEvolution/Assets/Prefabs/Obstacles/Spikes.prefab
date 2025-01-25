@@ -45,11 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6eaff7abdc093d438c86c52c51cba47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 4, y: 1}
+  size: {x: 1, y: 1}
   gridPos: {x: 0, y: 0}
   cellType: 2
   id: 0
   groupObstacle: 1
+  isFallingPlatform: 0
 --- !u!1001 &3055119019349086957
 PrefabInstance:
   m_ObjectHideFlags: 0

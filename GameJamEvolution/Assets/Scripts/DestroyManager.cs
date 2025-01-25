@@ -25,10 +25,7 @@ public class DestroyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y) && !destroyMode)
-        {
-            destroyMode = true;
-        }
+        
 
         mouseScreenPos = Input.mousePosition;
         mouseScreenPos.z = 55;
@@ -54,6 +51,11 @@ public class DestroyManager : MonoBehaviour
         {
            LevelManager.Instance.DestroyObstacle(gridPosition, destroySize);
         }
+    }
+
+    public void ActivateDestroyMode()
+    {
+        destroyMode = true;
     }
 
     private void OnDrawGizmos()
