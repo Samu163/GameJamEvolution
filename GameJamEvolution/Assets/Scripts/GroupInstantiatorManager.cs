@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 public class GroupInstantiatorManager : MonoBehaviour
 {
     
+    public GameObject fallingPlatformsManager;
+
     public void InstantiateGroupObstacles(Obstacle obstaclePrefab, GridSystem gridSystem)
     {
         int sizeX = Random.Range(1, 4);
@@ -22,6 +24,13 @@ public class GroupInstantiatorManager : MonoBehaviour
                 obstacle.transform.position = worldPosition;
                 obstacle.gridPos = gridSystem.WorldToGridPosition(worldPosition);
                 LevelManager.Instance.obstaclesOnCurrentLevel.Add(obstacle);
+
+                if (obstacle.isFallingPlatform)
+                {
+                    obstacle.transform.SetParent(fallingPlatformsManager.transform);
+                    fallingPlatformsManager.GetComponent<FallingPlatformsManager>().platformsList.Add(obstacle.gameObject);
+                    obstacle.GetComponent<FallingPlatform>().groundPlayerCheckBox = fallingPlatformsManager.GetComponent<FallingPlatformsManager>().groundPlayerCheckBox;
+                }
             }
         }
         else

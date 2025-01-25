@@ -8,7 +8,7 @@ public abstract class Obstacle : MonoBehaviour
     public GridSystem.CellType cellType;
     public int id;
     public bool groupObstacle;
-
+    public bool isFallingPlatform;
     
 
     public bool Init(GridSystem gridSystem)

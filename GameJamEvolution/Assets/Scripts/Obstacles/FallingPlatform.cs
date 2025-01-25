@@ -9,6 +9,9 @@ public class FallingPlatform : Obstacle
     [SerializeField] private float destroyDelay;
     public Vector3 startPosition;
     public Vector2Int radiusSize;
+    public Transform groundPlayerCheckBox;
+    private bool touchPlayer = false;
+    [SerializeField] private LayerMask playerLayer;
 
 
     private void Start()
@@ -17,15 +20,19 @@ public class FallingPlatform : Obstacle
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void Update()
     {
-        // If the object that collided with the platform is the player
-        if (collision.gameObject.CompareTag("Player"))
+        touchPlayer = Physics.CheckBox(transform.position, new Vector3(1f, 1f, 1f), Quaternion.identity, playerLayer);
+
+        if (touchPlayer)
         {
-            // Start the coroutine that will make the platform fall
             StartCoroutine(Fall());
         }
+
+        touchPlayer = false;
     }
+
+    
 
     IEnumerator Fall()
     {
@@ -68,6 +75,11 @@ public class FallingPlatform : Obstacle
                     isValid = false;
                     break;
                 }
+                else if (position.y == gridHeight - 1 || position.y == gridHeight - 2)
+                {
+                    isValid = false;
+                    break;
+                }
                 else if (grid[checkX, position.y + 1].type == GridSystem.CellType.Ground || grid[checkX, position.y + 2].type == GridSystem.CellType.Ground)
                 {
                     isValid = false;
@@ -76,11 +88,6 @@ public class FallingPlatform : Obstacle
                 else if (position.y == 2)
                 {
                     continue;
-                }
-                else if (position.y == gridHeight - 1 || position.y == gridHeight - 2)
-                {
-                    isValid = false;
-                    break;
                 }
                 else if (grid[checkX, position.y - 1].type == GridSystem.CellType.Ground || grid[checkX, position.y - 2].type == GridSystem.CellType.Ground)
                 {

@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public PlayerController player;
     public List<Obstacle> obstaclesOnCurrentLevel;
     public GroupInstantiatorManager groupInstantiatorManager;
+    public FallingPlatformsManager fallingPlatformsManager;
     public int levelCount;
 
     private void Awake()
@@ -81,6 +82,7 @@ public class LevelManager : MonoBehaviour
                     Vector2Int obstacleGridPos = gridPosition + new Vector2Int(j, k);
                     if (obstaclesOnCurrentLevel[i].gridPos == obstacleGridPos)
                     {
+                        
                         gridSystem.DestroyObstacle(obstacleGridPos, obstaclesOnCurrentLevel[i].size);
                         Destroy(obstaclesOnCurrentLevel[i].gameObject);
                         obstaclesOnCurrentLevel.RemoveAt(i);

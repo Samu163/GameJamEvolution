@@ -31,7 +31,7 @@ public class DestroyManager : MonoBehaviour
         }
 
         mouseScreenPos = Input.mousePosition;
-        mouseScreenPos.z = 41;
+        mouseScreenPos.z = 55;
 
         if (destroyMode)
         {

@@ -6,6 +6,7 @@ public class FallingPlatformsManager : MonoBehaviour
 {
     public List<GameObject> platformsList;
     [SerializeField] private float respawnDelay;
+    public Transform groundPlayerCheckBox;
 
     public void Respawn(GameObject platform)
     {
