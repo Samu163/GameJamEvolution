@@ -496,21 +496,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2003186809732151620, guid: efe63ee41cd45644cb0c09392543465c,
-        type: 3}
-      propertyPath: boxSize.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2003186809732151620, guid: efe63ee41cd45644cb0c09392543465c,
-        type: 3}
-      propertyPath: sphereRadius
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 2003186809732151620, guid: efe63ee41cd45644cb0c09392543465c,
-        type: 3}
-      propertyPath: boxSizeWall.y
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5450798285649331820, guid: efe63ee41cd45644cb0c09392543465c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -560,11 +545,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8131617509199267660, guid: efe63ee41cd45644cb0c09392543465c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.996
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -160,14 +160,14 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  boxSize: {x: 1.5, y: 0.5, z: 1}
+  boxSize: {x: 1.5, y: 0.25, z: 1}
   isGrounded: 0
   wallJumpForce: 8
   wallCheck: {fileID: 4054165917273520904}
   wallLayer:
     serializedVersion: 2
-    m_Bits: 128
-  boxSizeWall: {x: 0.5, y: 2.5, z: 1}
+    m_Bits: 192
+  boxSizeWall: {x: 0.5, y: 1.5, z: 1}
   isTouchingWall: 0
   canWallJump: 1
   startPosition: {x: 0, y: 0, z: 0}
@@ -227,7 +227,7 @@ Transform:
   m_GameObject: {fileID: 8194752413661762557}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.99, z: 0}
+  m_LocalPosition: {x: 0, y: -0.996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

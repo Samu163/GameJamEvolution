@@ -74,6 +74,11 @@ public class PlayerController : MonoBehaviour
             canFreeze = false;
             rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         }
+
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
+        }
     }
 
     private void FixedUpdate()
@@ -106,6 +111,8 @@ public class PlayerController : MonoBehaviour
         }
 
         MovePlayer(movHorizontal * Time.fixedDeltaTime, jump, wallJump);
+
+        
 
         jump = false;
         wallJump = false;

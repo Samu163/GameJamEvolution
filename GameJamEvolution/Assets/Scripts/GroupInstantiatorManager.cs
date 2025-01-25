@@ -10,7 +10,7 @@ public class GroupInstantiatorManager : MonoBehaviour
 
     public void InstantiateGroupObstacles(Obstacle obstaclePrefab, GridSystem gridSystem)
     {
-        int sizeX = Random.Range(1, 4);
+        int sizeX = Random.Range(2, 7);
 
         Vector2Int size = new Vector2Int(sizeX, 1);
 

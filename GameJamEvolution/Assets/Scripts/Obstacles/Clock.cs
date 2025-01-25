@@ -35,12 +35,14 @@ public class Clock : Obstacle
 
         if (isAttacking)
         {
-           AugmentRadius();
+            attackCollider.enabled = true;
+            AugmentRadius();
 
            if (attackCollider.radius >= attackMaxRadius)
            {
                 isAttacking = false;
-                attackCollider.radius = 0.5f;
+                attackCollider.radius = 0f;
+                attackCollider.enabled = false;
                 attackTimeCounter = 0;
            }
         }
