@@ -49,7 +49,8 @@ public class DestroyManager : MonoBehaviour
     {
         if (destroyMode)
         {
-           LevelManager.Instance.DestroyObstacle(gridPosition, destroySize);
+            LevelManager.Instance.DestroyObstacle(gridPosition, destroySize);
+            destroyMode = false;
         }
     }
 

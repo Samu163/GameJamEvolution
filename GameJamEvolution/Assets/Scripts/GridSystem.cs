@@ -137,6 +137,7 @@ public class GridSystem : MonoBehaviour
             for (int y = 0; y < size.y; y++)
             {
                 grid[position.x + x, position.y + y].isOcupied = false;
+                grid[position.x + x, position.y + y].type = CellType.Empty;
             }
         }
     }

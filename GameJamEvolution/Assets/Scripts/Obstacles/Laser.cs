@@ -83,7 +83,7 @@ public class Laser : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //other.GetComponent<PlayerController>().RespawnPlayer();
+            other.GetComponent<PlayerController>().RespawnPlayer();
         }
     }
 

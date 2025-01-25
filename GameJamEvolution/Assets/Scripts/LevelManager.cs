@@ -71,14 +71,13 @@ public class LevelManager : MonoBehaviour
     public void DestroyObstacle(Vector2Int gridPosition, Vector2Int size)
     {
 
-        List<Vector2Int> obstacleGridPositions = gridSystem.GetPositionsWithObstacles(new Vector2Int(1, 1));
-
         for (int i = 0; i < obstaclesOnCurrentLevel.Count; i++)
         {
             for (int j = 0; j < size.x; j++)
             {
                 for (int k = 0; k < size.y; k++)
                 {
+                    if (i >= obstaclesOnCurrentLevel.Count) return;
                     Vector2Int obstacleGridPos = gridPosition + new Vector2Int(j, k);
                     if (obstaclesOnCurrentLevel[i].gridPos == obstacleGridPos)
                     {
