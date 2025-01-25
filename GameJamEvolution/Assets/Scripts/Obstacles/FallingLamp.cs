@@ -9,6 +9,7 @@ public class FallingLamp : Obstacle
     [SerializeField] private float respawnDelay = 3.0f;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float raycastDistance = 2.0f;
+    [SerializeField] private Transform raycastOrigin;
     [SerializeField] private GameObject childColliderObject;
 
     private Vector3 startPosition;
@@ -34,7 +35,9 @@ public class FallingLamp : Obstacle
 
     private void CheckForPlayer()
     {
-        Ray ray = new Ray(transform.position, Vector3.down);
+        Vector3 origin = raycastOrigin != null ? raycastOrigin.position : transform.position;
+        Ray ray = new Ray(origin, Vector3.down);
+
         if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance, playerLayer))
         {
             if (hit.collider.CompareTag("Player"))
@@ -71,7 +74,8 @@ public class FallingLamp : Obstacle
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * raycastDistance);
+        Vector3 origin = raycastOrigin != null ? raycastOrigin.position : transform.position;
+        Gizmos.DrawLine(origin, origin + Vector3.down * raycastDistance);
     }
 
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid)

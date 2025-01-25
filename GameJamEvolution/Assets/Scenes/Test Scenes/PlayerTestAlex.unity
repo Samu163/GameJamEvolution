@@ -1403,8 +1403,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d2e6202595df231428cd878f5cb5ce59, type: 2}
   - {fileID: 11400000, guid: d2e6202595df231428cd878f5cb5ce59, type: 2}
   - {fileID: 11400000, guid: d2e6202595df231428cd878f5cb5ce59, type: 2}
+  - {fileID: 11400000, guid: d2e6202595df231428cd878f5cb5ce59, type: 2}
+  - {fileID: 11400000, guid: d2e6202595df231428cd878f5cb5ce59, type: 2}
   gridSystem: {fileID: 1182792801}
   player: {fileID: 198524243}
+  obstaclesOnCurrentLevel: []
+  groupInstantiatorManager: {fileID: 0}
+  fallingPlatformsManager: {fileID: 0}
   levelCount: 0
 --- !u!4 &279101318
 Transform:
@@ -3662,94 +3667,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 956221707}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &963250666
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.0984197
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.2138968
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3366744768716391906, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5151481124747852531, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_Name
-      value: Cuadro
-      objectReference: {fileID: 0}
-    - target: {fileID: 5151481124747852531, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347641757536389989, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: size.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347641757536389989, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: size.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347641757536389989, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
-        type: 3}
-      propertyPath: cellType
-      value: 3
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b, type: 3}
 --- !u!1001 &985691160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6549,6 +6466,7 @@ MonoBehaviour:
   - {fileID: 1555126284}
   - {fileID: 233370918}
   respawnDelay: 2
+  groundPlayerCheckBox: {fileID: 0}
 --- !u!1 &1868646491
 GameObject:
   m_ObjectHideFlags: 0
@@ -7479,4 +7397,3 @@ SceneRoots:
   - {fileID: 22808382}
   - {fileID: 198524242}
   - {fileID: 3331267781897135817}
-  - {fileID: 963250666}
