@@ -3246,8 +3246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648fd3fa71cc5154391c56242f50ae19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridWidth: 5
-  gridHeight: 1
+  gridWidth: 15
+  gridHeight: 6
   cellSize: 1
 --- !u!4 &956172273
 Transform:

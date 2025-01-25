@@ -10,7 +10,7 @@ public class LevelFinisher : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            LevelManager.Instance.InitNewLevel();
+            LevelManager.Instance.FinishLevel();
             if (destroyManager.rechargeValue < destroyManager.maxRecharge)
             {
                 destroyManager.rechargeValue++;

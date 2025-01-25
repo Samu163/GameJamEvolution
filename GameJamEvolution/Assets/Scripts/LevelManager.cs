@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public CameraTweening cameraTweening;
     public static LevelManager Instance;
     public List<LevelData> levels;
     public GridSystem gridSystem;
@@ -12,6 +13,10 @@ public class LevelManager : MonoBehaviour
     public GroupInstantiatorManager groupInstantiatorManager;
     public FallingPlatformsManager fallingPlatformsManager;
     public int levelCount;
+
+    //Delegates for finish level
+    public delegate void OnLevelFinished();
+    public OnLevelFinished onLevelFinished;
 
     private void Awake()
     {
@@ -25,7 +30,8 @@ public class LevelManager : MonoBehaviour
         }
         obstaclesOnCurrentLevel = new List<Obstacle>();
         levelCount = 0;
-}
+        onLevelFinished += InitLevel;
+    }
 
     private int currentLevelIndex { get; set; } = 0;
 
@@ -49,38 +55,33 @@ public class LevelManager : MonoBehaviour
 
         
         bool placedSuccessfully = false;
-        int maxAttempts = 10; // Número máximo de intentos para colocar cada obstáculo.
+        int maxAttempts = 10; 
         int attempts = 0;
 
         while (!placedSuccessfully && attempts < maxAttempts)
         {
             if (obstaclePrefab.groupObstacle)
             {
-                // Colocar un grupo de obstáculos
                 groupInstantiatorManager.InstantiateGroupObstacles(obstaclePrefab, gridSystem);
 
-                // Verificar si el camino está despejado después de colocar el grupo.
                 if (pathChecker.IsPathClear(start, end))
                 {
                     placedSuccessfully = true;
                 }
                 else
                 {
-                    // Si el camino está bloqueado, eliminar el grupo.
                     Debug.LogWarning($"Grupo {obstaclePrefab.name} bloqueó el camino. Reintentando...");
                     groupInstantiatorManager.DestroyLastGroup(gridSystem);
                 }
             }
             else
             {
-                // Colocar un obstáculo individual.
                 Obstacle obstacleInstance = Instantiate(obstaclePrefab, Vector3.zero, Quaternion.identity);
 
                 bool placed = obstacleInstance.Init(gridSystem);
 
                 if (placed)
                 {
-                    // Verificar si el camino está despejado después de colocarlo.
                     if (pathChecker.IsPathClear(start, end))
                     {
                         placedSuccessfully = true;
@@ -88,14 +89,12 @@ public class LevelManager : MonoBehaviour
                     }
                     else
                     {
-                        // Si el camino está bloqueado, eliminar el obstáculo.
                         Debug.LogWarning($"Obstáculo {obstaclePrefab.name} bloqueó el camino. Reintentando...");
                         DestroyObstacle(obstacleInstance.gridPos, obstacleInstance.size);
                     }
                 }
                 else
                 {
-                    // Si no se pudo colocar inicialmente.
                     Debug.LogWarning($"No se pudo colocar el obstáculo {obstaclePrefab.name}. No hay posiciones válidas.");
                     Destroy(obstacleInstance.gameObject);
                 }
@@ -114,7 +113,11 @@ public class LevelManager : MonoBehaviour
 
 
 
-    public void InitNewLevel()
+    public void FinishLevel()
+    {     
+        cameraTweening.DOCameraAnimation(onLevelFinished);    
+    }
+    private void InitLevel()
     {
         SpawnLevelObstacles(levelCount);
         player.RespawnPlayer();

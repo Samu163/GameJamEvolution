@@ -58,9 +58,6 @@ public class Ground : Obstacle
                                 isValid = false;
                             }
                         }
-
-
-
                     }
                 }
             }

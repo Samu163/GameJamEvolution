@@ -2004,6 +2004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fd469a2c254044987f47cce9cac0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraTweening: {fileID: 1115578189}
   levels:
   - {fileID: 11400000, guid: 0d0a6ddb2e95d1f4ea0b5f3ccd0d08a2, type: 2}
   - {fileID: 11400000, guid: 6a34b73257044e14bb7252f4e482e615, type: 2}
@@ -8514,6 +8515,7 @@ GameObject:
   - component: {fileID: 1115578187}
   - component: {fileID: 1115578186}
   - component: {fileID: 1115578185}
+  - component: {fileID: 1115578189}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8639,6 +8641,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1115578189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115578184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6674eb0adc559c745b85441267fce0d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1139280410
 PrefabInstance:
   m_ObjectHideFlags: 0

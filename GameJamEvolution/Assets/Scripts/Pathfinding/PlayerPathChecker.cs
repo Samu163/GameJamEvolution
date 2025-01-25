@@ -12,7 +12,6 @@ public class PlayerPathChecker
 
     public bool IsPathClear(Vector2Int start, Vector2Int end)
     {
-        // Usar el algoritmo A* para verificar si hay un camino.
         HashSet<Vector2Int> closedSet = new HashSet<Vector2Int>();
         PriorityQueue<Vector2Int> openSet = new PriorityQueue<Vector2Int>();
 
