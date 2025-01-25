@@ -1761,6 +1761,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 430501865}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &431514048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 431514050}
+  - component: {fileID: 431514049}
+  m_Layer: 0
+  m_Name: GroupIntantiator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &431514049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431514048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eacdefffc61d42243a1cc2cf2d4da36f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingPlatformsManager: {fileID: 0}
+--- !u!4 &431514050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431514048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.6514378, y: 4.108954, z: -1.2616929}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &433235666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3202,7 +3247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridWidth: 5
-  gridHeight: 14
+  gridHeight: 1
   cellSize: 1
 --- !u!4 &956172273
 Transform:
@@ -4008,6 +4053,7 @@ MonoBehaviour:
   - {fileID: 1405035897}
   - {fileID: 1931129688}
   respawnDelay: 2
+  groundPlayerCheckBox: {fileID: 0}
 --- !u!1 &1222002460
 GameObject:
   m_ObjectHideFlags: 0
@@ -5048,8 +5094,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - {fileID: 11400000, guid: d1cfcc56a208eb440ab10fbea5064d38, type: 2}
+  - {fileID: 11400000, guid: d1cfcc56a208eb440ab10fbea5064d38, type: 2}
+  - {fileID: 11400000, guid: d1cfcc56a208eb440ab10fbea5064d38, type: 2}
+  - {fileID: 11400000, guid: d1cfcc56a208eb440ab10fbea5064d38, type: 2}
+  - {fileID: 11400000, guid: d1cfcc56a208eb440ab10fbea5064d38, type: 2}
   gridSystem: {fileID: 956172272}
   player: {fileID: 1396563750}
+  obstaclesOnCurrentLevel: []
+  groupInstantiatorManager: {fileID: 431514049}
+  fallingPlatformsManager: {fileID: 0}
+  levelCount: 0
 --- !u!4 &1458853827
 Transform:
   m_ObjectHideFlags: 0
@@ -8130,3 +8184,4 @@ SceneRoots:
   - {fileID: 840679393}
   - {fileID: 1458853827}
   - {fileID: 956172273}
+  - {fileID: 431514050}
