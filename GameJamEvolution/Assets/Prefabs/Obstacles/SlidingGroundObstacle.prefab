@@ -45,11 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 016896db8d78f184b879188334f3d091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 4, y: 1}
+  size: {x: 1, y: 1}
   gridPos: {x: 0, y: 0}
   cellType: 1
   id: 0
   groupObstacle: 1
+  isFallingPlatform: 0
   heightMargin: 5
   radiusSize: {x: 10, y: 5}
 --- !u!1 &5169700325918247330
@@ -80,7 +81,7 @@ Transform:
   m_GameObject: {fileID: 5169700325918247330}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

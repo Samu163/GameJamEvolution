@@ -1930,7 +1930,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
+  - {fileID: 11400000, guid: ee44df470d5c52149bdbdf0564a540b2, type: 2}
+  - {fileID: 11400000, guid: 6bb4f5c6ba25eeb4aa4a11ad2dd933dd, type: 2}
+  - {fileID: 11400000, guid: d064fcd48bfeb8b4dbadd55ec0a92b63, type: 2}
+  - {fileID: 11400000, guid: d2e6202595df231428cd878f5cb5ce59, type: 2}
   - {fileID: 11400000, guid: bbaf6bec3b7125d44a4d105d98ada058, type: 2}
+  - {fileID: 11400000, guid: 0d0a6ddb2e95d1f4ea0b5f3ccd0d08a2, type: 2}
+  - {fileID: 11400000, guid: 77ee429e07e2d9243bf16a282fb7f374, type: 2}
+  - {fileID: 11400000, guid: 6a34b73257044e14bb7252f4e482e615, type: 2}
+  - {fileID: 11400000, guid: de430c933c5619c4696b247fc3b55094, type: 2}
   gridSystem: {fileID: 1295247470}
   player: {fileID: 0}
   obstaclesOnCurrentLevel: []

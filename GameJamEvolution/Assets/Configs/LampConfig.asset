@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81d9f78c1894a7e4ca0a69039dd32b17, type: 3}
-  m_Name: LevelData 4
+  m_Name: LampConfig
   m_EditorClassIdentifier: 
   obstaclesToSpawn:
-  - {fileID: 3381395633585263571, guid: 859759435af849f4c97f8eb6a27ea891, type: 3}
+  - {fileID: 6423056315464613539, guid: eedb571128f56dc4a8e86290bd38bc26, type: 3}
   index: 1

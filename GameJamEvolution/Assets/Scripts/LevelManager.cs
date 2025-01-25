@@ -34,70 +34,72 @@ public class LevelManager : MonoBehaviour
         PlayerPathChecker pathChecker = new PlayerPathChecker(gridSystem);
         Vector2Int start = new Vector2Int(0, 0);
         Vector2Int end = new Vector2Int(gridSystem.gridWidth - 1, gridSystem.gridHeight - 1);
+        int levelIndex = Random.Range(0, levels.Count - 1);
 
-        foreach (var obstaclePrefab in levels[index].obstaclesToSpawn)
+        var obstaclePrefab = levels[levelIndex].obstaclesToSpawn[0];
+
+        
+        bool placedSuccessfully = false;
+        int maxAttempts = 10; // Número máximo de intentos para colocar cada obstáculo.
+        int attempts = 0;
+
+        while (!placedSuccessfully && attempts < maxAttempts)
         {
-            bool placedSuccessfully = false;
-            int maxAttempts = 10; // Número máximo de intentos para colocar cada obstáculo.
-            int attempts = 0;
-
-            while (!placedSuccessfully && attempts < maxAttempts)
+            if (obstaclePrefab.groupObstacle)
             {
-                if (obstaclePrefab.groupObstacle)
-                {
-                    // Colocar un grupo de obstáculos
-                    groupInstantiatorManager.InstantiateGroupObstacles(obstaclePrefab, gridSystem);
+                // Colocar un grupo de obstáculos
+                groupInstantiatorManager.InstantiateGroupObstacles(obstaclePrefab, gridSystem);
 
-                    // Verificar si el camino está despejado después de colocar el grupo.
+                // Verificar si el camino está despejado después de colocar el grupo.
+                if (pathChecker.IsPathClear(start, end))
+                {
+                    placedSuccessfully = true;
+                }
+                else
+                {
+                    // Si el camino está bloqueado, eliminar el grupo.
+                    Debug.LogWarning($"Grupo {obstaclePrefab.name} bloqueó el camino. Reintentando...");
+                    groupInstantiatorManager.DestroyLastGroup(gridSystem);
+                }
+            }
+            else
+            {
+                // Colocar un obstáculo individual.
+                Obstacle obstacleInstance = Instantiate(obstaclePrefab, Vector3.zero, Quaternion.identity);
+
+                bool placed = obstacleInstance.Init(gridSystem);
+
+                if (placed)
+                {
+                    // Verificar si el camino está despejado después de colocarlo.
                     if (pathChecker.IsPathClear(start, end))
                     {
                         placedSuccessfully = true;
+                        obstaclesOnCurrentLevel.Add(obstacleInstance);
                     }
                     else
                     {
-                        // Si el camino está bloqueado, eliminar el grupo.
-                        Debug.LogWarning($"Grupo {obstaclePrefab.name} bloqueó el camino. Reintentando...");
-                        groupInstantiatorManager.DestroyLastGroup(gridSystem);
+                        // Si el camino está bloqueado, eliminar el obstáculo.
+                        Debug.LogWarning($"Obstáculo {obstaclePrefab.name} bloqueó el camino. Reintentando...");
+                        DestroyObstacle(obstacleInstance.gridPos, obstacleInstance.size);
                     }
                 }
                 else
                 {
-                    // Colocar un obstáculo individual.
-                    Obstacle obstacleInstance = Instantiate(obstaclePrefab, Vector3.zero, Quaternion.identity);
-
-                    bool placed = obstacleInstance.Init(gridSystem);
-
-                    if (placed)
-                    {
-                        // Verificar si el camino está despejado después de colocarlo.
-                        if (pathChecker.IsPathClear(start, end))
-                        {
-                            placedSuccessfully = true;
-                            obstaclesOnCurrentLevel.Add(obstacleInstance);
-                        }
-                        else
-                        {
-                            // Si el camino está bloqueado, eliminar el obstáculo.
-                            Debug.LogWarning($"Obstáculo {obstaclePrefab.name} bloqueó el camino. Reintentando...");
-                            DestroyObstacle(obstacleInstance.gridPos, obstacleInstance.size);
-                        }
-                    }
-                    else
-                    {
-                        // Si no se pudo colocar inicialmente.
-                        Debug.LogWarning($"No se pudo colocar el obstáculo {obstaclePrefab.name}. No hay posiciones válidas.");
-                        Destroy(obstacleInstance.gameObject);
-                    }
+                    // Si no se pudo colocar inicialmente.
+                    Debug.LogWarning($"No se pudo colocar el obstáculo {obstaclePrefab.name}. No hay posiciones válidas.");
+                    Destroy(obstacleInstance.gameObject);
                 }
-
-                attempts++;
             }
 
-            if (!placedSuccessfully)
-            {
-                Debug.LogError($"No se pudo colocar el obstáculo o grupo {obstaclePrefab.name} después de {maxAttempts} intentos.");
-            }
+            attempts++;
         }
+
+        if (!placedSuccessfully)
+        {
+            Debug.LogError($"No se pudo colocar el obstáculo o grupo {obstaclePrefab.name} después de {maxAttempts} intentos.");
+        }
+        
     }
 
 

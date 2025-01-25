@@ -10,8 +10,10 @@ public class FallingPlatform : Obstacle
     public Vector3 startPosition;
     public Vector2Int radiusSize;
     public Transform groundPlayerCheckBox;
-    private bool touchPlayer = false;
+    [SerializeField] private bool touchPlayer = false;
     [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private Transform checkSphere;
+    [SerializeField] private float checkRadius;
 
 
     private void Start()
@@ -22,7 +24,7 @@ public class FallingPlatform : Obstacle
 
     private void Update()
     {
-        touchPlayer = Physics.CheckBox(transform.position, new Vector3(1f, 1f, 1f), Quaternion.identity, playerLayer);
+        touchPlayer = Physics.CheckSphere(checkSphere.position, checkRadius, playerLayer);
 
         if (touchPlayer)
         {
@@ -133,5 +135,11 @@ public class FallingPlatform : Obstacle
         }
 
         return possiblePositions;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Color color = Color.red;
+        Gizmos.DrawWireSphere(checkSphere.position, checkRadius);
     }
 }
