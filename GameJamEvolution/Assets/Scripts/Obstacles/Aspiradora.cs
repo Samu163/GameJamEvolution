@@ -22,7 +22,7 @@ public class Aspiradora : Obstacle
         }
         else if (isAspiring)
         {
-            aspirationTimeCounter -= Time.deltaTime / 2;
+            aspirationTimeCounter -= Time.deltaTime;
         }
 
         if (aspirationTimeCounter >= aspirationTime)
@@ -41,6 +41,10 @@ public class Aspiradora : Obstacle
     {
         if (other.CompareTag("Player") && isAspiring)
         {
+            aspirationForce = other.gameObject.transform.position - transform.position;
+            aspirationForce.Normalize();
+            aspirationForce = new Vector3(aspirationForce.x, aspirationForce.y, 0);
+            aspirationForce *= 0.3f;
             other.gameObject.GetComponent<Rigidbody>().velocity -= aspirationForce;
         }
     }
