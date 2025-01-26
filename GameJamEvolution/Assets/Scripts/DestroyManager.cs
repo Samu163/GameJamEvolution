@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+using UnityEditor.Animations;
 
 public class DestroyManager : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class DestroyManager : MonoBehaviour
     [Header("Visual Settings")]
     [SerializeField] private GameObject destroyImageObject;
     [SerializeField] private Canvas canvas;
+    [SerializeField] public Animator animator;
+    [SerializeField] private GameObject flash;
 
     [Header("Global Volume Settings")]
     [SerializeField] private Volume globalVolume;
@@ -39,6 +42,7 @@ public class DestroyManager : MonoBehaviour
         {
             destroyImageObject.SetActive(false);
         }
+        flash.SetActive(false);
     }
 
     // Update is called once per frame
@@ -112,18 +116,28 @@ public class DestroyManager : MonoBehaviour
         if (destroyImageObject != null)
         {
             destroyImageObject.SetActive(false);
+
+
         }
     }
     public void DestroySelectedObstacles()
     {
         if (destroyMode)
         {
+            flash.SetActive(true);
+            animator.SetTrigger("Flash");
+
             LevelManager.Instance.DestroyObstacle(gridPosition, destroySize);
             destroyMode = false;
             HideDestroyImage();
+            StartCoroutine(WaitAndDisableFlash(0.5f));
         }
     }
-
+    private IEnumerator WaitAndDisableFlash(float delay)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        flash.SetActive(false);
+    }
     public void ActivateDestroyMode()
     {
         destroyMode = true;
@@ -141,4 +155,5 @@ public class DestroyManager : MonoBehaviour
             Gizmos.DrawWireCube(debugGridPosition, new Vector3(destroySize.x * gridSystem.cellSize, destroySize.y * gridSystem.cellSize, 1));
         }
     }
+   
 }
