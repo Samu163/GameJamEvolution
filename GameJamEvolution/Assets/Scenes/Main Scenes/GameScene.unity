@@ -2278,6 +2278,7 @@ MonoBehaviour:
   gameOverCanvas: {fileID: 620944850}
   levelTimer: {fileID: 134200614}
   levelCount: 0
+  dissolveManager: {fileID: 394597358}
 --- !u!4 &178883093
 Transform:
   m_ObjectHideFlags: 0
@@ -4319,6 +4320,53 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 388437741}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &394597357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 394597359}
+  - component: {fileID: 394597358}
+  m_Layer: 0
+  m_Name: DissolveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &394597358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394597357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b92cef651961424e976f0ad801a4fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveDuration: 2
+  baseDissolveMaterial: {fileID: 2100000, guid: c393eb9d566748d498abd68fe91b143c,
+    type: 2}
+--- !u!4 &394597359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394597357}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -19.80715, y: 13.603916, z: 0.26060435}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &397667240
 GameObject:
   m_ObjectHideFlags: 0
@@ -18127,3 +18175,4 @@ SceneRoots:
   - {fileID: 999603130}
   - {fileID: 91538292}
   - {fileID: 854867163}
+  - {fileID: 394597359}

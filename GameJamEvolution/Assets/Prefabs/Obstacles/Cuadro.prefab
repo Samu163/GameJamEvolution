@@ -128,12 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53a5b9cfc759eff418520774a03628a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 1
-  laserRenderer: {fileID: 3869499528332220891}
-  laserMaxDistance: 20
-  collisionLayers:
-    serializedVersion: 2
-    m_Bits: 448
+  rotationSpeed: 5
+  projectilePrefab: {fileID: 2258415465135027059, guid: 89eac1a9af5522c4693b663ad94a1ef5,
+    type: 3}
+  projectileSpeed: 20
+  fireRate: 2
 --- !u!120 &3869499528332220891
 LineRenderer:
   serializedVersion: 2
