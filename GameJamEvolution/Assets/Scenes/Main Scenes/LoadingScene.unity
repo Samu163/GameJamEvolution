@@ -364,6 +364,8 @@ MonoBehaviour:
   canvasForInstantiations: {fileID: 346951364}
   navigationController: {fileID: 1573352210}
   isPaused: 0
+  pauseCanvas: {fileID: 0}
+  settingsCanvas: {fileID: 0}
 --- !u!1 &1025218841
 GameObject:
   m_ObjectHideFlags: 0

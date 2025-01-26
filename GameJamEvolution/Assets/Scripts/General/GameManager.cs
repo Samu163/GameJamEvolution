@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public NavigationController navigationController;
     public bool isPaused = false;
 
+   
+
     private void Awake()
     {
         if (Instance == null)
@@ -41,14 +43,14 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         isPaused = true;
-        LoadScreenRequest("PauseCanvas");
+        
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1;
         isPaused = false;
-        DestroyScreenRequest("PauseCanvas");
+        
     }
 
 

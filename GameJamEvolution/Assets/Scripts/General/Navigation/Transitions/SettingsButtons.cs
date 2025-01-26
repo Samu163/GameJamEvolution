@@ -8,10 +8,12 @@ public class SettingsButtons : MonoBehaviour
 
     public Button returnButton;
 
+    public GameObject pauseCanvas;
+
     private void Awake()
     {
-        returnButton.onClick.AddListener(() => GameManager.Instance.LoadScreenRequest("PauseCanvas"));
-        returnButton.onClick.AddListener(() => GameManager.Instance.DestroyScreenRequest("SettingsCanvas"));
+        returnButton.onClick.AddListener(() => pauseCanvas.SetActive(true));
+        returnButton.onClick.AddListener(() => gameObject.SetActive(false));
     }
 
     // Start is called before the first frame update
