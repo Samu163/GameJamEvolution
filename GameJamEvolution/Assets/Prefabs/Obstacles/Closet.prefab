@@ -155,6 +155,8 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   cellType: 2
   id: 1
+  groupObstacle: 0
+  isFallingPlatform: 0
   activateDuration: 0.5
   delay: 1
   childColliderObject: {fileID: 8565814957814879179}

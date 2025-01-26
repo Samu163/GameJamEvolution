@@ -3263,31 +3263,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FallingLamp
       objectReference: {fileID: 0}
-    - target: {fileID: 4838762631533638640, guid: eedb571128f56dc4a8e86290bd38bc26,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6117345955209067621, guid: eedb571128f56dc4a8e86290bd38bc26,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6423056315464613539, guid: eedb571128f56dc4a8e86290bd38bc26,
-        type: 3}
-      propertyPath: fallDelay
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7399337277888797535, guid: eedb571128f56dc4a8e86290bd38bc26,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9089366387196059555, guid: eedb571128f56dc4a8e86290bd38bc26,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
