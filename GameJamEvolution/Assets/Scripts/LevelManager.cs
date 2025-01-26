@@ -145,7 +145,7 @@ public class LevelManager : MonoBehaviour
         levelCount = 0;
         Time.timeScale = 1;
         gameOverCanvas.SetActive(false);
-        cameraTweening.DOCameraAnimation(onLevelFinished);
+        cameraTweening.DOCameraAnimation(restartLevel);
         gridSystem.DestroyAllObstacles();
 
         while (obstaclesOnCurrentLevel.Count > 0)
