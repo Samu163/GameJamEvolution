@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -13,6 +14,9 @@ public class LevelManager : MonoBehaviour
     public GroupInstantiatorManager groupInstantiatorManager;
     public FallingPlatformsManager fallingPlatformsManager;
     public LevelFinisher levelFinisher;
+    public TextMeshProUGUI scoreText;
+    public GameObject gameOverCanvas;
+    public LevelTimer levelTimer;
     public int levelCount;
 
     //Delegates for finish level
@@ -112,7 +116,12 @@ public class LevelManager : MonoBehaviour
     }
 
 
-
+    public void GameOver()
+    {
+        scoreText.text = "Score: " + levelCount;
+        gameOverCanvas.SetActive(true);
+        Time.timeScale = 0;
+    }
 
     public void FinishLevel()
     {
@@ -128,7 +137,25 @@ public class LevelManager : MonoBehaviour
         levelCount++;
     }
 
-    public void DestroyObstacle(Vector2Int gridPosition, Vector2Int size)
+    public void RestartGame()
+    {
+        levelCount = 0;
+        Time.timeScale = 1;
+        gameOverCanvas.SetActive(false);
+        cameraTweening.DOCameraAnimation(onLevelFinished);
+        gridSystem.DestroyAllObstacles();
+
+        while (obstaclesOnCurrentLevel.Count > 0)
+        {
+            Destroy(obstaclesOnCurrentLevel[0].gameObject);
+            obstaclesOnCurrentLevel.RemoveAt(0);
+        }
+
+        levelTimer.timeRemaining = 20;
+
+    }
+
+        public void DestroyObstacle(Vector2Int gridPosition, Vector2Int size)
     {
 
         for (int i = 0; i < obstaclesOnCurrentLevel.Count; i++)

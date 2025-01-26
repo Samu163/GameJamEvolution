@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GridSystem : MonoBehaviour
 {
@@ -138,6 +139,18 @@ public class GridSystem : MonoBehaviour
             {
                 grid[position.x + x, position.y + y].isOcupied = false;
                 grid[position.x + x, position.y + y].type = CellType.Empty;
+            }
+        }
+    }
+
+    public void DestroyAllObstacles()
+    {
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridHeight; y++)
+            {
+                grid[x, y].isOcupied = false;
+                grid[x, y].type = CellType.Empty;
             }
         }
     }

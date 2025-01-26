@@ -22,6 +22,8 @@ public class DestroyManager : MonoBehaviour
     [SerializeField] public float rechargeValue = 0;
     [SerializeField] public float maxRecharge;
 
+    public LevelTimer levelTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,13 +50,15 @@ public class DestroyManager : MonoBehaviour
 
         if (destroyMode)
         {
-            
+            Time.timeScale = 0;
             mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
             gridPosition = gridSystem.WorldToGridPosition(mouseWorldPos);
             
             if (Input.GetMouseButtonDown(0))
             {
                 DestroySelectedObstacles();
+                Time.timeScale = 1;
+                levelTimer.timeRemaining -= 10;
                 destroyMode = false;
             }
         }

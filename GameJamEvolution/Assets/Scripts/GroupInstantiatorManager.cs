@@ -12,7 +12,7 @@ public class GroupInstantiatorManager : MonoBehaviour
     {
         int sizeX = 0;
 
-        sizeX = obstaclePrefab.cellType == GridSystem.CellType.Ground ? Random.Range(5, 10) : Random.Range(2, 7);
+        sizeX = obstaclePrefab.cellType == GridSystem.CellType.Ground ? Random.Range(2, 10) : Random.Range(2, 7);
 
         Vector2Int size = new Vector2Int(sizeX, 1);
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelFinisher : MonoBehaviour
 {
     public DestroyManager destroyManager;
+    public LevelTimer levelTimer;
     private Collider collider;
 
     private void Awake()
@@ -17,6 +18,7 @@ public class LevelFinisher : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             LevelManager.Instance.FinishLevel();
+            levelTimer.timeRemaining += 20;
             if (destroyManager.rechargeValue < destroyManager.maxRecharge)
             {
                 destroyManager.rechargeValue++;
