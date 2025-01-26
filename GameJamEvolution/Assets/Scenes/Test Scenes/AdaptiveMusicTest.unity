@@ -1394,6 +1394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fd469a2c254044987f47cce9cac0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraTweening: {fileID: 0}
   levels:
   - {fileID: 11400000, guid: 144e1d33a94b1aa4e8f47f7c965ea7ec, type: 2}
   - {fileID: 11400000, guid: 144e1d33a94b1aa4e8f47f7c965ea7ec, type: 2}
@@ -1406,6 +1407,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 77ee429e07e2d9243bf16a282fb7f374, type: 2}
   gridSystem: {fileID: 1182792801}
   player: {fileID: 198524243}
+  obstaclesOnCurrentLevel: []
+  groupInstantiatorManager: {fileID: 0}
+  fallingPlatformsManager: {fileID: 0}
   levelCount: 0
 --- !u!4 &279101318
 Transform:
@@ -5527,6 +5531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cbbed45b479f046b617715d0526760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyManager: {fileID: 0}
 --- !u!65 &1648704571
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5997,6 +6002,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTrackName: Track1
   musicLayers:
+  - layerIndex: 0
+    targetVolume: 1
+    fadeTime: 1
   - layerIndex: 1
     targetVolume: 1
     fadeTime: 1
@@ -6006,9 +6014,7 @@ MonoBehaviour:
   - layerIndex: 3
     targetVolume: 1
     fadeTime: 1
-  - layerIndex: 4
-    targetVolume: 1
-    fadeTime: 1
+  _deathCount: 0
 --- !u!4 &1747690672
 Transform:
   m_ObjectHideFlags: 0
@@ -6520,6 +6526,7 @@ MonoBehaviour:
   - {fileID: 1555126284}
   - {fileID: 233370918}
   respawnDelay: 2
+  groundPlayerCheckBox: {fileID: 0}
 --- !u!1 &1868646491
 GameObject:
   m_ObjectHideFlags: 0
@@ -7370,6 +7377,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
+      propertyPath: crossScheduleTime
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: scheduledAheadTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
       propertyPath: musicTracks.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -7400,6 +7417,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
+      propertyPath: musicTracks.Array.data[1].trackName
+      value: Track1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
       propertyPath: musicTracks.Array.data[0].fadeInDuration
       value: 1
       objectReference: {fileID: 0}
@@ -7411,6 +7433,11 @@ PrefabInstance:
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
       propertyPath: musicTracks.Array.data[0].layers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.size
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
@@ -7480,6 +7507,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 85cc34db15227d84899a917e374fffe1, type: 3}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[4].name
+      value: layer4
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5eea419521b773a4b93e9c5bef580192, type: 3}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[0].name
+      value: layer1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 76f26a6e65d77bf4d843c09a62f8b4e5, type: 3}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[1].name
+      value: layer2
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 97e6f35776dbc2342bae88b25e7e8d30, type: 3}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[2].name
+      value: layer3
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 85cc34db15227d84899a917e374fffe1, type: 3}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[3].name
+      value: layer4
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
       propertyPath: musicTracks.Array.data[0].layerVolumes.Array.data[0]
       value: 0.4
       objectReference: {fileID: 0}
@@ -7516,6 +7593,31 @@ PrefabInstance:
     - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
         type: 3}
       propertyPath: musicTracks.Array.data[0].layers.Array.data[3].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[0].layers.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[2].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 798516730753950258, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
+        type: 3}
+      propertyPath: musicTracks.Array.data[1].layers.Array.data[3].volume
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6016552398496295119, guid: 371970c9ca4e03f4b8cbcc6f9b90f938,
