@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,11 +14,15 @@ public class MenuButtons : MonoBehaviour
     public UIAnimatorManager uiAnimatorManager;
 
     private void Awake()
-    {       
-        uiAnimatorManager.StartmenuAnim().onComplete += () => newGameButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("GameScene"));
+    {
+        uiAnimatorManager.StartmenuAnim().onComplete += AddListeners;
+    }
+    private void AddListeners()
+    {
+        newGameButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("GameScene"));
         continueButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("PlayerTestScene"));
         settingsButton.onClick.AddListener(() => GameManager.Instance.LoadScreenRequest("SettingsScreen"));
-        exitButton.onClick.AddListener(() => Application.Quit());       
+        exitButton.onClick.AddListener(() => Application.Quit());
     }
 
 }
