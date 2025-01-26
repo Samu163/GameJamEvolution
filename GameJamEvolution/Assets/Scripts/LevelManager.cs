@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     public GameObject gameOverCanvas;
     public LevelTimer levelTimer;
     public int levelCount;
+    public DissolveManager dissolveManager;
 
     //Delegates for finish level
     public delegate void OnLevelFinished();
@@ -157,7 +158,7 @@ public class LevelManager : MonoBehaviour
 
     }
 
-        public void DestroyObstacle(Vector2Int gridPosition, Vector2Int size)
+    public void DestroyObstacle(Vector2Int gridPosition, Vector2Int size)
     {
 
         for (int i = 0; i < obstaclesOnCurrentLevel.Count; i++)
@@ -170,20 +171,27 @@ public class LevelManager : MonoBehaviour
                     Vector2Int obstacleGridPos = gridPosition + new Vector2Int(j, k);
                     if (obstaclesOnCurrentLevel[i].gridPos == obstacleGridPos)
                     {
-                        
-                        gridSystem.DestroyObstacle(obstacleGridPos, obstaclesOnCurrentLevel[i].size);
-                        Destroy(obstaclesOnCurrentLevel[i].gameObject);
+                        Obstacle obstacle = obstaclesOnCurrentLevel[i];
                         obstaclesOnCurrentLevel.RemoveAt(i);
 
+                        dissolveManager.StartDissolve(obstacle.gameObject, () =>
+                        {
+                            gridSystem.DestroyObstacle(obstacleGridPos, obstacle.size);
+                            Destroy(obstacle.gameObject);
+                        });
+
+                        return;
                     }
                 }
             }
 
         }
     }
+
     private void RestartLevel()
     {
     }
 
-    
+
+
 }
