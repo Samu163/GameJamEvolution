@@ -180,7 +180,6 @@ public class LevelManager : MonoBehaviour
                             Destroy(obstacle.gameObject);
                         });
 
-                        return;
                     }
                 }
             }
