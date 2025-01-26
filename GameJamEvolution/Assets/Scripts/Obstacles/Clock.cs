@@ -44,6 +44,7 @@ public class Clock : Obstacle
                 attackCollider.radius = 0f;
                 attackCollider.enabled = false;
                 attackTimeCounter = 0;
+                
            }
         }
     }
