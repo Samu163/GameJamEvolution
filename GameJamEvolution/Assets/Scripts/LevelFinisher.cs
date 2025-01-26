@@ -5,6 +5,12 @@ using UnityEngine;
 public class LevelFinisher : MonoBehaviour
 {
     public DestroyManager destroyManager;
+    private Collider collider;
+
+    private void Awake()
+    {
+        collider = GetComponent<Collider>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,5 +23,10 @@ public class LevelFinisher : MonoBehaviour
             }
             
         }
+    }
+
+    public void EnableCollider(bool condition)
+    {
+        collider.enabled = condition;
     }
 }
