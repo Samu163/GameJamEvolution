@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     //Delegates for finish level
     public delegate void OnLevelFinished();
     public OnLevelFinished onLevelFinished;
+    public OnLevelFinished restartLevel;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class LevelManager : MonoBehaviour
         obstaclesOnCurrentLevel = new List<Obstacle>();
         levelCount = 0;
         onLevelFinished += InitLevel;
+        restartLevel += RestartLevel;
     }
 
     private int currentLevelIndex { get; set; } = 0;
@@ -178,6 +180,9 @@ public class LevelManager : MonoBehaviour
             }
 
         }
+    }
+    private void RestartLevel()
+    {
     }
 
     
