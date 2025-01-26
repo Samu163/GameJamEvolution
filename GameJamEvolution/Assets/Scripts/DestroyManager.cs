@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 public class DestroyManager : MonoBehaviour
 {
@@ -24,10 +25,20 @@ public class DestroyManager : MonoBehaviour
 
     public LevelTimer levelTimer;
 
+    [Header("Visual Settings")]
+    [SerializeField] private GameObject destroyImageObject;
+    [SerializeField] private Canvas canvas;
+
+    [Header("Global Volume Settings")]
+    [SerializeField] private Volume globalVolume;
     // Start is called before the first frame update
     void Start()
     {
         destroySize = new Vector2Int(destroyWidth, destroyHeight);
+        if (destroyImageObject != null)
+        {
+            destroyImageObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -50,10 +61,12 @@ public class DestroyManager : MonoBehaviour
 
         if (destroyMode)
         {
+            if (globalVolume != null) globalVolume.enabled = true;
             Time.timeScale = 0;
             mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
             gridPosition = gridSystem.WorldToGridPosition(mouseWorldPos);
-            
+
+            ShowDestroyImage();
             if (Input.GetMouseButtonDown(0))
             {
                 DestroySelectedObstacles();
@@ -62,15 +75,52 @@ public class DestroyManager : MonoBehaviour
                 destroyMode = false;
             }
         }
+        else
+        {
+
+            if (globalVolume != null) globalVolume.enabled = false;
+        }
 
     }
+    private void ShowDestroyImage()
+    {
+        if (destroyImageObject != null && canvas != null)
+        {
+            debugGridPosition = gridSystem.GridToWorldPosition(gridPosition)
+                + new Vector3(gridSystem.cellSize * 0.5f, gridSystem.cellSize * 0.5f, 0);
 
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(debugGridPosition);
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvas.GetComponent<RectTransform>(), screenPosition, canvas.worldCamera, out Vector2 canvasPosition
+            );
+
+            RectTransform rectTransform = destroyImageObject.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition = canvasPosition;
+
+            rectTransform.sizeDelta = new Vector2(
+                destroySize.x * gridSystem.cellSize * 100,
+                destroySize.y * gridSystem.cellSize * 100
+            );
+
+            destroyImageObject.SetActive(true);
+        }
+    }
+
+    private void HideDestroyImage()
+    {
+        if (destroyImageObject != null)
+        {
+            destroyImageObject.SetActive(false);
+        }
+    }
     public void DestroySelectedObstacles()
     {
         if (destroyMode)
         {
             LevelManager.Instance.DestroyObstacle(gridPosition, destroySize);
             destroyMode = false;
+            HideDestroyImage();
         }
     }
 
