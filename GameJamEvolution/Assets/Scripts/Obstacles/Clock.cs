@@ -13,6 +13,7 @@ public class Clock : Obstacle
     private float attackTimeCounter;
     public Vector2Int radiusSize;
     public Vector2Int radiusNoClock;
+    public GameObject clockAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,7 @@ public class Clock : Obstacle
            {
                 isAttacking = false;
                 attackCollider.radius = 0f;
+                clockAttack.transform.localScale = new Vector3(0, 0, 0);
                 attackCollider.enabled = false;
                 attackTimeCounter = 0;
                 
@@ -53,6 +55,7 @@ public class Clock : Obstacle
     {
         if (attackCollider.radius < attackMaxRadius)
         {
+            clockAttack.transform.localScale += new Vector3(radiusAugmentation / 5 * 2, radiusAugmentation / 5 * 2, radiusAugmentation / 5 * 2);
             attackCollider.radius += radiusAugmentation;
         }
     }
