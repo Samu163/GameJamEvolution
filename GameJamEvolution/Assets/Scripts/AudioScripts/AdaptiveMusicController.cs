@@ -13,15 +13,30 @@ public class AdaptiveMusicController : MonoBehaviour
         public float fadeTime = 1f;
     }
 
+    [System.Serializable]
+    public class LevelLayerRule
+    {
+        public int minLevel;
+        public int maxLevel;
+        [Tooltip("Indices of layers to enable in this level range")]
+        public int[] layersToEnable;
+    }
+
     [Header("Music Configuration")]
     [SerializeField] private string currentTrackName = "Track1";
     
     [Header("Layer Settings")]
     [SerializeField] private List<LayerConfig> musicLayers = new List<LayerConfig>();
     
+    [Header("Level Rules")]
+    [SerializeField] private List<LevelLayerRule> levelRules = new List<LevelLayerRule>();
+
     private HashSet<int> activeLayerIndices = new HashSet<int>();
+    
     [Header("Debug Info")]
-    [SerializeField, ReadOnly] private int _deathCount = 0; // Add this for inspector visibility
+    [SerializeField, ReadOnly] private int _deathCount = 0;
+    [SerializeField, ReadOnly] private int _currentLevel = 0;
+    
     public int deathCount 
     { 
         get => _deathCount;
@@ -29,7 +44,6 @@ public class AdaptiveMusicController : MonoBehaviour
         {
             _deathCount = value;
             #if UNITY_EDITOR
-            // Force inspector update in editor
             UnityEditor.EditorUtility.SetDirty(this);
             #endif
         }
@@ -58,8 +72,39 @@ public class AdaptiveMusicController : MonoBehaviour
             {
                 SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layer.layerIndex, 0f, 0f);
             }
-            // Enable first layer
-            EnableLayer(0);
+            UpdateLayersForCurrentLevel();
+        }
+    }
+
+    private void Update()
+    {
+        // Check for level changes
+        if (LevelManager.Instance != null && _currentLevel != LevelManager.Instance.levelCount)
+        {
+            _currentLevel = LevelManager.Instance.levelCount;
+            UpdateLayersForCurrentLevel();
+        }
+    }
+
+    private void UpdateLayersForCurrentLevel()
+    {
+        // First, disable all layers
+        foreach (var layer in musicLayers)
+        {
+            DisableLayer(layer.layerIndex);
+        }
+
+        // Find and apply the matching rule for current level
+        foreach (var rule in levelRules)
+        {
+            if (_currentLevel >= rule.minLevel && _currentLevel <= rule.maxLevel)
+            {
+                foreach (int layerIndex in rule.layersToEnable)
+                {
+                    EnableLayer(layerIndex);
+                }
+                break; // Use first matching rule
+            }
         }
     }
 
@@ -111,48 +156,36 @@ public class AdaptiveMusicController : MonoBehaviour
     public void OnPlayerDeath()
     {
         deathCount++;
-        if (deathCount % 2 == 0)
-        {
-            int layerToEnable = deathCount / 2;
-            if (layerToEnable < musicLayers.Count)
-            {
-                EnableLayer(layerToEnable);
-                Debug.Log($"Death count: {deathCount}. Enabling layer {layerToEnable}");
-            }
-        }
+        // Keep death count for display but don't use it for music logic
     }
 
     public void ResetLayers()
     {
         deathCount = 0;
         activeLayerIndices.Clear();
-        
-        foreach (var layer in musicLayers)
-        {
-            if (layer.layerIndex == 0)
-            {
-                EnableLayer(0);
-            }
-            else
-            {
-                DisableLayer(layer.layerIndex);
-            }
-        }
-    }
-
-    // Example of a custom layer control method
-    public void SetIntensityByHeight(float height)
-    {
-        float normalizedHeight = Mathf.Clamp01(height / 20f); // Assuming 20 units is max height
-        SetLayerVolume(1, normalizedHeight * 0.7f); // Layer 2 fades in with height
-        SetLayerVolume(2, Mathf.Max(0, normalizedHeight - 0.5f) * 2 * 0.5f); // Layer 3 starts at half height
+        UpdateLayersForCurrentLevel();
     }
 
     public void SetLayerVolume(int layerIndex, float volume)
     {
         if (SoundTrackManager.Instance != null)
         {
-            SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layerIndex, volume, 0f); // Instant volume change
+            SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layerIndex, volume, 0f);
+        }
+    }
+
+    // Custom layer control methods can be added here
+    // Example:
+    public void SetCustomLayerConfiguration(params int[] layerIndices)
+    {
+        foreach (var layer in musicLayers)
+        {
+            DisableLayer(layer.layerIndex);
+        }
+        
+        foreach (int index in layerIndices)
+        {
+            EnableLayer(index);
         }
     }
 } 
