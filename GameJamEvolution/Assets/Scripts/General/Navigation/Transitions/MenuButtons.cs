@@ -10,12 +10,14 @@ public class MenuButtons : MonoBehaviour
     public Button continueButton;
     public Button settingsButton;
     public Button exitButton;
+    public UIAnimatorManager uiAnimatorManager;
 
     private void Awake()
-    {
-        newGameButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("GameScene"));
+    {       
+        uiAnimatorManager.StartmenuAnim().onComplete += () => newGameButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("GameScene"));
         continueButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("PlayerTestScene"));
         settingsButton.onClick.AddListener(() => GameManager.Instance.LoadScreenRequest("SettingsScreen"));
-        exitButton.onClick.AddListener(() => Application.Quit());
+        exitButton.onClick.AddListener(() => Application.Quit());       
     }
+
 }
