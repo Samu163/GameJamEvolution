@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     public List<Obstacle> obstaclesOnCurrentLevel;
     public GroupInstantiatorManager groupInstantiatorManager;
     public FallingPlatformsManager fallingPlatformsManager;
+    public LevelFinisher levelFinisher;
     public int levelCount;
 
     //Delegates for finish level
@@ -114,13 +115,16 @@ public class LevelManager : MonoBehaviour
 
 
     public void FinishLevel()
-    {     
+    {
+        levelFinisher.EnableCollider(false);
         cameraTweening.DOCameraAnimation(onLevelFinished);    
     }
     private void InitLevel()
     {
+
         SpawnLevelObstacles(levelCount);
         player.RespawnPlayer();
+        levelFinisher.EnableCollider(true);
         levelCount++;
     }
 
