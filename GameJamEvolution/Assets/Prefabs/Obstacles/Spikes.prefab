@@ -51,6 +51,7 @@ MonoBehaviour:
   id: 0
   groupObstacle: 1
   isFallingPlatform: 0
+  type: 8
 --- !u!1001 &3055119019349086957
 PrefabInstance:
   m_ObjectHideFlags: 0

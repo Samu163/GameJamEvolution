@@ -4,8 +4,10 @@ using UnityEngine.UIElements;
 
 public class GridSystem : MonoBehaviour
 {
+    [System.Serializable]
     public enum CellType { Empty, Ground, Ocupied, OcupiedLamp, OcupiedPainting }
 
+    [System.Serializable]
     public struct Cell
     {
         public bool isOcupied;
@@ -34,6 +36,11 @@ public class GridSystem : MonoBehaviour
                 grid[x, y] = new Cell { isOcupied = false, type = CellType.Empty };
             }
         }
+    }
+
+    public void SetGrid(Cell[,] newGrid)
+    {
+        grid = newGrid;
     }
 
     private void OnValidate()

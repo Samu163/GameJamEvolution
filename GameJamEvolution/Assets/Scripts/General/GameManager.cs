@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public NavigationController navigationController;
     public bool isPaused = false;
 
-   
+    private SaveSystem saveSystem;
+    public bool isLoadingGame = false;
 
     private void Awake()
     {
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-       
+        saveSystem = new SaveSystem();
 
     }
 
@@ -53,6 +54,9 @@ public class GameManager : MonoBehaviour
         
     }
 
-
+    public bool CheckSaveData()
+    {
+        return saveSystem.CheckSaveFile();
+    }
 
 }

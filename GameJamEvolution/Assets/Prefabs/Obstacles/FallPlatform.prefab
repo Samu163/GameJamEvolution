@@ -216,6 +216,7 @@ MonoBehaviour:
   id: 0
   groupObstacle: 1
   isFallingPlatform: 1
+  type: 2
   fallDelay: 3
   destroyDelay: 1
   startPosition: {x: 0, y: 0, z: 0}

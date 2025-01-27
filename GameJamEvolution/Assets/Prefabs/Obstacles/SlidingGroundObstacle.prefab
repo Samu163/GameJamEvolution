@@ -51,6 +51,7 @@ MonoBehaviour:
   id: 0
   groupObstacle: 1
   isFallingPlatform: 0
+  type: 1
   heightMargin: 5
   radiusSize: {x: 10, y: 5}
 --- !u!1 &5169700325918247330

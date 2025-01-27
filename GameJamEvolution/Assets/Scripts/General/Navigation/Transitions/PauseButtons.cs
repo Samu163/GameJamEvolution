@@ -17,8 +17,10 @@ public class PauseButtons : MonoBehaviour
         resumeButton.onClick.AddListener(() => gameObject.SetActive(false));
         settingsButton.onClick.AddListener(() => settingsCanvas.SetActive(true));
         settingsButton.onClick.AddListener(() => gameObject.SetActive(false));
+        exitButton.onClick.AddListener(() => LevelManager.Instance.SaveProgress());
         exitButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("MainMenuScene"));
         exitButton.onClick.AddListener(() => GameManager.Instance.ResumeGame());
+        exitButton.onClick.AddListener(() => gameObject.SetActive(false));
         resumeButton.onClick.AddListener(() => gameObject.SetActive(false));
     }
 }

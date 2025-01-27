@@ -20,7 +20,16 @@ public class MenuButtons : MonoBehaviour
     private void AddListeners()
     {
         newGameButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("GameScene"));
-        continueButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("PlayerTestScene"));
+        if (GameManager.Instance.CheckSaveData())
+        {
+            continueButton.interactable = true;
+        }
+        else
+        {
+            continueButton.interactable = false;
+        }
+        continueButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("GameScene"));
+        continueButton.onClick.AddListener(() => GameManager.Instance.isLoadingGame = true);
         settingsButton.onClick.AddListener(() => GameManager.Instance.LoadScreenRequest("SettingsScreen"));
         exitButton.onClick.AddListener(() => Application.Quit());
     }

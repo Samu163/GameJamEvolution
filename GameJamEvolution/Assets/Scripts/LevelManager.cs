@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LevelManager : MonoBehaviour
 {
@@ -19,11 +20,27 @@ public class LevelManager : MonoBehaviour
     public LevelTimer levelTimer;
     public int levelCount;
     public DissolveManager dissolveManager;
+    public DestroyManager destroyManager;
 
     //Delegates for finish level
     public delegate void OnLevelFinished();
     public OnLevelFinished onLevelFinished;
     public OnLevelFinished restartLevel;
+
+    private SaveSystem saveSystem;
+    private SaveData saveData;
+
+    [Header("Obstacles")]
+    public Ground groundPrefab;
+    public SlidingGround slidingGroundPrefab;
+    public FallingPlatform fallingPlatformPrefab;
+    public FallingLamp lampPrefab;
+    public Closet closetPrefab;
+    public Cuadro cuadroPrefab;
+    public Aspiradora aspiradoraPrefab;
+    public Clock clockPrefab;
+    public Spike spikePrefab;
+
 
     private void Awake()
     {
@@ -39,6 +56,206 @@ public class LevelManager : MonoBehaviour
         levelCount = 0;
         onLevelFinished += InitLevel;
         restartLevel += RestartLevel;
+        saveSystem = new SaveSystem();
+    }
+
+    private void Start()
+    {
+        if (GameManager.Instance.isLoadingGame)
+        {
+            LoadProgress();
+            GameManager.Instance.isLoadingGame = false;
+        }
+    }
+
+    public void LoadProgress()
+    {
+        if (saveSystem == null)
+        {
+            saveSystem = new SaveSystem();
+        }
+
+        saveData = saveSystem.Load();
+        if (saveData == null)
+        {
+            saveData = new SaveData
+            {
+                timeRemaining = levelTimer.timeRemaining,
+                destroyCharge = destroyManager.rechargeValue,
+            };
+        }
+
+        levelTimer.timeRemaining = saveData.timeRemaining;
+        destroyManager.rechargeValue = saveData.destroyCharge;
+        levelCount = saveData.levelCount;
+
+        for (int i = 0; i < gridSystem.gridWidth; i++)
+        {
+            for (int j = 0; j < gridSystem.gridHeight; j++)
+            {
+                var cellData = saveData.cells[i * gridSystem.gridHeight + j];
+                gridSystem.GetGrid()[i, j].isOcupied = cellData.isOccupied;
+                gridSystem.GetGrid()[i, j].type = cellData.type;
+            }
+        }
+
+        for (int i = 0; i < saveData.obstaclesInGrid.Count; i++)
+        {
+            var obstacleData = saveData.obstaclesInGrid[i];
+            
+            switch(obstacleData.type)
+            {
+                case Obstacle.ObstacleType.FallingPlatform:
+                    var fallingPlatform = Instantiate(fallingPlatformPrefab, Vector3.zero, Quaternion.identity);
+                    fallingPlatform.size = obstacleData.size;
+                    fallingPlatform.gridPos = obstacleData.gridPos;
+                    fallingPlatform.cellType = obstacleData.cellType;
+                    fallingPlatform.isFallingPlatform = obstacleData.isFallingPlatform;
+                    fallingPlatform.type = obstacleData.type;
+                    Vector3 worldPosition = gridSystem.GridToWorldPosition(fallingPlatform.gridPos);
+                    fallingPlatform.transform.position = worldPosition;
+                    break;
+                case Obstacle.ObstacleType.Ground:
+                    var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
+                    ground.size = obstacleData.size;
+                    ground.gridPos = obstacleData.gridPos;
+                    ground.cellType = obstacleData.cellType;
+                    ground.isFallingPlatform = obstacleData.isFallingPlatform;
+                    ground.type = obstacleData.type;
+                    Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
+                    ground.transform.position = worldPositionGround;
+                    break;
+                case Obstacle.ObstacleType.SlidingGround:
+                    var slidingGround = Instantiate(slidingGroundPrefab, Vector3.zero, Quaternion.identity);
+                    slidingGround.size = obstacleData.size;
+                    slidingGround.gridPos = obstacleData.gridPos;
+                    slidingGround.cellType = obstacleData.cellType;
+                    slidingGround.isFallingPlatform = obstacleData.isFallingPlatform;
+                    slidingGround.type = obstacleData.type;
+                    Vector3 worldPositionSlidingGround = gridSystem.GridToWorldPosition(slidingGround.gridPos);
+                    slidingGround.transform.position = worldPositionSlidingGround;
+                    break;
+                case Obstacle.ObstacleType.Lamp:
+                    var lamp = Instantiate(lampPrefab, Vector3.zero, Quaternion.identity);
+                    lamp.size = obstacleData.size;
+                    lamp.gridPos = obstacleData.gridPos;
+                    lamp.cellType = obstacleData.cellType;
+                    lamp.isFallingPlatform = obstacleData.isFallingPlatform;
+                    lamp.type = obstacleData.type;
+                    Vector3 worldPositionLamp = gridSystem.GridToWorldPosition(lamp.gridPos);
+                    lamp.transform.position = worldPositionLamp;
+                    break;
+                case Obstacle.ObstacleType.Closet:
+                    var closet = Instantiate(closetPrefab, Vector3.zero, Quaternion.identity);
+                    closet.size = obstacleData.size;
+                    closet.gridPos = obstacleData.gridPos;
+                    closet.cellType = obstacleData.cellType;
+                    closet.isFallingPlatform = obstacleData.isFallingPlatform;
+                    closet.type = obstacleData.type;
+                    Vector3 worldPositionCloset = gridSystem.GridToWorldPosition(closet.gridPos);
+                    closet.transform.position = worldPositionCloset;
+                    break;
+                case Obstacle.ObstacleType.Cuadro:
+                    var cuadro = Instantiate(cuadroPrefab, Vector3.zero, Quaternion.identity);
+                    cuadro.size = obstacleData.size;
+                    cuadro.gridPos = obstacleData.gridPos;
+                    cuadro.cellType = obstacleData.cellType;
+                    cuadro.isFallingPlatform = obstacleData.isFallingPlatform;
+                    cuadro.type = obstacleData.type;
+                    Vector3 worldPositionCuadro = gridSystem.GridToWorldPosition(cuadro.gridPos);
+                    cuadro.transform.position = worldPositionCuadro;
+                    break;
+                case Obstacle.ObstacleType.Aspiradora:
+                    var aspiradora = Instantiate(aspiradoraPrefab, Vector3.zero, Quaternion.identity);
+                    aspiradora.size = obstacleData.size;
+                    aspiradora.gridPos = obstacleData.gridPos;
+                    aspiradora.cellType = obstacleData.cellType;
+                    aspiradora.isFallingPlatform = obstacleData.isFallingPlatform;
+                    aspiradora.type = obstacleData.type;
+                    Vector3 worldPositionAspiradora = gridSystem.GridToWorldPosition(aspiradora.gridPos);
+                    aspiradora.transform.position = worldPositionAspiradora;
+                    break;
+                case Obstacle.ObstacleType.Clock:
+                    var clock = Instantiate(clockPrefab, Vector3.zero, Quaternion.identity);
+                    clock.size = obstacleData.size;
+                    clock.gridPos = obstacleData.gridPos;
+                    clock.cellType = obstacleData.cellType;
+                    clock.isFallingPlatform = obstacleData.isFallingPlatform;
+                    clock.type = obstacleData.type;
+                    Vector3 worldPositionClock = gridSystem.GridToWorldPosition(clock.gridPos);
+                    clock.transform.position = worldPositionClock;
+                    break;
+                case Obstacle.ObstacleType.Spike:
+                    var spike = Instantiate(spikePrefab, Vector3.zero, Quaternion.identity);
+                    spike.size = obstacleData.size;
+                    spike.gridPos = obstacleData.gridPos;
+                    spike.cellType = obstacleData.cellType;
+                    spike.isFallingPlatform = obstacleData.isFallingPlatform;
+                    spike.type = obstacleData.type;
+                    Vector3 worldPositionSpike = gridSystem.GridToWorldPosition(spike.gridPos);
+                    spike.transform.position = worldPositionSpike;
+                    break;
+            }
+        }
+
+        
+
+        
+        
+
+        Debug.Log("Progress Loaded | Time Remaining: " + saveData.timeRemaining);
+    }
+
+    public void SaveProgress()
+    {
+        if (saveSystem == null)
+        {
+            saveSystem = new SaveSystem();
+        }
+
+        if (saveData == null)
+        {
+            saveData = new SaveData
+            {
+                timeRemaining = levelTimer.timeRemaining,
+                destroyCharge = destroyManager.rechargeValue,
+            };
+        }
+
+        saveData.timeRemaining = levelTimer.timeRemaining;
+        saveData.destroyCharge = destroyManager.rechargeValue;
+        saveData.levelCount = levelCount;
+
+        for (int i = 0; i < obstaclesOnCurrentLevel.Count; i++)
+        {
+            var obstacle = obstaclesOnCurrentLevel[i];
+            saveData.obstaclesInGrid.Add(new SaveData.ObstacleData
+            {
+                size = obstacle.size,
+                gridPos = obstacle.gridPos,
+                cellType = obstacle.cellType,
+                type = obstacle.type,
+                isFallingPlatform = obstacle.isFallingPlatform
+            });
+        }
+
+        for (int i = 0; i < gridSystem.gridWidth; i++)
+        {
+            for (int j = 0; j < gridSystem.gridHeight; j++)
+            {
+                var cell = gridSystem.GetGrid()[i, j];
+                saveData.cells.Add(new SaveData.CellData
+                {
+                    isOccupied = cell.isOcupied,
+                    type = cell.type
+                });
+            }
+        }
+
+        
+
+        saveSystem.Save(saveData);
+        Debug.Log("Progress Saved");
     }
 
     private int currentLevelIndex { get; set; } = 0;
@@ -189,6 +406,7 @@ public class LevelManager : MonoBehaviour
 
     private void RestartLevel()
     {
+
     }
 
 

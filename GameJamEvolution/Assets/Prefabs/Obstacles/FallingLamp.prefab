@@ -179,6 +179,7 @@ MonoBehaviour:
   id: 0
   groupObstacle: 0
   isFallingPlatform: 0
+  type: 3
   fallDelay: 0
   respawnDelay: 3
   playerLayer:
