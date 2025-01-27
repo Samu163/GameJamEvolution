@@ -41,16 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5214685529630625025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c968196205593eb48be0adca8204b2a2, type: 3}
+  m_Script: {fileID: 11500000, guid: b80321d45bf806b4cb3f3dbd621c9b86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundGroups:
-  - {fileID: 11400000, guid: 4c3d8427ad8899142b4bda8cc8af6aee, type: 2}
-  - {fileID: 11400000, guid: c98e5945bfe7b1844910d5e7d2206aab, type: 2}
-  - {fileID: 11400000, guid: 544783828fe54964799549421b6379bf, type: 2}
-  - {fileID: 11400000, guid: 85ee24b6481106b4ba1174893b6f9733, type: 2}
-  - {fileID: 11400000, guid: 745e8e8c9218b2242bf53a7fef8d63b2, type: 2}
-  - {fileID: 11400000, guid: f8eac91c93a8cd440996ca2a834e535d, type: 2}
-  - {fileID: 11400000, guid: 3ae6d6c2cf23d264e813a34d037f6644, type: 2}
-  - {fileID: 11400000, guid: 4611c4db888738c41839745eba31fe00, type: 2}
-  - {fileID: 11400000, guid: 598d8571d084b7b4994aa16d53333fd5, type: 2}
+  soundGroups: []
