@@ -55,8 +55,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
 
+        if (rb.velocity.y > 0.2) {
+            animator.SetBool("isJumping", true);
+
+        }
+        else if (rb.velocity.y < 0)
+        {
+            animator.SetBool("isJumping", false);
+        }
         if (Input.GetKey(KeyCode.Z))
         {
             animator.SetBool("isRunning", true);
@@ -89,7 +96,6 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
             canFreeze = false;
             rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
-            animator.SetTrigger("Jump");
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
@@ -104,6 +110,11 @@ public class PlayerController : MonoBehaviour
         bool isWallHanging = isTouchingWall && !isGrounded;
         animator.SetBool("isWallHanging", isWallHanging);
 
+        if(isWallHanging)
+        {
+            animator.SetBool("isJumping", false);
+        }
+    
         if (isGrounded)
         {
             canWallJump = true;
@@ -163,12 +174,16 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isTouchingWall = false;
             canWallJump = false;
+          
+                animator.SetBool("isWallJumping", true);
+            
         }
 
         if (jumping && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+            animator.SetBool("isWallJumping", false);
         }
 
        
@@ -207,8 +222,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isWallHanging", false);
             isJumping = false;
-            animator.SetBool("isJumping", false);
-
+        
             animator.SetBool("canJump", true);
         }
     }
