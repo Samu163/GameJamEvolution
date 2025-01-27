@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour
     public FallingLamp lampPrefab;
     public Closet closetPrefab;
     public Cuadro cuadroPrefab;
+    public Cuadro cuadroLaserPrefab;
     public Aspiradora aspiradoraPrefab;
     public Clock clockPrefab;
     public Spike spikePrefab;
@@ -159,14 +160,30 @@ public class LevelManager : MonoBehaviour
                     closet.transform.position = worldPositionCloset;
                     break;
                 case Obstacle.ObstacleType.Cuadro:
-                    var cuadro = Instantiate(cuadroPrefab, Vector3.zero, Quaternion.identity);
-                    cuadro.size = obstacleData.size;
-                    cuadro.gridPos = obstacleData.gridPos;
-                    cuadro.cellType = obstacleData.cellType;
-                    cuadro.isFallingPlatform = obstacleData.isFallingPlatform;
-                    cuadro.type = obstacleData.type;
-                    Vector3 worldPositionCuadro = gridSystem.GridToWorldPosition(cuadro.gridPos);
-                    cuadro.transform.position = worldPositionCuadro;
+                    
+                    if (obstacleData.isLaser)
+                    {
+                        var cuadro = Instantiate(cuadroLaserPrefab, Vector3.zero, Quaternion.identity);
+                        cuadro.size = obstacleData.size;
+                        cuadro.gridPos = obstacleData.gridPos;
+                        cuadro.cellType = obstacleData.cellType;
+                        cuadro.isFallingPlatform = obstacleData.isFallingPlatform;
+                        cuadro.type = obstacleData.type;
+                        Vector3 worldPositionCuadro = gridSystem.GridToWorldPosition(cuadro.gridPos);
+                        cuadro.transform.position = worldPositionCuadro;
+                    }
+                    else
+                    {
+                        var cuadro = Instantiate(cuadroPrefab, Vector3.zero, Quaternion.identity);
+                        cuadro.size = obstacleData.size;
+                        cuadro.gridPos = obstacleData.gridPos;
+                        cuadro.cellType = obstacleData.cellType;
+                        cuadro.isFallingPlatform = obstacleData.isFallingPlatform;
+                        cuadro.type = obstacleData.type;
+                        Vector3 worldPositionCuadro = gridSystem.GridToWorldPosition(cuadro.gridPos);
+                        cuadro.transform.position = worldPositionCuadro;
+                    }
+                    
                     break;
                 case Obstacle.ObstacleType.Aspiradora:
                     var aspiradora = Instantiate(aspiradoraPrefab, Vector3.zero, Quaternion.identity);

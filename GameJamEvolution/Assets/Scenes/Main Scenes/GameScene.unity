@@ -2259,6 +2259,8 @@ MonoBehaviour:
     type: 3}
   cuadroPrefab: {fileID: 8347641757536389989, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
     type: 3}
+  cuadroLaserPrefab: {fileID: 6639631886083412363, guid: 45c7e6247ac4c804b8dca378863bdaf2,
+    type: 3}
   aspiradoraPrefab: {fileID: 3042129722833130356, guid: b65b3bfd28d99ba4f9f02be546583123,
     type: 3}
   clockPrefab: {fileID: 2994787091901498638, guid: 169b4dbb36b3f3845801c6d168a9b807,

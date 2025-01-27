@@ -10,6 +10,7 @@ public abstract class Obstacle : MonoBehaviour
     public GridSystem.CellType cellType;
     public bool groupObstacle;
     public bool isFallingPlatform;
+    public bool isLaser;
 
     public enum ObstacleType
     {
