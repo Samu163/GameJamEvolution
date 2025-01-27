@@ -27,10 +27,11 @@ public class LevelTimer : MonoBehaviour
         }
         else
         {
+            minutesRemaining = 0;
             secondsRemaining = (int)timeRemaining;
         }
 
-        if (timeRemaining > 0)
+        if (timeRemaining > 0 && !GameManager.Instance.isPaused)
         {
             timeRemaining -= Time.deltaTime;
             timerText.text = string.Format("{0:00}:{1:00}", minutesRemaining, secondsRemaining);

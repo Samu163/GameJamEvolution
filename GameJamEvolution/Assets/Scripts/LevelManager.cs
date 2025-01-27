@@ -281,7 +281,7 @@ public class LevelManager : MonoBehaviour
                         Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
                         ground.transform.position = worldPositionGround;
                         gridSystem.GetGrid()[12 + x, 2 + y].isOcupied = true;
-                        gridSystem.GetGrid()[12 + x, 2 + y].type = GridSystem.CellType.Ground;
+                        gridSystem.GetGrid()[12 + x, 2 + y].type = GridSystem.CellType.Ocupied;
                         obstaclesOnCurrentLevel.Add(ground);
                     }
                 }
@@ -299,7 +299,7 @@ public class LevelManager : MonoBehaviour
                         Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
                         ground.transform.position = worldPositionGround;
                         gridSystem.GetGrid()[25 + x, 7 + y].isOcupied = true;
-                        gridSystem.GetGrid()[25 + x, 7 + y].type = GridSystem.CellType.Ground;
+                        gridSystem.GetGrid()[25 + x, 7 + y].type = GridSystem.CellType.Ocupied;
                         obstaclesOnCurrentLevel.Add(ground);
                     }
                 }
@@ -318,7 +318,7 @@ public class LevelManager : MonoBehaviour
                         Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
                         ground.transform.position = worldPositionGround;
                         gridSystem.GetGrid()[20 + x, 0 + y].isOcupied = true;
-                        gridSystem.GetGrid()[20 + x, 0 + y].type = GridSystem.CellType.Ground;
+                        gridSystem.GetGrid()[20 + x, 0 + y].type = GridSystem.CellType.Ocupied;
                         obstaclesOnCurrentLevel.Add(ground);
                     }
                 }
@@ -438,6 +438,8 @@ public class LevelManager : MonoBehaviour
             Destroy(obstaclesOnCurrentLevel[0].gameObject);
             obstaclesOnCurrentLevel.RemoveAt(0);
         }
+
+        CreateLevel(GameManager.Instance.sceneID);
 
         levelTimer.timeRemaining = 20;
 
