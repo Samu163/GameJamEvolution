@@ -34,7 +34,7 @@ public class Cuadro : Obstacle
         {
             bool isValid = true;
 
-            if (position.y < 6)
+            if (position.y < 8)
             {
                 isValid = false;
                 continue;
