@@ -177,7 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4604334259687629451}
   - component: {fileID: 6083881625778076643}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Attack
   m_TagString: Death
   m_Icon: {fileID: 0}
@@ -270,7 +270,6 @@ MonoBehaviour:
   size: {x: 1, y: 2}
   gridPos: {x: 0, y: 0}
   cellType: 2
-  id: 0
   groupObstacle: 0
   isFallingPlatform: 0
   type: 7

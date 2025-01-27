@@ -14,23 +14,6 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            Destroy(gameObject);
-        }
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
-        {
-            Destroy(gameObject); 
-        }
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            
-            Destroy(gameObject);
-        }
-        if (collision.gameObject.CompareTag("Death"))
-        {
-
-            Destroy(gameObject); 
-        }
+        Destroy(gameObject);
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5740428797986189450}
   - component: {fileID: 7222803232429901643}
   - component: {fileID: -9193104897308204688}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere
   m_TagString: Death
   m_Icon: {fileID: 0}

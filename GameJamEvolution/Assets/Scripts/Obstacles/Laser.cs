@@ -17,7 +17,7 @@ public class Laser : MonoBehaviour
 
     [Header("Particle Settings")]
     public ParticleSystem activationParticles;
-
+    private Transform initalLaserTransform;
     private CapsuleCollider laserCollider;
     private Vector3 currentLaserDirection;
 
@@ -31,7 +31,7 @@ public class Laser : MonoBehaviour
         laserCollider.isTrigger = true;
         laserCollider.direction = 2;
         laserCollider.enabled = false;
-
+        initalLaserTransform = transform;
         if (activationParticles != null)
         {
             activationParticles.Stop();
@@ -68,10 +68,15 @@ public class Laser : MonoBehaviour
         if (Physics.Raycast(laserStart, currentLaserDirection, out hit, laserMaxDistance, collisionLayers))
         {
             laserEnd = hit.point;
+            activationParticles.transform.position = hit.point;
+            activationParticles.Play();
+
         }
         else
         {
             laserEnd = laserStart + currentLaserDirection * laserMaxDistance;
+            activationParticles.Stop();
+
         }
 
         laserEnd.z = 0.5f;
@@ -110,6 +115,7 @@ public class Laser : MonoBehaviour
             if (activationParticles != null)
             {
                 activationParticles.Stop();
+                activationParticles.transform.position = initalLaserTransform.position;
             }
 
             yield return new WaitForSeconds(3f); 
@@ -123,12 +129,6 @@ public class Laser : MonoBehaviour
 
             laserRenderer.enabled = true;
             laserCollider.enabled = true;
-
-            if (activationParticles != null)
-            {
-                activationParticles.Play(); 
-            }
-
             yield return new WaitForSeconds(3f); 
         }
     }
