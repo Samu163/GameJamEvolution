@@ -43,7 +43,7 @@ public abstract class Obstacle : MonoBehaviour
             return false;
         }
     }
-    public abstract List<Vector2Int> SpawnPreference(List<Vector2Int> validPositions, GridSystem.Cell[,] grid);
+    public abstract List<Vector2Int> SpawnPreference(List<Vector2Int> validPositions, GridSystem.Cell[,] grid, Vector2 groupSize);
 
 }
 

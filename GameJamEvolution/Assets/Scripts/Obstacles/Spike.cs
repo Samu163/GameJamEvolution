@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spike : Obstacle
 {
-    public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid)
+    public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid,Vector2 groupSize)
     {
         List<Vector2Int> possiblePositions = new List<Vector2Int>();
 
@@ -15,7 +15,7 @@ public class Spike : Obstacle
         {
             bool isValid = true;
 
-            for (int i = 0; i < size.x; i++)
+            for (int i = 0; i < groupSize.x; i++)
             {
                 int checkX = position.x + i;
 

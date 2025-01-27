@@ -48,7 +48,7 @@ public class Closet : Obstacle
         }
     }
 
-    public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid)
+    public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
     {
         List<Vector2Int> possiblePositions = new List<Vector2Int>();
 

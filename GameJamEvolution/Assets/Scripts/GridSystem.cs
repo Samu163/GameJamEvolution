@@ -105,7 +105,7 @@ public class GridSystem : MonoBehaviour
     {
         List<Vector2Int> validPositions = GetValidPositions(size);
 
-        validPositions = obstacle.SpawnPreference(validPositions, grid);
+        validPositions = obstacle.SpawnPreference(validPositions, grid, size);
 
         if (validPositions.Count > 0)
         {
