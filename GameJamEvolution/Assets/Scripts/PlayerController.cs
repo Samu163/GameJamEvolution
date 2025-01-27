@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
-        animator = GetComponent<Animator>();
+       // animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -59,19 +59,28 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Z))
         {
-            animator.SetBool("isWalking", true);
+            animator.SetBool("isRunning", true);
             currentMovSpeed = movSpeedRunning;
           
         }
         else
         {
+            animator.SetBool("isRunning", false);
             currentMovSpeed = movSpeed;
      
         }
 
         movHorizontal = Input.GetAxisRaw("Horizontal") * currentMovSpeed;
 
-        
+        if (movHorizontal != 0 && !Input.GetKey(KeyCode.Z))
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -80,6 +89,7 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
             canFreeze = false;
             rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+            animator.SetTrigger("Jump");
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
@@ -94,8 +104,11 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         isGrounded = Physics.CheckBox(groundCheck.position, boxSize, Quaternion.identity, groundLayer);
+        animator.SetBool("isGrounded", isGrounded);
         isTouchingWall = Physics.CheckBox(wallCheck.position, boxSizeWall, Quaternion.identity, wallLayer);
 
+        bool isWallHanging = isTouchingWall && !isGrounded;
+        animator.SetBool("isWallHanging", isWallHanging);
         if (isGrounded)
         {
             canWallJump = true;
@@ -190,7 +203,11 @@ public class PlayerController : MonoBehaviour
 
         if (collision.collider.CompareTag("Ground"))
         {
+            animator.SetBool("isWallHanging", false);
             isJumping = false;
+            animator.SetBool("isJumping", false);
+
+            animator.SetBool("canJump", true);
         }
     }
 
