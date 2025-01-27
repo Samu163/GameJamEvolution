@@ -42,24 +42,31 @@ public class PlayerController : MonoBehaviour
     private int freezeTimerCounter = 0;
     private bool canFreeze = false;
 
+    [SerializeField] private  Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
 
         if (Input.GetKey(KeyCode.Z))
         {
+            animator.SetBool("isWalking", true);
             currentMovSpeed = movSpeedRunning;
+          
         }
         else
         {
             currentMovSpeed = movSpeed;
+     
         }
 
         movHorizontal = Input.GetAxisRaw("Horizontal") * currentMovSpeed;
@@ -79,8 +86,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
         }
-    }
 
+       
+       
+    }
+    
     private void FixedUpdate()
     {
         isGrounded = Physics.CheckBox(groundCheck.position, boxSize, Quaternion.identity, groundLayer);
