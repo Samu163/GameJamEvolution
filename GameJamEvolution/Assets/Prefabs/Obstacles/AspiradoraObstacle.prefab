@@ -70,7 +70,6 @@ MonoBehaviour:
   size: {x: 1, y: 3}
   gridPos: {x: 0, y: 0}
   cellType: 1
-  id: 0
   groupObstacle: 0
   isFallingPlatform: 0
   type: 6
@@ -91,9 +90,9 @@ GameObject:
   - component: {fileID: 6045616461848722112}
   - component: {fileID: 7778862639271048632}
   - component: {fileID: 6019250761848907046}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AspiradoraCube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
