@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject canvasForInstantiations;
     public NavigationController navigationController;
     public bool isPaused = false;
+    public int sceneID;
 
     private SaveSystem saveSystem;
     public bool isLoadingGame = false;

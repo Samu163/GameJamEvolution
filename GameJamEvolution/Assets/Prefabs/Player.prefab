@@ -161,7 +161,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  boxSize: {x: 1, y: 0.25, z: 1}
+  boxSize: {x: 0.75, y: 0.25, z: 1}
   isGrounded: 0
   wallJumpForce: 8
   wallCheck: {fileID: 4054165917273520904}

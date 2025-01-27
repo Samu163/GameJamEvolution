@@ -51,8 +51,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.11076528, y: 1, z: 1}
-  m_Center: {x: -0.44461736, y: 0, z: 0}
+  m_Size: {x: 0.10698131, y: 0.49673128, z: 1}
+  m_Center: {x: -0.44272536, y: -0.0018919706, z: 0}
 --- !u!1 &2384102848530501694
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8596355443726900502}
   - component: {fileID: 1987853234621898512}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GroundCollider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,8 +104,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7767453, y: 0.24698853, z: 1}
-  m_Center: {x: 0.0018919557, y: 0.37650573, z: 0}
+  m_Size: {x: 0.99243206, y: 0.24698853, z: 1}
+  m_Center: {x: -0.000000029802322, y: 0.37650573, z: 0}
 --- !u!1 &3963718795097781370
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 954671385545155460}
   m_Layer: 6
   m_Name: GroundCollider
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,8 +157,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7767453, y: 0.24698853, z: 1}
-  m_Center: {x: 0.0018919557, y: 0.37650573, z: 0}
+  m_Size: {x: 0.99243206, y: 0.24698853, z: 1}
+  m_Center: {x: -0.000000029802322, y: 0.37650573, z: 0}
 --- !u!1 &4251044674466460813
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,8 +210,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.11076528, y: 1, z: 1}
-  m_Center: {x: -0.44461736, y: 0, z: 0}
+  m_Size: {x: 0.10698134, y: 0.5042988, z: 1}
+  m_Center: {x: -0.4427254, y: -0.001891911, z: 0}
 --- !u!1 &6020530462624139287
 GameObject:
   m_ObjectHideFlags: 0

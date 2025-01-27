@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static SaveData;
 
 public class LevelManager : MonoBehaviour
 {
@@ -66,6 +67,8 @@ public class LevelManager : MonoBehaviour
             LoadProgress();
             GameManager.Instance.isLoadingGame = false;
         }
+
+        CreateLevel(GameManager.Instance.sceneID);
     }
 
     public void LoadProgress()
@@ -256,6 +259,65 @@ public class LevelManager : MonoBehaviour
 
         saveSystem.Save(saveData);
         Debug.Log("Progress Saved");
+    }
+
+   public void CreateLevel(int sceneID)
+    {
+        switch(sceneID)
+        {
+            case 0:
+                break;
+            case 1:
+                for (int x = 0; x < 5; x++)
+                {
+                    for (int y = 0; y < 2; y++)
+                    {
+                        var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
+                        ground.size = new Vector2Int(1, 1);
+                        ground.gridPos = new Vector2Int(20 + x, 2 + y);
+                        ground.cellType = GridSystem.CellType.Ground;
+                        ground.isFallingPlatform = false;
+                        ground.type = Obstacle.ObstacleType.Ground;
+                        Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
+                        ground.transform.position = worldPositionGround;
+                        gridSystem.GetGrid()[20 + x, 2 + y].isOcupied = true;
+                    }
+                }
+
+                for (int x = 0; x < 5; x++)
+                {
+                    for (int y = 0; y < 2; y++)
+                    {
+                        var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
+                        ground.size = new Vector2Int(1, 1);
+                        ground.gridPos = new Vector2Int(35 + x, 7 + y);
+                        ground.cellType = GridSystem.CellType.Ground;
+                        ground.isFallingPlatform = false;
+                        ground.type = Obstacle.ObstacleType.Ground;
+                        Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
+                        ground.transform.position = worldPositionGround;
+                        gridSystem.GetGrid()[35 + x, 7 + y].isOcupied = true;
+                    }
+                }
+                break;
+            case 2:
+                for (int x = 0; x < 7; x++)
+                {
+                    for (int y = 0; y < 5; y++)
+                    {
+                        var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
+                        ground.size = new Vector2Int(1, 1);
+                        ground.gridPos = new Vector2Int(32 + x, 0 + y);
+                        ground.cellType = GridSystem.CellType.Ground;
+                        ground.isFallingPlatform = false;
+                        ground.type = Obstacle.ObstacleType.Ground;
+                        Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
+                        ground.transform.position = worldPositionGround;
+                        gridSystem.GetGrid()[32 + x, 0 + y].isOcupied = true;
+                    }
+                }
+                break;
+        }
     }
 
     private int currentLevelIndex { get; set; } = 0;

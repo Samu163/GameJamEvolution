@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isTouchingWall;
     [SerializeField] private bool canWallJump = true;
     private bool wallJump = false;
+    private bool isWallJumping = false;
 
     [Header("Player Death")]
     [SerializeField] private Vector3 startPosition;
@@ -56,11 +57,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (rb.velocity.y > 0.2) {
-            animator.SetBool("isJumping", true);
-
-        }
-        else if (rb.velocity.y < 0)
+        if (rb.velocity.y < 0)
         {
             animator.SetBool("isJumping", false);
         }
@@ -115,20 +112,19 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isJumping", false);
         }
     
-        if (isGrounded)
-        {
-            canWallJump = true;
+        //if (isGrounded)
+        //{
 
-            if (!canFreeze)
-            {
-                freezeTimerCounter++;
-                if (freezeTimerCounter >= freezeTimer)
-                {
-                    canFreeze = true;
-                    freezeTimerCounter = 0;
-                }
-            }
-        }
+        //    if (!canFreeze)
+        //    {
+        //        freezeTimerCounter++;
+        //        if (freezeTimerCounter >= freezeTimer)
+        //        {
+        //            canFreeze = true;
+        //            freezeTimerCounter = 0;
+        //        }
+        //    }
+        //}
 
         if (isGrounded && !isJumping && canFreeze)
         {
@@ -168,14 +164,14 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
-        if (wallJumping && isTouchingWall && !isGrounded && canWallJump)
+        if (wallJumping && isTouchingWall && !isGrounded && canWallJump && !isWallJumping)
         {
             rb.velocity = Vector3.zero;
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isTouchingWall = false;
             canWallJump = false;
-          
-                animator.SetBool("isWallJumping", true);
+            isWallJumping = true;
+            animator.SetBool("isWallJumping", true);
             
         }
 
@@ -183,6 +179,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+            animator.SetBool("isJumping", true);
             animator.SetBool("isWallJumping", false);
         }
 
@@ -222,7 +219,8 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isWallHanging", false);
             isJumping = false;
-        
+            isWallJumping = false;
+            canWallJump = true;
             animator.SetBool("canJump", true);
         }
     }
@@ -257,6 +255,19 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("SlideGround"))
         {
             smoothTime = 1f;
+        }
+
+        if (collision.collider.CompareTag("Ground"))
+        {
+            if (!canFreeze && !isWallJumping && !isJumping && !isTouchingWall)
+            {
+                freezeTimerCounter++;
+                if (freezeTimerCounter >= freezeTimer)
+                {
+                    canFreeze = true;
+                    freezeTimerCounter = 0;
+                }
+            }
         }
     }
 
