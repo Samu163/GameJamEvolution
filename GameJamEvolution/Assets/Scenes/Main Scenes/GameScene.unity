@@ -2294,6 +2294,25 @@ MonoBehaviour:
   levelTimer: {fileID: 134200614}
   levelCount: 0
   dissolveManager: {fileID: 394597358}
+  destroyManager: {fileID: 1087516657}
+  groundPrefab: {fileID: 4310189401775640786, guid: 2c9dc1fbc5c5b5049aac45836a5e7f89,
+    type: 3}
+  slidingGroundPrefab: {fileID: 2947842567265207523, guid: 769c5f4457f48754eba2bae2670d6e58,
+    type: 3}
+  fallingPlatformPrefab: {fileID: 6881112976167588229, guid: 7740f2882b210bb42a0addc7d06f4e76,
+    type: 3}
+  lampPrefab: {fileID: 6423056315464613539, guid: eedb571128f56dc4a8e86290bd38bc26,
+    type: 3}
+  closetPrefab: {fileID: 3381395633585263571, guid: 859759435af849f4c97f8eb6a27ea891,
+    type: 3}
+  cuadroPrefab: {fileID: 8347641757536389989, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
+    type: 3}
+  aspiradoraPrefab: {fileID: 3042129722833130356, guid: b65b3bfd28d99ba4f9f02be546583123,
+    type: 3}
+  clockPrefab: {fileID: 2994787091901498638, guid: 169b4dbb36b3f3845801c6d168a9b807,
+    type: 3}
+  spikePrefab: {fileID: 6481237936788584447, guid: fdaf98edd5657a64ba47a7c22639e032,
+    type: 3}
 --- !u!4 &178883093
 Transform:
   m_ObjectHideFlags: 0
