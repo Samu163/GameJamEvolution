@@ -8,57 +8,128 @@ public class Laser : MonoBehaviour
     private Transform player;
     public float rotationSpeed = 2f;
 
-    [Header("Projectile Settings")]
-    public GameObject projectilePrefab; // Prefab del proyectil
-    public float projectileSpeed = 10f; // Velocidad del proyectil
-    public float fireRate = 1f; // Intervalo de disparo en segundos
+    [Header("Laser Settings")]
+    public LineRenderer laserRenderer;
+    public float laserMaxDistance = 20f;
 
-    private Vector3 currentDirection;
-    private float nextFireTime;
+    [Header("Collision Settings")]
+    public LayerMask collisionLayers;
+
+    [Header("Particle Settings")]
+    public ParticleSystem activationParticles;
+
+    private CapsuleCollider laserCollider;
+    private Vector3 currentLaserDirection;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        currentDirection = transform.forward;
+        currentLaserDirection = transform.forward;
+
+        laserRenderer.enabled = false;
+        laserCollider = gameObject.AddComponent<CapsuleCollider>();
+        laserCollider.isTrigger = true;
+        laserCollider.direction = 2;
+        laserCollider.enabled = false;
+
+        if (activationParticles != null)
+        {
+            activationParticles.Stop();
+        }
+
+        StartCoroutine(LaserCycle());
     }
 
     private void Update()
     {
-        if (player != null)
+        UpdateLaserDirection();
+        if (player != null && laserRenderer.enabled)
         {
-            UpdateDirection();
 
-            if (Time.time >= nextFireTime)
-            {
-                FireProjectile();
-                nextFireTime = Time.time + fireRate;
-            }
+            FireLaser();
         }
     }
 
-    private void UpdateDirection()
+    private void UpdateLaserDirection()
     {
         Vector3 targetDirection = (player.position - transform.position).normalized;
-        currentDirection = Vector3.Slerp(currentDirection, targetDirection, rotationSpeed * Time.deltaTime).normalized;
+        currentLaserDirection = Vector3.Slerp(currentLaserDirection, targetDirection, rotationSpeed * Time.deltaTime).normalized;
+        transform.rotation = Quaternion.LookRotation(currentLaserDirection);
     }
 
-    private void FireProjectile()
+    private void FireLaser()
     {
-        if (projectilePrefab == null) return;
+        if (laserRenderer == null || laserCollider == null) return;
 
-        // Calcular la dirección precisa hacia el jugador
-        Vector3 directionToPlayer = (player.position - transform.position).normalized;
+        Vector3 laserStart = transform.position;
+        RaycastHit hit;
+        Vector3 laserEnd;
 
-        // Instanciar el proyectil
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.LookRotation(directionToPlayer));
-
-        // Configurar el Rigidbody del proyectil
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (Physics.Raycast(laserStart, currentLaserDirection, out hit, laserMaxDistance, collisionLayers))
         {
-            rb.velocity = directionToPlayer * projectileSpeed;
-            rb.useGravity = false; // Asegurar que la gravedad está desactivada
+            laserEnd = hit.point;
+        }
+        else
+        {
+            laserEnd = laserStart + currentLaserDirection * laserMaxDistance;
+        }
+
+        laserEnd.z = 0.5f;
+        laserRenderer.SetPosition(0, laserStart);
+        laserRenderer.SetPosition(1, laserEnd);
+
+        UpdateLaserCollider(laserStart, laserEnd);
+    }
+
+    private void UpdateLaserCollider(Vector3 start, Vector3 end)
+    {
+        Vector3 center = (start + end) / 2;
+        float length = Vector3.Distance(start, end);
+
+        laserCollider.center = transform.InverseTransformPoint(center);
+        laserCollider.height = length;
+        laserCollider.radius = 0.1f;
+        laserCollider.transform.rotation = Quaternion.LookRotation(end - start);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerController>().RespawnPlayer();
         }
     }
 
+    private IEnumerator LaserCycle()
+    {
+        while (true)
+        {
+            laserRenderer.enabled = false;
+            laserCollider.enabled = false;
+
+            if (activationParticles != null)
+            {
+                activationParticles.Stop();
+            }
+
+            yield return new WaitForSeconds(3f); 
+
+            if (activationParticles != null)
+            {
+                activationParticles.Play();
+            }
+
+            yield return new WaitForSeconds(2f); 
+
+            laserRenderer.enabled = true;
+            laserCollider.enabled = true;
+
+            if (activationParticles != null)
+            {
+                activationParticles.Play(); 
+            }
+
+            yield return new WaitForSeconds(3f); 
+        }
+    }
 }
