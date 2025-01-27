@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Z))
         {
-            animator.SetBool("isRunning", true);
+           
             currentMovSpeed = movSpeedRunning;
           
         }
@@ -72,6 +72,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRunning", false);
             currentMovSpeed = movSpeed;
      
+        }
+
+        if (Input.GetKey(KeyCode.Z) && !isJumping && isGrounded && !isTouchingWall)
+        {
+            animator.SetBool("isRunning", true);
         }
 
         movHorizontal = Input.GetAxisRaw("Horizontal") * currentMovSpeed;
@@ -112,27 +117,14 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isJumping", false);
         }
     
-        //if (isGrounded)
-        //{
-
-        //    if (!canFreeze)
-        //    {
-        //        freezeTimerCounter++;
-        //        if (freezeTimerCounter >= freezeTimer)
-        //        {
-        //            canFreeze = true;
-        //            freezeTimerCounter = 0;
-        //        }
-        //    }
-        //}
-
+        
         if (isGrounded && !isJumping && canFreeze)
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+            rb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
         }
         else
         {
-            rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+            rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
         }
 
     }
@@ -241,7 +233,7 @@ public class PlayerController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
 
         rb.useGravity = true;
-        rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+        rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
 
         isJumping = false;
 
@@ -276,6 +268,18 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("SlideGround"))
         {
             smoothTime = 0.3f;
+        }
+
+        if (collision.collider.CompareTag("Ground"))
+        {
+            canFreeze = false;
+            freezeTimerCounter = 0;
+            animator.SetBool("isWallHanging", false);
+        }
+
+        if (collision.collider.CompareTag("Wall"))
+        {
+            animator.SetBool("isWallHanging", false);
         }
     }
 }

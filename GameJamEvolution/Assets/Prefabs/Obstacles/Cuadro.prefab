@@ -131,7 +131,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3069649780944693827, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
     type: 3}
   projectileSpeed: 20
-  fireRate: 1
+  fireRate: 3
 --- !u!1 &5151481124747852531
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,4 +183,5 @@ MonoBehaviour:
   cellType: 4
   groupObstacle: 0
   isFallingPlatform: 0
+  isLaser: 0
   type: 5

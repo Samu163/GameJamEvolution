@@ -33,6 +33,7 @@ public class SaveData
         public GridSystem.CellType cellType;
         public Obstacle.ObstacleType type;
         public bool isFallingPlatform;
+        public bool isLaser;
     }
 }
 

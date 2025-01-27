@@ -9733,6 +9733,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CuadroLaser
       objectReference: {fileID: 0}
+    - target: {fileID: 8347641757536389989, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
+        type: 3}
+      propertyPath: isLaser
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2686673414265349438, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b, type: 3}
     m_RemovedGameObjects: []
