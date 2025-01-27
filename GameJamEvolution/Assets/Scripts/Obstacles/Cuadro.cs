@@ -10,7 +10,8 @@ public class Cuadro : Obstacle
 
         int gridWidth = grid.GetLength(0);
         int gridHeight = grid.GetLength(1);
-
+        int minX = 15;
+        int maxX = 27;
         int occupiedPaintingCount = 0;
 
         for (int x = 0; x < gridWidth; x++)
@@ -39,12 +40,11 @@ public class Cuadro : Obstacle
                 continue;
             }
 
-            if (position.x < 20)
+            if (position.x < minX || position.x > maxX)
             {
                 isValid = false;
                 continue;
             }
-
             for (int offsetX = -5; offsetX <= 5; offsetX++)
             {
                 for (int offsetY = -5; offsetY <= 5; offsetY++)

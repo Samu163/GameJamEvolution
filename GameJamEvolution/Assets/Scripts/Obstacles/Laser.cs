@@ -5,7 +5,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     [Header("Settings")]
-    private Transform player;
+    private Vector3 targetPosition;
     public float rotationSpeed = 2f;
 
     [Header("Laser Settings")]
@@ -17,44 +17,38 @@ public class Laser : MonoBehaviour
 
     [Header("Particle Settings")]
     public ParticleSystem activationParticles;
-    private Transform initalLaserTransform;
+    public ParticleSystem collisionParticles;
+
     private CapsuleCollider laserCollider;
     private Vector3 currentLaserDirection;
+    private Vector3 particleStartPosition;
+    private float currentLaserOpacity = 0f;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        currentLaserDirection = transform.forward;
-
         laserRenderer.enabled = false;
         laserCollider = gameObject.AddComponent<CapsuleCollider>();
         laserCollider.isTrigger = true;
         laserCollider.direction = 2;
         laserCollider.enabled = false;
-        initalLaserTransform = transform;
+
+        particleStartPosition = activationParticles.transform.position;
+
         if (activationParticles != null)
-        {
             activationParticles.Stop();
-        }
+
+        if (collisionParticles != null)
+            collisionParticles.Stop();
 
         StartCoroutine(LaserCycle());
     }
 
     private void Update()
     {
-        UpdateLaserDirection();
-        if (player != null && laserRenderer.enabled)
+        if (laserRenderer.enabled)
         {
-
             FireLaser();
         }
-    }
-
-    private void UpdateLaserDirection()
-    {
-        Vector3 targetDirection = (player.position - transform.position).normalized;
-        currentLaserDirection = Vector3.Slerp(currentLaserDirection, targetDirection, rotationSpeed * Time.deltaTime).normalized;
-        transform.rotation = Quaternion.LookRotation(currentLaserDirection);
     }
 
     private void FireLaser()
@@ -68,18 +62,29 @@ public class Laser : MonoBehaviour
         if (Physics.Raycast(laserStart, currentLaserDirection, out hit, laserMaxDistance, collisionLayers))
         {
             laserEnd = hit.point;
-            activationParticles.transform.position = hit.point;
-            activationParticles.Play();
 
+            if (currentLaserOpacity == 1f && collisionParticles != null)
+            {
+                collisionParticles.transform.position = hit.point;
+                if (!collisionParticles.isPlaying)
+                    collisionParticles.Play();
+            }
         }
         else
         {
             laserEnd = laserStart + currentLaserDirection * laserMaxDistance;
-            activationParticles.Stop();
 
+            if (collisionParticles != null && collisionParticles.isPlaying)
+                collisionParticles.Stop();
         }
 
-        laserEnd.z = 0.5f;
+        if (currentLaserOpacity == 1f && activationParticles != null)
+        {
+            activationParticles.transform.position = particleStartPosition;
+            if (!activationParticles.isPlaying)
+                activationParticles.Play();
+        }
+
         laserRenderer.SetPosition(0, laserStart);
         laserRenderer.SetPosition(1, laserEnd);
 
@@ -113,23 +118,59 @@ public class Laser : MonoBehaviour
             laserCollider.enabled = false;
 
             if (activationParticles != null)
-            {
                 activationParticles.Stop();
-                activationParticles.transform.position = initalLaserTransform.position;
+
+            if (collisionParticles != null)
+                collisionParticles.Stop();
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                targetPosition = player.transform.position;
+                currentLaserDirection = (targetPosition - transform.position).normalized;
+                transform.rotation = Quaternion.LookRotation(currentLaserDirection);
             }
 
-            yield return new WaitForSeconds(3f); 
+            yield return new WaitForSeconds(1f);
 
             if (activationParticles != null)
             {
+                activationParticles.transform.position = particleStartPosition;
                 activationParticles.Play();
             }
 
-            yield return new WaitForSeconds(2f); 
-
             laserRenderer.enabled = true;
+            SetLaserOpacity(0.2f);
+            yield return new WaitForSeconds(1f);
+
+            SetLaserOpacity(1f);
             laserCollider.enabled = true;
-            yield return new WaitForSeconds(3f); 
+
+            yield return new WaitForSeconds(2f);
+
+            if (activationParticles != null)
+                activationParticles.Stop();
+        }
+    }
+
+    private void SetLaserOpacity(float opacity)
+    {
+        currentLaserOpacity = opacity;
+
+        if (laserRenderer != null)
+        {
+           
+            Gradient gradient = laserRenderer.colorGradient;
+            GradientColorKey[] colorKeys = gradient.colorKeys;
+            GradientAlphaKey[] alphaKeys = new GradientAlphaKey[colorKeys.Length];
+
+            for (int i = 0; i < colorKeys.Length; i++)
+            {
+                alphaKeys[i] = new GradientAlphaKey(opacity, colorKeys[i].time);
+            }
+
+            gradient.alphaKeys = alphaKeys;
+            laserRenderer.colorGradient = gradient;
         }
     }
 }
