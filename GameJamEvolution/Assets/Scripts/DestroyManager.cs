@@ -61,7 +61,7 @@ public class DestroyManager : MonoBehaviour
         rechargeBar.value = Mathf.Lerp(rechargeValue / 5, rechargeBar.value, Time.deltaTime);
 
         mouseScreenPos = Input.mousePosition;
-        mouseScreenPos.z = 55;
+        mouseScreenPos.z = 40;
 
         if (destroyMode)
         {
