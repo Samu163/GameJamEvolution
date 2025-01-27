@@ -213,7 +213,6 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   gridPos: {x: 0, y: 0}
   cellType: 1
-  id: 0
   groupObstacle: 1
   isFallingPlatform: 1
   type: 2

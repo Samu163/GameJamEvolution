@@ -97,18 +97,13 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
         }
 
-       
-       
-    }
-    
-    private void FixedUpdate()
-    {
         isGrounded = Physics.CheckBox(groundCheck.position, boxSize, Quaternion.identity, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
         isTouchingWall = Physics.CheckBox(wallCheck.position, boxSizeWall, Quaternion.identity, wallLayer);
 
         bool isWallHanging = isTouchingWall && !isGrounded;
         animator.SetBool("isWallHanging", isWallHanging);
+
         if (isGrounded)
         {
             canWallJump = true;
@@ -132,6 +127,13 @@ public class PlayerController : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         }
+
+    }
+    
+    private void FixedUpdate()
+    {
+        
+        
 
         MovePlayer(movHorizontal * Time.fixedDeltaTime, jump, wallJump);
 
