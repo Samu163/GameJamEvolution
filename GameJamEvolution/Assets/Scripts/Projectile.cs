@@ -5,26 +5,37 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [Header("Settings")]
-    public float lifetime = 5f; // Tiempo de vida del proyectil antes de destruirse automáticamente
+    public float lifetime = 5f;
 
     private void Start()
     {
-        // Destruir el proyectil después de un tiempo, por seguridad
         Destroy(gameObject, lifetime);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Verificar si el objeto impactado tiene la capa Ground
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            Destroy(gameObject); // Destruir el proyectil
+            Destroy(gameObject);
         }
-
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            Destroy(gameObject); 
+        }
+        if (collision.gameObject.CompareTag("Player"))
         {
             
-            Destroy(gameObject); // Destruir el proyectil
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Death"))
+        {
+
+            Destroy(gameObject); 
+        }
+        if (collision.gameObject.CompareTag(""))
+        {
+
+            Destroy(gameObject); 
         }
     }
 }
