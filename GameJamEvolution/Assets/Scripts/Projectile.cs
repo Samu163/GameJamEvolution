@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     [Header("Settings")]
     public float lifetime = 5f;
 
+
     private void Start()
     {
         Destroy(gameObject, lifetime);

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 5
-  projectilePrefab: {fileID: 2258415465135027059, guid: 89eac1a9af5522c4693b663ad94a1ef5,
+  projectilePrefab: {fileID: 3069649780944693827, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
     type: 3}
   projectileSpeed: 20
   fireRate: 2
@@ -286,7 +286,6 @@ MonoBehaviour:
   size: {x: 2, y: 2}
   gridPos: {x: 0, y: 0}
   cellType: 4
-  id: 0
   groupObstacle: 0
   isFallingPlatform: 0
   type: 5
