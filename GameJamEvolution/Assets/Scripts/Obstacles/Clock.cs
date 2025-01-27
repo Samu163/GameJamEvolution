@@ -55,7 +55,7 @@ public class Clock : Obstacle
     {
         if (attackCollider.radius < attackMaxRadius)
         {
-            clockAttack.transform.localScale += new Vector3(radiusAugmentation / 5 * 2, radiusAugmentation / 5 * 2, radiusAugmentation / 5 * 2);
+            clockAttack.transform.localScale += new Vector3(radiusAugmentation / 3 * 1.19f, radiusAugmentation / 3 * 1.19f, radiusAugmentation / 3 * 1.19f);
             attackCollider.radius += radiusAugmentation;
         }
     }

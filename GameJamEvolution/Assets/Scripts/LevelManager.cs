@@ -274,29 +274,33 @@ public class LevelManager : MonoBehaviour
                     {
                         var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
                         ground.size = new Vector2Int(1, 1);
-                        ground.gridPos = new Vector2Int(20 + x, 2 + y);
+                        ground.gridPos = new Vector2Int(12 + x, 2 + y);
                         ground.cellType = GridSystem.CellType.Ground;
                         ground.isFallingPlatform = false;
                         ground.type = Obstacle.ObstacleType.Ground;
                         Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
                         ground.transform.position = worldPositionGround;
-                        gridSystem.GetGrid()[20 + x, 2 + y].isOcupied = true;
+                        gridSystem.GetGrid()[12 + x, 2 + y].isOcupied = true;
+                        gridSystem.GetGrid()[12 + x, 2 + y].type = GridSystem.CellType.Ground;
+                        obstaclesOnCurrentLevel.Add(ground);
                     }
                 }
 
-                for (int x = 0; x < 5; x++)
+                for (int x = 0; x < 3; x++)
                 {
-                    for (int y = 0; y < 2; y++)
+                    for (int y = 0; y < 1; y++)
                     {
                         var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
                         ground.size = new Vector2Int(1, 1);
-                        ground.gridPos = new Vector2Int(35 + x, 7 + y);
+                        ground.gridPos = new Vector2Int(25 + x, 7 + y);
                         ground.cellType = GridSystem.CellType.Ground;
                         ground.isFallingPlatform = false;
                         ground.type = Obstacle.ObstacleType.Ground;
                         Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
                         ground.transform.position = worldPositionGround;
-                        gridSystem.GetGrid()[35 + x, 7 + y].isOcupied = true;
+                        gridSystem.GetGrid()[25 + x, 7 + y].isOcupied = true;
+                        gridSystem.GetGrid()[25 + x, 7 + y].type = GridSystem.CellType.Ground;
+                        obstaclesOnCurrentLevel.Add(ground);
                     }
                 }
                 break;
@@ -307,13 +311,15 @@ public class LevelManager : MonoBehaviour
                     {
                         var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
                         ground.size = new Vector2Int(1, 1);
-                        ground.gridPos = new Vector2Int(32 + x, 0 + y);
+                        ground.gridPos = new Vector2Int(20 + x, 0 + y);
                         ground.cellType = GridSystem.CellType.Ground;
                         ground.isFallingPlatform = false;
                         ground.type = Obstacle.ObstacleType.Ground;
                         Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
                         ground.transform.position = worldPositionGround;
-                        gridSystem.GetGrid()[32 + x, 0 + y].isOcupied = true;
+                        gridSystem.GetGrid()[20 + x, 0 + y].isOcupied = true;
+                        gridSystem.GetGrid()[20 + x, 0 + y].type = GridSystem.CellType.Ground;
+                        obstaclesOnCurrentLevel.Add(ground);
                     }
                 }
                 break;

@@ -364,7 +364,7 @@ MonoBehaviour:
   canvasForInstantiations: {fileID: 346951364}
   navigationController: {fileID: 1573352210}
   isPaused: 0
-  sceneID: 2
+  sceneID: 1
   isLoadingGame: 0
 --- !u!1 &1025218841
 GameObject:
