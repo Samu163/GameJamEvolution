@@ -41,10 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3395254300127332269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e67d16a1c6f79f64b8bff185dd9cc2d3, type: 3}
+  m_Script: {fileID: 11500000, guid: e04c1c69a437b8b42a5a8163e1c36d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundGroups:
-  - {fileID: 11400000, guid: c93c0ba1644078e42be09770afd29424, type: 2}
-  - {fileID: 11400000, guid: e2a0c6bf35e708d4e898ff6e7f181749, type: 2}
-  crossFadeDuration: 0
+  soundGroups: []
+  crossFadeDuration: 0.5
