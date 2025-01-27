@@ -167,6 +167,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.14332438, y: 0.7595887, z: 1}
   m_Center: {x: -0.4283378, y: -0.12020564, z: 0}
+--- !u!1 &3296490191821087861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 105620657484791515}
+  - component: {fileID: 7110962968301698486}
+  m_Layer: 0
+  m_Name: Collider de abajo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &105620657484791515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296490191821087861}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6065920471779761042}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7110962968301698486
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296490191821087861}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.18057156, z: 1}
+  m_Center: {x: 0, y: -0.40971422, z: 0}
 --- !u!1 &4342278222237118130
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +256,7 @@ Transform:
   - {fileID: 1818471118231152073}
   - {fileID: 6882317761014080373}
   - {fileID: 5106273857363722951}
+  - {fileID: 105620657484791515}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7396018390453248978
@@ -270,6 +324,7 @@ MonoBehaviour:
   cellType: 1
   groupObstacle: 1
   isFallingPlatform: 1
+  isLaser: 0
   type: 2
   fallDelay: 3
   destroyDelay: 1

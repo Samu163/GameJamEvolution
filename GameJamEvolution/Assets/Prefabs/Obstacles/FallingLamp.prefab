@@ -133,7 +133,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2, y: 1.0160904, z: 1}
-  m_Center: {x: 1, y: 0.4919548, z: 0}
+  m_Center: {x: 1, y: 0.5, z: 0.5}
 --- !u!54 &4399565969556536355
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -176,9 +176,9 @@ MonoBehaviour:
   size: {x: 2, y: 1}
   gridPos: {x: 0, y: 0}
   cellType: 3
-  id: 0
   groupObstacle: 0
   isFallingPlatform: 0
+  isLaser: 0
   type: 3
   fallDelay: 0
   respawnDelay: 3
@@ -239,8 +239,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.7136683, y: 1, z: 1}
-  m_Center: {x: 0.00000023841858, y: 0, z: 0}
+  m_Size: {x: 1.7136683, y: 0.65103203, z: 1}
+  m_Center: {x: 0.00000023841858, y: 0.17448398, z: 0}
 --- !u!1 &7635640161849108028
 GameObject:
   m_ObjectHideFlags: 0

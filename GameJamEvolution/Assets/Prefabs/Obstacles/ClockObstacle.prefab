@@ -212,7 +212,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1728
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -272,6 +272,7 @@ MonoBehaviour:
   cellType: 2
   groupObstacle: 0
   isFallingPlatform: 0
+  isLaser: 0
   type: 7
   attackTime: 2
   attackMaxRadius: 3
