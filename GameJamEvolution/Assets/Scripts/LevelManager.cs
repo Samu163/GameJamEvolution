@@ -451,7 +451,8 @@ public class LevelManager : MonoBehaviour
     public void FinishLevel()
     {
         levelFinisher.EnableCollider(false);
-        cameraTweening.DOCameraAnimation(onLevelFinished);    
+        cameraTweening.DOCameraAnimation(onLevelFinished);
+        GameManager.Instance.UpdatePlayerScore(levelCount);
     }
     private void InitLevel()
     {
