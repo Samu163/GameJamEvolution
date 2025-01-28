@@ -97,6 +97,7 @@ public class LevelManager : MonoBehaviour
         levelTimer.timeRemaining = saveData.timeRemaining;
         destroyManager.rechargeValue = saveData.destroyCharge;
         levelCount = saveData.levelCount;
+        GameManager.Instance.sceneID = saveData.sceneID;
 
         for (int i = 0; i < gridSystem.gridWidth; i++)
         {
@@ -250,6 +251,7 @@ public class LevelManager : MonoBehaviour
         saveData.timeRemaining = levelTimer.timeRemaining;
         saveData.destroyCharge = destroyManager.rechargeValue;
         saveData.levelCount = levelCount;
+        saveData.sceneID = GameManager.Instance.sceneID;
 
         for (int i = 0; i < obstaclesOnCurrentLevel.Count; i++)
         {
