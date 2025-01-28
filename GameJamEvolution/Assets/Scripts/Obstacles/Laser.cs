@@ -106,7 +106,10 @@ public class Laser : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().RespawnPlayer();
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.ActivateRespawnEffects();
+            }
         }
     }
 
