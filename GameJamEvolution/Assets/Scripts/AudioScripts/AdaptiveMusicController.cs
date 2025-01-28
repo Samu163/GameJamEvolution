@@ -175,7 +175,7 @@ public class AdaptiveMusicController : MonoBehaviour
         }
 
         // If this is a gameplay scene, also apply level rules
-        if (sceneConfig.sceneName.Contains("Level") || sceneConfig.sceneName.Contains("Game"))
+        if (sceneConfig.sceneName.StartsWith("GameScene"))
         {
             UpdateLayersForCurrentLevel();
         }
