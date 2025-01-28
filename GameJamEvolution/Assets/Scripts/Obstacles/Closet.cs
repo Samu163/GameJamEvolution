@@ -85,6 +85,12 @@ public class Closet : Obstacle
                     break;
                 }
 
+                if (position.y > 0 && grid[checkX, position.y - 1].type == GridSystem.CellType.FallingGround)
+                {
+                    isValid = false;
+                    break;
+                }
+
                 int leftX = position.x - 1;
                 int rightX = position.x + 1;
 

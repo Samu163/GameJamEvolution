@@ -322,7 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 1, y: 1}
   gridPos: {x: 0, y: 0}
-  cellType: 1
+  cellType: 2
   groupObstacle: 1
   isFallingPlatform: 1
   isLaser: 0

@@ -80,6 +80,12 @@ public class Aspiradora : Obstacle
                     break;
                 }
 
+                if (position.y > 0 && grid[checkX, position.y - 1].type == GridSystem.CellType.FallingGround)
+                {
+                    isValid = false;
+                    break;
+                }
+
                 for (int j = 0; j <= freeSpaceSize; j++)
                 {
                     int checkSpaceX = position.x + 1 + j;
