@@ -15,6 +15,7 @@ public class SaveData
     public int levelCount = 0;
     public float timeRemaining = 20;
     public float destroyCharge = 0;
+    public int sceneID = 0;
     public List<CellData> cells = new List<CellData>();
     public List<ObstacleData> obstaclesInGrid = new List<ObstacleData>();
 
