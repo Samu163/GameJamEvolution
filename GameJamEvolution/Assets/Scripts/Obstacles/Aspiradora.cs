@@ -10,6 +10,7 @@ public class Aspiradora : Obstacle
     [SerializeField] private float aspirationTimeCounter;
     [SerializeField] private bool isAspiring = false;
     [SerializeField] private int freeSpaceSize;
+    public GameObject particles;
    
 
     // Update is called once per frame
@@ -18,10 +19,12 @@ public class Aspiradora : Obstacle
 
         if (!isAspiring)
         {
+            particles.SetActive(false);
             aspirationTimeCounter += Time.deltaTime;
         }
         else if (isAspiring)
         {
+            particles.SetActive(true);
             aspirationTimeCounter -= Time.deltaTime;
         }
 

@@ -5,6 +5,7 @@ using Unity.Services.Leaderboards;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
+using Unity.Services.Core;
 
 
 public class GameManager : MonoBehaviour
@@ -18,15 +19,30 @@ public class GameManager : MonoBehaviour
     private SaveSystem saveSystem;
     public bool isLoadingGame = false;
 
-    private void Awake()
+    private async void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+            await InitializeUnityServices();
         }
         saveSystem = new SaveSystem();
+    }
 
+
+    private async Task InitializeUnityServices()
+    {
+        try
+        {
+            await UnityServices.InitializeAsync();
+            Debug.Log("Unity Services initialized successfully.");
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Failed to initialize Unity Services: {ex.Message}");
+        }
     }
 
     public void LoadSceneRequest(string sceneName)
