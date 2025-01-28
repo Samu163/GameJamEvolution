@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SFXManager : MonoBehaviour
+public class UISFXManager : MonoBehaviour  // Just renamed from SFXManager
 {
-    public static SFXManager Instance { get; private set; }
+    public static UISFXManager Instance { get; private set; }  // Changed to UISFXManager
     
     [SerializeField] private List<SoundGroup> soundGroups = new List<SoundGroup>();
     private Dictionary<string, float> soundCooldowns = new Dictionary<string, float>();
@@ -12,9 +12,9 @@ public class SFXManager : MonoBehaviour
     
     [SerializeField] private float masterVolume = 1f;
     private List<AudioSource> audioSourcePool = new List<AudioSource>();
-    private const int AUDIO_SOURCE_POOL_SIZE = 10;  // Adjust this based on your needs
-    
-    private void Awake()
+    private const int AUDIO_SOURCE_POOL_SIZE = 10;
+
+     private void Awake()
     {
         if (Instance == null)
         {
@@ -44,6 +44,12 @@ public class SFXManager : MonoBehaviour
             }
         }
 
+        // Test with spacebar
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Testing UI Sound");
+            UISoundController.Instance.PlayUISound("UIClick");
+        }
     }
     
     private void InitializeAudioSources()

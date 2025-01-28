@@ -109,50 +109,50 @@ public class UISoundController : MonoBehaviour
     // Methods for playing UI sounds
     public void PlayHoverSound()
     {
-        if (SFXManager.Instance != null)
+        if (UISFXManager.Instance != null)
         {
-            SFXManager.Instance.PlaySoundWithVolume(soundConfig.hoverSound, soundConfig.hoverVolume);
+            UISFXManager.Instance.PlaySoundWithVolume(soundConfig.hoverSound, soundConfig.hoverVolume);
         }
     }
 
     public void PlayClickSound()
     {
-        if (SFXManager.Instance != null)
+        if (UISFXManager.Instance != null)
         {
-            SFXManager.Instance.PlaySoundWithVolume(soundConfig.clickSound, soundConfig.clickVolume);
+            UISFXManager.Instance.PlaySoundWithVolume(soundConfig.clickSound, soundConfig.clickVolume);
         }
     }
 
     public void PlayBackSound()
     {
-        if (SFXManager.Instance != null)
+        if (UISFXManager.Instance != null)
         {
-            SFXManager.Instance.PlaySoundWithVolume(soundConfig.backSound, soundConfig.backVolume);
+            UISFXManager.Instance.PlaySoundWithVolume(soundConfig.backSound, soundConfig.backVolume);
         }
     }
 
     public void PlayErrorSound()
     {
-        if (SFXManager.Instance != null)
+        if (UISFXManager.Instance != null)
         {
-            SFXManager.Instance.PlaySoundWithVolume(soundConfig.errorSound, soundConfig.errorVolume);
+            UISFXManager.Instance.PlaySoundWithVolume(soundConfig.errorSound, soundConfig.errorVolume);
         }
     }
 
     public void PlaySuccessSound()
     {
-        if (SFXManager.Instance != null)
+        if (UISFXManager.Instance != null)
         {
-            SFXManager.Instance.PlaySoundWithVolume(soundConfig.successSound, soundConfig.successVolume);
+            UISFXManager.Instance.PlaySoundWithVolume(soundConfig.successSound, soundConfig.successVolume);
         }
     }
 
     // Custom sound method for specific UI elements
     public void PlayUISound(string soundName, float volume = 1f)
     {
-        if (SFXManager.Instance != null)
+        if (UISFXManager.Instance != null)
         {
-            SFXManager.Instance.PlaySoundWithVolume(soundName, volume);
+            UISFXManager.Instance.PlaySoundWithVolume(soundName, volume);
         }
     }
 } 
