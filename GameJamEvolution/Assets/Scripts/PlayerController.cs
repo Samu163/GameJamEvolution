@@ -180,6 +180,7 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
+        // Wall Jump logic and sound
         if (wallJumping && isTouchingWall && !isGrounded && canWallJump && !isWallJumping)
         {
             rb.velocity = Vector3.zero;
@@ -195,8 +196,8 @@ public class PlayerController : MonoBehaviour
                 SFXManager.Instance.PlayEffect("WallJump", 1f);
             }
         }
-
-        if (jumping && isGrounded)
+        // Regular Jump logic and sound - only if not wall jumping
+        else if (jumping && isGrounded && !isWallJumping)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
