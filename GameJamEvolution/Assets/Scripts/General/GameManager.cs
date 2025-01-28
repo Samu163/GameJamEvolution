@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Services.Authentication; 
+using Unity.Services.Core;
 using Unity.Services.Leaderboards;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,15 +20,38 @@ public class GameManager : MonoBehaviour
     private SaveSystem saveSystem;
     public bool isLoadingGame = false;
 
-    private void Awake()
+    private async void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+            await InitializeUnityServicesAndAuthenticate();
         }
         saveSystem = new SaveSystem();
+    }
 
+
+    private async Task InitializeUnityServicesAndAuthenticate()
+    {
+        try
+        {
+            // Inicializa Unity Services
+            await UnityServices.InitializeAsync();
+            Debug.Log("Unity Services initialized successfully.");
+
+            // Autentica al jugador
+            if (!AuthenticationService.Instance.IsSignedIn)
+            {
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                Debug.Log($"Player authenticated successfully with ID: {AuthenticationService.Instance.PlayerId}");
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"Failed to initialize or authenticate: {ex.Message}");
+        }
     }
 
     public void LoadSceneRequest(string sceneName)
@@ -67,12 +92,10 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            // Obtener la puntuación actual del leaderboard
             var scores = await LeaderboardsService.Instance.GetPlayerScoreAsync("test");
 
-            var currentCloudScore = scores?.Score ?? 0; // Si no hay puntuación registrada, usa 0
+            var currentCloudScore = scores?.Score ?? 0; 
 
-            // Comparar puntuaciones
             if (levelCount > currentCloudScore)
             {
                 await AddPlayerScoreToCloud(levelCount);
@@ -125,8 +148,8 @@ public class GameManager : MonoBehaviour
             };
 
             await LeaderboardsService.Instance.AddPlayerScoreAsync(
-                "test", // Reemplaza con tu Leaderboard ID
-                0,      // Puntaje inicial (puede ser 0 o algún valor predeterminado)
+                "test",
+                0,      
                 options
             );
 
@@ -137,7 +160,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError($"Failed to register player to leaderboard: {ex.Message}");
         }
     }
-
 
     public void SavePlayerName(string playerName)
     {
