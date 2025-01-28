@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Spike : Obstacle
 {
+    public override void RestartObstacle()
+    {
+        Debug.Log("No hace nada");
+    }
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid,Vector2 groupSize)
     {
         List<Vector2Int> possiblePositions = new List<Vector2Int>();

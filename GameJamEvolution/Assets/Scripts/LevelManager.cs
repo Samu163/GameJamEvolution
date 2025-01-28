@@ -296,17 +296,26 @@ public class LevelManager : MonoBehaviour
                 {
                     for (int y = 0; y < 2; y++)
                     {
-                        gridSystem.GetGrid()[12 + x, 2 + y].isOcupied = true;
-                        gridSystem.GetGrid()[12 + x, 2 + y].type = GridSystem.CellType.Ocupied;
+                        gridSystem.GetGrid()[11 + x, 2 + y].isOcupied = true;
+                        gridSystem.GetGrid()[11 + x, 2 + y].type = GridSystem.CellType.Ocupied;
                     }
                 }
 
-                for (int x = 0; x < 3; x++)
+                for (int x = 0; x < 4; x++)
                 {
                     for (int y = 0; y < 1; y++)
                     {
-                        gridSystem.GetGrid()[25 + x, 7 + y].isOcupied = true;
-                        gridSystem.GetGrid()[25 + x, 7 + y].type = GridSystem.CellType.Ocupied;
+                        gridSystem.GetGrid()[22 + x, 6 + y].isOcupied = true;
+                        gridSystem.GetGrid()[22 + x, 6 + y].type = GridSystem.CellType.Ocupied;
+                    }
+                }
+
+                for (int x = 0; x < 2; x++)
+                {
+                    for (int y = 0; y < 1; y++)
+                    {
+                        gridSystem.GetGrid()[31 + x, 8 + y].isOcupied = true;
+                        gridSystem.GetGrid()[31 + x, 8 + y].type = GridSystem.CellType.Ocupied;
                     }
                 }
                 break;
@@ -315,8 +324,8 @@ public class LevelManager : MonoBehaviour
                 {
                     for (int y = 0; y < 5; y++)
                     {
-                        gridSystem.GetGrid()[20 + x, 0 + y].isOcupied = true;
-                        gridSystem.GetGrid()[20 + x, 0 + y].type = GridSystem.CellType.Ocupied;
+                        gridSystem.GetGrid()[19 + x, 0 + y].isOcupied = true;
+                        gridSystem.GetGrid()[19 + x, 0 + y].type = GridSystem.CellType.Ocupied;
                     }
 
                 }
@@ -325,8 +334,8 @@ public class LevelManager : MonoBehaviour
                 {
                     for (int y = 0; y < 1; y++)
                     {
-                        gridSystem.GetGrid()[31 + x, 9 + y].isOcupied = true;
-                        gridSystem.GetGrid()[31 + x, 9 + y].type = GridSystem.CellType.Ocupied;
+                        gridSystem.GetGrid()[30 + x, 7 + y].isOcupied = true;
+                        gridSystem.GetGrid()[30 + x, 7 + y].type = GridSystem.CellType.Ocupied;
                     }
 
                 }
@@ -426,6 +435,7 @@ public class LevelManager : MonoBehaviour
         if (globalVolume != null) globalVolume.gameObject.SetActive(true);
         if (respawnText != null) respawnText.gameObject.SetActive(true);
         StartCoroutine(RespawnEffectsRoutine());
+        RestartObstacles();
     }
     public void GameOver()
     {
@@ -439,6 +449,7 @@ public class LevelManager : MonoBehaviour
         levelFinisher.EnableCollider(false);
         cameraTweening.DOCameraAnimation(onLevelFinished);
         GameManager.Instance.UpdatePlayerScore(levelCount);
+        RestartObstacles();
     }
     private void InitLevel()
     {
@@ -471,7 +482,16 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    public void DestroyObstacle(Vector2Int gridPosition, Vector2Int size)
+    public void RestartObstacles()
+    {
+        if (obstaclesOnCurrentLevel.Count == 0) return;
+        for (int i = 0; i < obstaclesOnCurrentLevel.Count; i++)
+        {
+            obstaclesOnCurrentLevel[i].RestartObstacle();
+        }
+    }
+
+        public void DestroyObstacle(Vector2Int gridPosition, Vector2Int size)
     {
 
         for (int i = 0; i < obstaclesOnCurrentLevel.Count; i++)

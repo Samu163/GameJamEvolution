@@ -70,6 +70,15 @@ public class Clock : Obstacle
         Gizmos.DrawWireSphere(attackCollider.transform.position, attackCollider.radius);
     }
 
+    public override void RestartObstacle()
+    {
+        isAttacking = false;
+        attackCollider.radius = 0f;
+        clockAttack.transform.localScale = new Vector3(0, 0, 0);
+        attackCollider.enabled = false;
+        attackTimeCounter = 0;
+    }
+
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
     {
         List<Vector2Int> possiblePositions = new List<Vector2Int>();
