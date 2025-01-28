@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 public class GridSystem : MonoBehaviour
 {
     [System.Serializable]
-    public enum CellType { Empty, Ground, Ocupied, OcupiedLamp, OcupiedPainting }
+    public enum CellType { Empty, Ground, FallingGround, Ocupied, OcupiedLamp, OcupiedPainting }
 
     [System.Serializable]
     public struct Cell

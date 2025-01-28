@@ -29,6 +29,12 @@ public class Spike : Obstacle
                     break;
                 }
 
+                if (position.y > 0 && grid[checkX, position.y - 1].type == GridSystem.CellType.FallingGround)
+                {
+                    isValid = false;
+                    break;
+                }
+
                 if (position.y == 0)
                 {
                     continue; 
