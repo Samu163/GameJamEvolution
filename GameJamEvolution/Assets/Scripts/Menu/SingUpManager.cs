@@ -159,9 +159,9 @@ public class SingUpManager : MonoBehaviour
     
     private void ShowError(ErrorMenu.Action action = ErrorMenu.Action.None, string error = "", string button = "")
     {
-        PanelManager.Close("loading");
-        ErrorMenu panel = (ErrorMenu)PanelManager.GetSingleton("error");
-        panel.Open(action, error, button);
+        //PanelManager.Close("loading");
+        //ErrorMenu panel = (ErrorMenu)PanelManager.GetSingleton("error");
+        //panel.Open(action, error, button);
     }
     
     private async void SignInConfirmAsync()
