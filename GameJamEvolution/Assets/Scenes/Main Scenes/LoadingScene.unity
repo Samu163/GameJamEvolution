@@ -394,7 +394,7 @@ PrefabInstance:
     - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
         type: 3}
       propertyPath: sceneConfigs.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
         type: 3}
@@ -408,8 +408,58 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
         type: 3}
+      propertyPath: sceneConfigs.Array.data[1].sceneName
+      value: LevelSelector
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[1].trackName
+      value: Track1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[2].sceneName
+      value: GameScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[2].trackName
+      value: Track1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[3].sceneName
+      value: GameScene2
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[3].trackName
+      value: Track1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[4].sceneName
+      value: GameScene3
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[4].trackName
+      value: Track1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
       propertyPath: sceneConfigs.Array.data[0].initialLayers.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[1].initialLayers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[2].initialLayers.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
         type: 3}
@@ -420,6 +470,21 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneConfigs.Array.data[0].initialLayers.Array.data[1]
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[1].initialLayers.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[1].initialLayers.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: sceneConfigs.Array.data[2].initialLayers.Array.data[0]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1018186447555399628, guid: 4893265b16f13cd44844ebcc68697a02,
         type: 3}
@@ -1185,6 +1250,6 @@ SceneRoots:
   - {fileID: 1585980268}
   - {fileID: 1025218845}
   - {fileID: 567321051}
-  - {fileID: 710971636}
   - {fileID: 1708574975}
+  - {fileID: 710971636}
   - {fileID: 5538806}
