@@ -1025,6 +1025,7 @@ MonoBehaviour:
   resumeButton: {fileID: 7726850223671427320}
   settingsButton: {fileID: 369419003182363999}
   exitButton: {fileID: 8176758477503763604}
+  settingsCanvas: {fileID: 0}
 --- !u!1 &7321060821006677552
 GameObject:
   m_ObjectHideFlags: 0

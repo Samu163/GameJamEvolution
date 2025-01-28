@@ -4053,6 +4053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25e105878dede34484d83aa6a6bc451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseCanvas: {fileID: 0}
 --- !u!1 &1218169170
 GameObject:
   m_ObjectHideFlags: 0
@@ -4107,6 +4108,7 @@ MonoBehaviour:
   - {fileID: 1405035897}
   - {fileID: 1931129688}
   respawnDelay: 2
+  groundPlayerCheckBox: {fileID: 0}
 --- !u!1 &1222002460
 GameObject:
   m_ObjectHideFlags: 0
