@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private  Animator animator;
 
+    private float lastFootstepTime = 0f;
+    private float footstepCooldown = 0.3f; // Adjust this value to control footstep frequency
+
     // Start is called before the first frame update
     void Start()
     {
@@ -142,10 +145,31 @@ public class PlayerController : MonoBehaviour
         wallJump = false;
     }
 
+    private void PlayFootstepSound()
+    {
+        if (isGrounded && Mathf.Abs(movHorizontal) > 0.1f)
+        {
+            // Increased cooldown times for both running and walking
+            float currentCooldown = (currentMovSpeed == movSpeedRunning) ? 0.4f : 0.6f;
+            
+            if (Time.time - lastFootstepTime >= currentCooldown)
+            {
+                if (SFXManager.Instance != null)
+                {
+                    float volumeMultiplier = Mathf.Clamp01(Mathf.Abs(movHorizontal) / currentMovSpeed);
+                    SFXManager.Instance.PlayEffect("Movement", volumeMultiplier);
+                    lastFootstepTime = Time.time;
+                }
+            }
+        }
+    }
+
     private void MovePlayer(float move, bool jumping, bool wallJumping)
     {
         Vector3 targetVelocity = new Vector3(movHorizontal, rb.velocity.y, 0);
         rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, smoothTime);
+
+        PlayFootstepSound();
 
         if (movHorizontal > 0 && !isLookingRight)
         {
@@ -165,6 +189,11 @@ public class PlayerController : MonoBehaviour
             isWallJumping = true;
             animator.SetBool("isWallJumping", true);
             
+            // Play wall jump sound
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlayEffect("WallJump", 1f);
+            }
         }
 
         if (jumping && isGrounded)
@@ -173,10 +202,13 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             animator.SetBool("isJumping", true);
             animator.SetBool("isWallJumping", false);
+
+            // Play jump sound
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlayEffect("Jump", 1f);
+            }
         }
-
-       
-
     }
 
     private void Flip()
@@ -204,8 +236,11 @@ public class PlayerController : MonoBehaviour
                 LevelManager.Instance.ActivateRespawnEffects();
             }
 
-           
-            
+            // Play death sound
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlayEffect("Death", 1f);
+            }
         }
 
         if (collision.collider.CompareTag("SlideGround"))
@@ -220,6 +255,14 @@ public class PlayerController : MonoBehaviour
             isWallJumping = false;
             canWallJump = true;
             animator.SetBool("canJump", true);
+
+            // Play landing sound
+            if (SFXManager.Instance != null)
+            {
+                // Volume based on vertical velocity
+                float volumeMultiplier = Mathf.Clamp01(Mathf.Abs(rb.velocity.y) / 20f);
+                SFXManager.Instance.PlayPlayerLandSound(volumeMultiplier);
+            }
         }
     }
 

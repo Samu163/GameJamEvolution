@@ -197,4 +197,30 @@ public class SFXManager : MonoBehaviour
         }
         soundCooldowns.Clear();
     }
+
+    // Add these methods for easy access to player sounds
+    public void PlayPlayerSound(string soundName, float volumeMultiplier = 1f)
+    {
+        PlaySpecificEffect("Player", soundName, volumeMultiplier);
+    }
+
+    public void PlayPlayerMovementSound(float volumeMultiplier = 1f)
+    {
+        PlayEffect("PlayerMovement", volumeMultiplier);
+    }
+
+    public void PlayPlayerJumpSound(float volumeMultiplier = 1f)
+    {
+        PlayEffect("PlayerJump", volumeMultiplier);
+    }
+
+    public void PlayPlayerLandSound(float volumeMultiplier = 1f)
+    {
+        PlayEffect("PlayerLand", volumeMultiplier);
+    }
+
+    public void PlayPlayerDeathSound(float volumeMultiplier = 1f)
+    {
+        PlayEffect("PlayerDeath", volumeMultiplier);
+    }
 } 
