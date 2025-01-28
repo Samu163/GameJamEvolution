@@ -23,6 +23,7 @@ public class DestroyManager : MonoBehaviour
     [SerializeField] private Slider rechargeBar;
     [SerializeField] public float rechargeValue = 0;
     [SerializeField] public float maxRecharge;
+    [SerializeField] private float timeToRest = 10;
 
     public LevelTimer levelTimer;
 
@@ -75,7 +76,8 @@ public class DestroyManager : MonoBehaviour
             {
                 DestroySelectedObstacles();
                 Time.timeScale = 1;
-                levelTimer.timeRemaining -= 10;
+                levelTimer.timeRemaining -= timeToRest;
+                timeToRest += 5;
                 destroyMode = false;
             }
         }

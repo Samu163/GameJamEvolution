@@ -11,7 +11,7 @@ public class Cuadro : Obstacle
         int gridWidth = grid.GetLength(0);
         int gridHeight = grid.GetLength(1);
         int minX = 15;
-        int maxX = 27;
+        int maxX = 24;
         int occupiedPaintingCount = 0;
 
         for (int x = 0; x < gridWidth; x++)
@@ -25,7 +25,7 @@ public class Cuadro : Obstacle
             }
         }
 
-        if (occupiedPaintingCount >= 8)
+        if (occupiedPaintingCount >= 9)
         {
             return possiblePositions;
         }
