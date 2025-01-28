@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class AdaptiveMusicController : MonoBehaviour
 {
@@ -199,16 +200,29 @@ public class AdaptiveMusicController : MonoBehaviour
             DisableLayer(layer.layerIndex);
         }
 
+        // If we have no rules, return
+        if (levelRules == null || levelRules.Count == 0) return;
+
+        // Find the highest maxLevel in our rules
+        int highestLevel = levelRules.Max(rule => rule.maxLevel);
+        
+        // Calculate the effective level by wrapping around
+        int effectiveLevel = _currentLevel;
+        if (_currentLevel > highestLevel)
+        {
+            effectiveLevel = (_currentLevel - 1) % (highestLevel + 1);
+        }
+
         // Find and apply the matching rule for current level
         foreach (var rule in levelRules)
         {
-            if (_currentLevel >= rule.minLevel && _currentLevel <= rule.maxLevel)
+            if (effectiveLevel >= rule.minLevel && effectiveLevel <= rule.maxLevel)
             {
                 foreach (int layerIndex in rule.layersToEnable)
                 {
                     EnableLayer(layerIndex);
                 }
-                break; // Use first matching rule
+                break;
             }
         }
     }
