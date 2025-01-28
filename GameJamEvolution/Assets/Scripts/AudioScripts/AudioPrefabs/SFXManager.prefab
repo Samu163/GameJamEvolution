@@ -46,4 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundGroups:
   - {fileID: 11400000, guid: c156a5167b4ce7c48800f995afdb017b, type: 2}
+  - {fileID: 11400000, guid: 7cec44b725ac8444199f6489732123f9, type: 2}
+  - {fileID: 11400000, guid: d9d90a8a79f8cfe449a1f02d79fa78c6, type: 2}
+  - {fileID: 11400000, guid: c3e003c6377d31845a2ba287914ce690, type: 2}
+  - {fileID: 11400000, guid: 4211cb12acd3df94daf50cece27854f8, type: 2}
   masterVolume: 1
