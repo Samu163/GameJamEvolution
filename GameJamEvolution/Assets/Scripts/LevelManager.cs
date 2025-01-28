@@ -345,6 +345,26 @@ public class LevelManager : MonoBehaviour
                         gridSystem.GetGrid()[20 + x, 0 + y].type = GridSystem.CellType.Ocupied;
                         obstaclesOnCurrentLevel.Add(ground);
                     }
+
+                }
+
+                for (int x = 0; x < 3; x++)
+                {
+                    for (int y = 0; y < 1; y++)
+                    {
+                        var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
+                        ground.size = new Vector2Int(1, 1);
+                        ground.gridPos = new Vector2Int(31 + x, 9 + y);
+                        ground.cellType = GridSystem.CellType.Ground;
+                        ground.isFallingPlatform = false;
+                        ground.type = Obstacle.ObstacleType.Ground;
+                        Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
+                        ground.transform.position = worldPositionGround;
+                        gridSystem.GetGrid()[31 + x, 9 + y].isOcupied = true;
+                        gridSystem.GetGrid()[31 + x, 9 + y].type = GridSystem.CellType.Ocupied;
+                        obstaclesOnCurrentLevel.Add(ground);
+                    }
+
                 }
                 break;
         }
@@ -468,6 +488,8 @@ public class LevelManager : MonoBehaviour
     public void RestartGame()
     {
         levelCount = 0;
+        destroyManager.rechargeValue = 0;
+        player.RespawnPlayer();
         Time.timeScale = 1;
         gameOverCanvas.SetActive(false);
         cameraTweening.DOCameraAnimation(restartLevel);

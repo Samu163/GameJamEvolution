@@ -50,11 +50,11 @@ public class DestroyManager : MonoBehaviour
     void Update()
     {
         
-        if (rechargeValue < maxRecharge)
+        if (rechargeValue < maxRecharge || levelTimer.timeRemaining < timeToRest)
         {
             destroyButton.interactable = false;
         }
-        else if (rechargeValue == maxRecharge)
+        else if (rechargeValue == maxRecharge && levelTimer.timeRemaining > timeToRest)
         {
             destroyButton.interactable = true;
         }
