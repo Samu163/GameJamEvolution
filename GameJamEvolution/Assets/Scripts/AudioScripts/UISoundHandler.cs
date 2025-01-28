@@ -14,12 +14,14 @@ public class UISoundHandler : MonoBehaviour, IPointerEnterHandler, IPointerClick
         soundController = controller;
         playHoverSound = hover;
         playClickSound = click;
+        Debug.Log($"Initialized UISoundHandler on {gameObject.name}");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (playHoverSound && soundController != null)
         {
+            Debug.Log($"Hover detected on {gameObject.name}");
             soundController.PlayHoverSound();
         }
     }
@@ -28,6 +30,7 @@ public class UISoundHandler : MonoBehaviour, IPointerEnterHandler, IPointerClick
     {
         if (playClickSound && soundController != null)
         {
+            Debug.Log($"Click detected on {gameObject.name}");
             soundController.PlayClickSound();
         }
     }

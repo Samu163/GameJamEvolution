@@ -48,6 +48,7 @@ public class UISoundController : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("UISoundController Start");
         if (autoAttachToButtons)
         {
             AttachToAllUIElements();
@@ -58,6 +59,8 @@ public class UISoundController : MonoBehaviour
     {
         // Find all buttons in the scene and attach handlers
         Button[] buttons = FindObjectsOfType<Button>(true);
+        Debug.Log($"Found {buttons.Length} buttons");
+        
         foreach (Button button in buttons)
         {
             AttachHandlersToButton(button);
@@ -68,8 +71,38 @@ public class UISoundController : MonoBehaviour
     {
         if (!button.gameObject.GetComponent<UISoundHandler>())
         {
+            Debug.Log($"Attaching handler to button: {button.gameObject.name}");
             UISoundHandler handler = button.gameObject.AddComponent<UISoundHandler>();
             handler.Initialize(this, playHoverSounds, playClickSounds);
+        }
+    }
+
+    // Add this method to manually attach to a specific button
+    public void ManuallyAttachToButton(Button button)
+    {
+        if (button != null)
+        {
+            AttachHandlersToButton(button);
+        }
+    }
+
+    // Add this to help with scene changes
+    private void OnEnable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
+    {
+        Debug.Log($"Scene loaded: {scene.name}");
+        if (autoAttachToButtons)
+        {
+            AttachToAllUIElements();
         }
     }
 

@@ -12,7 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3e1f0acf3a4234186a7383d60e5503, type: 3}
   m_Name: UI
   m_EditorClassIdentifier: 
-  groupName: 
-  sounds: []
+  groupName: UI
+  sounds:
+  - name: UIHover
+    clip: {fileID: 8300000, guid: 617d64aac5ce5074fac23c26b4044b0a, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: UIClick
+    clip: {fileID: 8300000, guid: cd8b9f8ffad0cc64ea147215e28c6257, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: UIBack
+    clip: {fileID: 8300000, guid: acbd01cdf53506541ae5c30df72606a1, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: UIError
+    clip: {fileID: 8300000, guid: 158bcd8f1d5db764c878f62c516414e3, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: UISuccess
+    clip: {fileID: 8300000, guid: d602e9e78becac542a03db904f44d199, type: 3}
+    volume: 1
+    loop: 0
+    source: {fileID: 0}
   playSequentially: 0
   currentIndex: 0

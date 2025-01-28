@@ -43,6 +43,13 @@ public class SFXManager : MonoBehaviour
                 }
             }
         }
+
+        // Test with spacebar
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Testing UI Sound");
+            UISoundController.Instance.PlayUISound("UIClick");
+        }
     }
     
     private void InitializeAudioSources()
