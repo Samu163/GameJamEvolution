@@ -5,19 +5,19 @@ using UnityEngine;
 public class UIAnimatorManager : MonoBehaviour
 {
     public List<GameObject> menuButtons;
-    public List<GameObject> menuIcons;
+    //public List<GameObject> menuIcons;
     public RectTransform gameTitle;
+
 
     private void Awake()
     {
-        ResetIconsScale();
+        //ResetIconsScale();
     }
 
     public Sequence StartmenuAnim()
     {
         float delay = AnimateMainMenuButtons();
-        AnimateTitle(delay);
-        AnimateMenuIcons(delay * 2);
+        AnimateTitle(delay, gameTitle);
 
         Sequence sequence = DOTween.Sequence();
         sequence.AppendInterval(delay * 2 +0.6f);
@@ -49,46 +49,24 @@ public class UIAnimatorManager : MonoBehaviour
         return 0.3f * menuButtons.Count;
     }
 
-    private void AnimateTitle(float delay)
+    public Sequence AnimateTitle(float delay, RectTransform title)
     {
-        float originalPositionY = gameTitle.anchoredPosition.y;
-        Vector2 startPosition = gameTitle.anchoredPosition;
+        float originalPositionY = title.anchoredPosition.y;
+        Vector2 startPosition = title.anchoredPosition;
         startPosition.y = 500.0f;
-        gameTitle.anchoredPosition = startPosition;
+        title.anchoredPosition = startPosition;
 
-        gameTitle.DOAnchorPosY(originalPositionY - 30.0f, 1.6f)
+        title.DOAnchorPosY(originalPositionY - 30.0f, 1.6f)
                  .SetEase(Ease.OutSine)
                  .SetDelay(delay)
                  .OnComplete(() =>
                  {
-                     gameTitle.DOAnchorPosY(originalPositionY, 0.3f)
+                     title.DOAnchorPosY(originalPositionY, 0.3f)
                               .SetEase(Ease.InSine);
                  });
+
+        Sequence sequence = DOTween.Sequence();
+        sequence.AppendInterval(delay * 2 + 0.6f);
+        return sequence;
     }
-
-    private void AnimateMenuIcons(float baseDelay)
-    {
-        for (int i = 0; i < menuIcons.Count; i++)
-        {
-            RectTransform rectTransform = menuIcons[i].GetComponent<RectTransform>();
-            float delay = baseDelay + 0.3f * i;
-
-            Sequence iconSequence = DOTween.Sequence();
-            iconSequence
-                .Append(rectTransform.DOScale(Vector3.one, 0.6f) 
-                                      .SetEase(Ease.OutBack)) 
-                .SetDelay(delay);
-        }
-    }
-
-
-    private void ResetIconsScale()
-    {
-        for (int i = 0; i < menuIcons.Count; i++)
-        {
-            RectTransform rectTransform = menuIcons[i].GetComponent<RectTransform>();
-            rectTransform.localScale = Vector3.zero;
-        }
-    }
-
 }

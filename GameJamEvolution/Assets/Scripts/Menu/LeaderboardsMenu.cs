@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Unity.Services.Leaderboards;
+using Newtonsoft.Json;
 
 public class LeaderboardsMenu : Panel
 {
@@ -15,7 +16,6 @@ public class LeaderboardsMenu : Panel
     [SerializeField] private Button nextButton = null;
     [SerializeField] private Button prevButton = null;
     [SerializeField] private Button closeButton = null;
-    [SerializeField] private Button addScoreButton = null;
 
     private int currentPage = 1;
     private int totalPages = 0;
@@ -30,7 +30,6 @@ public class LeaderboardsMenu : Panel
         closeButton.onClick.AddListener(ClosePanel);
         nextButton.onClick.AddListener(NextPage);
         prevButton.onClick.AddListener(PrevPage);
-        addScoreButton.onClick.AddListener(AddScore);
         base.Initialize();
     }
 
@@ -50,17 +49,31 @@ public class LeaderboardsMenu : Panel
     {
         AddScoreAsync(10); // Cambia el puntaje según tus necesidades
     }
-
     public async void AddScoreAsync(int score)
     {
-        addScoreButton.interactable = false;
         try
         {
             // Obtener el nombre del jugador desde PlayerPrefs
             string playerName = AuthenticationMenu.GetPlayerName();
 
-            // Agregar la puntuación al leaderboard
-            var playerEntry = await LeaderboardsService.Instance.AddPlayerScoreAsync("test", score);
+            // Crear un diccionario con los metadatos
+            var metadata = new Dictionary<string, object>
+        {
+            { "PlayerName", playerName } // Metadato con el nombre del jugador
+        };
+
+            // Crear las opciones para enviar la puntuación
+            var options = new AddPlayerScoreOptions
+            {
+                Metadata = metadata // Agregar el diccionario de metadatos
+            };
+
+            // Enviar la puntuación con las opciones
+            var playerEntry = await LeaderboardsService.Instance.AddPlayerScoreAsync(
+                "test", // Nombre del leaderboard
+                score,
+                options
+            );
 
             Debug.Log($"Score {score} submitted for player {playerName}");
             LoadPlayers(currentPage);
@@ -69,37 +82,43 @@ public class LeaderboardsMenu : Panel
         {
             Debug.LogError($"Failed to add score: {exception.Message}");
         }
-        addScoreButton.interactable = true;
+       
     }
 
-    private async void LoadPlayers(int page)
+    public async void LoadPlayers(int page)
     {
         nextButton.interactable = false;
         prevButton.interactable = false;
         try
         {
-            GetScoresOptions options = new GetScoresOptions();
-            options.Offset = (page - 1) * playersPerPage;
-            options.Limit = playersPerPage;
+            GetScoresOptions options = new GetScoresOptions
+            {
+                Offset = (page - 1) * playersPerPage,
+                Limit = playersPerPage,
+                IncludeMetadata = true
+            };
+
             var scores = await LeaderboardsService.Instance.GetScoresAsync("test", options);
             ClearPlayersList();
-            for (int i = 0; i < scores.Results.Count; i++)
+
+            foreach (var score in scores.Results)
             {
                 LeaderboardsPlayerItem item = Instantiate(playerItemPrefab, playersContainer);
-                item.Initialize(scores.Results[i]);
+
+                item.Initialize(score);
             }
-            totalPages = Mathf.CeilToInt((float)scores.Total / (float)scores.Limit);
+            totalPages = Mathf.CeilToInt((float)scores.Total / playersPerPage);
             currentPage = page;
         }
         catch (Exception exception)
         {
             Debug.LogError($"Failed to load players: {exception.Message}");
         }
+
         pageText.text = $"{currentPage}/{totalPages}";
         nextButton.interactable = currentPage < totalPages && totalPages > 1;
         prevButton.interactable = currentPage > 1 && totalPages > 1;
     }
-
     private void NextPage()
     {
         if (currentPage + 1 > totalPages)

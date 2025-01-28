@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using Unity.Services.Leaderboards.Models;
 using UnityEngine.UI;
+using Newtonsoft.Json;
+using System;
 
 public class LeaderboardsPlayerItem : MonoBehaviour
 {
@@ -22,18 +24,43 @@ public class LeaderboardsPlayerItem : MonoBehaviour
     public void Initialize(LeaderboardEntry player)
     {
         this.player = player;
+
         rankText.text = (player.Rank + 1).ToString();
-        nameText.text = player.PlayerName;
+
+        // Manejar el caso donde Metadata sea null
+        string playerName = "Unknown";
+        if (!string.IsNullOrEmpty(player.Metadata))
+        {
+            try
+            {
+                var metadata = JsonConvert.DeserializeObject<Dictionary<string, string>>(player.Metadata);
+                if (metadata != null && metadata.TryGetValue("PlayerName", out string name))
+                {
+                    playerName = name;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error parsing metadata: {e.Message}");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Metadata is null or empty for player.");
+        }
+
+        nameText.text = playerName;
+
         scoreText.text = player.Score.ToString();
 
-        // Verificar si este jugador es el usuario actual
         string currentPlayerName = AuthenticationMenu.GetPlayerName();
-        if (player.PlayerName == currentPlayerName)
+        if (playerName == currentPlayerName)
         {
             selectButton.interactable = false;
-            HighlightCurrentPlayer(); 
+            HighlightCurrentPlayer();
         }
     }
+
 
     private void Clicked()
     {

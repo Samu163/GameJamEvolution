@@ -725,6 +725,7 @@ MonoBehaviour:
   - GameScene
   - GameScene2
   - GameScene3
+  - LevelSelector
   screenPrefabs:
   - {fileID: 6367695471761192161, guid: 732a1546d09fc074cbc7891a877b8da2, type: 3}
   - {fileID: 4214791059140982672, guid: 439d7fb4eb4266a4587426347194531e, type: 3}
