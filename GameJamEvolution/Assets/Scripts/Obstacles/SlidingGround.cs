@@ -6,6 +6,11 @@ public class SlidingGround : Obstacle
 {
     public int heightMargin = 5;
     public Vector2Int radiusSize;
+
+    public override void RestartObstacle()
+    {
+        Debug.Log("No hace nada");
+    }
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
     {
         List<Vector2Int> possiblePositions = new List<Vector2Int>();

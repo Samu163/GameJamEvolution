@@ -46,5 +46,6 @@ public abstract class Obstacle : MonoBehaviour
     }
     public abstract List<Vector2Int> SpawnPreference(List<Vector2Int> validPositions, GridSystem.Cell[,] grid, Vector2 groupSize);
 
+    public abstract void RestartObstacle();
 }
 

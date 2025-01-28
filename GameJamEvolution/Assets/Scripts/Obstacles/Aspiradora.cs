@@ -52,6 +52,13 @@ public class Aspiradora : Obstacle
         }
     }
 
+    public override void RestartObstacle()
+    {
+        aspirationTimeCounter = 0;
+        isAspiring = false;
+        particles.SetActive(false);
+    }
+
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
     {
         List<Vector2Int> possiblePositions = new List<Vector2Int>();
