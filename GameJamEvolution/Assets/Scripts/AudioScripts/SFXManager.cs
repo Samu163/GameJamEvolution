@@ -10,6 +10,10 @@ public class SFXManager : MonoBehaviour
     private Dictionary<string, float> soundCooldowns = new Dictionary<string, float>();
     private const float MIN_TIME_BETWEEN_SOUNDS = 0.05f;
     
+    [SerializeField] private float masterVolume = 1f;
+    private List<AudioSource> audioSourcePool = new List<AudioSource>();
+    private const int AUDIO_SOURCE_POOL_SIZE = 10;  // Adjust this based on your needs
+    
     private void Awake()
     {
         if (Instance == null)
@@ -43,6 +47,15 @@ public class SFXManager : MonoBehaviour
     
     private void InitializeAudioSources()
     {
+        // Initialize audio source pool
+        for (int i = 0; i < AUDIO_SOURCE_POOL_SIZE; i++)
+        {
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.playOnAwake = false;
+            audioSourcePool.Add(source);
+        }
+
+        // Initialize sound group sources
         foreach (var group in soundGroups)
         {
             foreach (var sound in group.sounds)
@@ -52,6 +65,61 @@ public class SFXManager : MonoBehaviour
                 sound.source.volume = sound.volume;
                 sound.source.loop = sound.loop;
                 sound.source.playOnAwake = false;
+            }
+        }
+    }
+    
+    private Sound FindSound(string soundName)
+    {
+        foreach (var group in soundGroups)
+        {
+            var sound = group.sounds.Find(s => s.name == soundName);
+            if (sound != null)
+            {
+                return sound;
+            }
+        }
+        Debug.LogWarning($"Sound '{soundName}' not found in any group");
+        return null;
+    }
+    
+    private AudioSource GetAvailableSource()
+    {
+        // First try to find an inactive source
+        foreach (var source in audioSourcePool)
+        {
+            if (!source.isPlaying)
+            {
+                return source;
+            }
+        }
+
+        // If all sources are playing, use the oldest one
+        AudioSource oldestSource = audioSourcePool[0];
+        float oldestTime = float.MaxValue;
+
+        foreach (var source in audioSourcePool)
+        {
+            if (source.time < oldestTime)
+            {
+                oldestTime = source.time;
+                oldestSource = source;
+            }
+        }
+
+        return oldestSource;
+    }
+    
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = Mathf.Clamp01(volume);
+        
+        // Update all playing sources
+        foreach (var source in audioSourcePool)
+        {
+            if (source.isPlaying)
+            {
+                source.volume = source.volume * masterVolume;
             }
         }
     }
@@ -74,19 +142,28 @@ public class SFXManager : MonoBehaviour
         PlaySound(sound, volumeMultiplier);
     }
     
-    private void PlaySound(Sound sound, float volumeMultiplier)
+    public void PlaySoundWithVolume(string soundName, float volume)
     {
-        if (sound == null || sound.source == null) return;
+        if (string.IsNullOrEmpty(soundName)) return;
         
-        // Check if sound is on cooldown
-        if (soundCooldowns.ContainsKey(sound.name)) return;
-        
-        // Add cooldown
-        soundCooldowns[sound.name] = sound.clip.length + MIN_TIME_BETWEEN_SOUNDS;
-        
-        // Play sound
-        sound.source.volume = sound.volume * volumeMultiplier;
-        sound.source.Play();
+        Sound sound = FindSound(soundName);
+        if (sound != null)
+        {
+            PlaySound(sound, volume);
+        }
+    }
+    
+    protected void PlaySound(Sound sound, float volume)
+    {
+        if (sound == null) return;
+
+        AudioSource source = GetAvailableSource();
+        if (source != null)
+        {
+            source.clip = sound.clip;
+            source.volume = volume * masterVolume;
+            source.Play();
+        }
     }
     
     public void StopEffect(string groupName, string soundName)
