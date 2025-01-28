@@ -51,7 +51,35 @@ public class Laser : MonoBehaviour
         }
     }
 
-    private void FireLaser()
+    public void RestartLaser()
+    {
+
+        if (laserRenderer != null)
+        {
+            laserRenderer.enabled = false;
+        }
+
+        if (laserCollider != null)
+        {
+            laserCollider.enabled = false;
+        }
+
+        if (activationParticles != null)
+        {
+            activationParticles.Stop();
+        }
+
+        if (collisionParticles != null)
+        {
+            collisionParticles.Stop();
+        }
+
+        StopAllCoroutines();
+        StartCoroutine(LaserCycle());
+    }
+
+
+        private void FireLaser()
     {
         if (laserRenderer == null || laserCollider == null) return;
 

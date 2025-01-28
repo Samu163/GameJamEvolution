@@ -9740,6 +9740,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8347641757536389989, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
         type: 3}
+      propertyPath: laser
+      value: 
+      objectReference: {fileID: 5290504105135721536}
+    - target: {fileID: 8347641757536389989, guid: 2b07b2baf6b73ce4fb8e7c3fcd867e0b,
+        type: 3}
       propertyPath: isLaser
       value: 1
       objectReference: {fileID: 0}

@@ -14,6 +14,7 @@ public class FallingPlatform : Obstacle
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private Transform checkSphere;
     [SerializeField] private float checkRadius;
+    private bool isRestarting = false;
 
 
     private void Start()
@@ -40,15 +41,23 @@ public class FallingPlatform : Obstacle
     {
         // Wait for 1 second
         yield return new WaitForSeconds(fallDelay);
-        // Set the platform's rigidbody to kinematic
-        GetComponent<Rigidbody>().useGravity = true;
-        GetComponent<Rigidbody>().isKinematic = false;
-        // Wait for 2 seconds
-        yield return new WaitForSeconds(destroyDelay);
-        // Destroy the platform
-        SendMessageUpwards("Respawn", gameObject);
-        gameObject.SetActive(false);
-       
+        if (!isRestarting )
+        {
+            // Set the platform's rigidbody to kinematic
+            GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<Rigidbody>().isKinematic = false;
+            // Wait for 2 seconds
+            yield return new WaitForSeconds(destroyDelay);
+            // Destroy the platform
+            SendMessageUpwards("Respawn", gameObject);
+            gameObject.SetActive(false);
+        }
+        else if (isRestarting)
+        {
+            isRestarting = false;
+        }
+
+
     }
 
     public override void RestartObstacle()
@@ -58,6 +67,7 @@ public class FallingPlatform : Obstacle
         GetComponent<Rigidbody>().isKinematic = true;
         gameObject.SetActive(true);
         touchPlayer = false;
+        isRestarting = true;
     }
 
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)

@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Cuadro : Obstacle
 {
+    public Laser laser;
     public override void RestartObstacle()
     {
-        Debug.Log("No hace nada");
+        if (isLaser && laser != null)
+        {
+            laser.RestartLaser();
+        }
+        
     }
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
     {
