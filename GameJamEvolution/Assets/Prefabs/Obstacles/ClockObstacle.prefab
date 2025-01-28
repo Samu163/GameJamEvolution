@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b1fbc76d95ec84883e63c338ee28c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 1, y: 1}
+  size: {x: 1, y: 2}
   gridPos: {x: 0, y: 0}
   cellType: 2
   groupObstacle: 0
