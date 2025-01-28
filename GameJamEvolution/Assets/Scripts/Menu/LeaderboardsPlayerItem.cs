@@ -12,13 +12,11 @@ public class LeaderboardsPlayerItem : MonoBehaviour
     [SerializeField] public TextMeshProUGUI rankText = null;
     [SerializeField] public TextMeshProUGUI nameText = null;
     [SerializeField] public TextMeshProUGUI scoreText = null;
-    [SerializeField] private Button selectButton = null;
 
     private LeaderboardEntry player = null;
 
     private void Start()
     {
-        selectButton.onClick.AddListener(Clicked);
     }
 
     public void Initialize(LeaderboardEntry player)
@@ -56,7 +54,6 @@ public class LeaderboardsPlayerItem : MonoBehaviour
         string currentPlayerName = AuthenticationMenu.GetPlayerName();
         if (playerName == currentPlayerName)
         {
-            selectButton.interactable = false;
             HighlightCurrentPlayer();
         }
     }

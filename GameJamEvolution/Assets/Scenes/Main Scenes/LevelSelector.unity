@@ -880,16 +880,10 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 22d189f67525a0c4f9ad3da8f12b006c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:RightShoulder'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform
-    'mixamorig:LeftHand'\n\tTransform 'mixamorig:LeftArm'\n\tTransform 'mixamorig:RightArm'\n\tTransform
-    'mixamorig:Head'\n\tTransform 'mixamorig:Spine2'\n\tTransform 'mixamorig:RightShoulder'\n\tTransform
-    'mixamorig:RightUpLeg'\n\tTransform 'mixamorig:Neck'\n\tand more ...\n\tFrom
-    animation clip 'Jess Armature_mmenu'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -920,7 +914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   headWeight: 13.43
-  bodyWeight: 58.5
+  bodyWeight: 0
   distanceToCamera: 179
 --- !u!1 &1296248879
 GameObject:
@@ -3629,7 +3623,8 @@ PrefabInstance:
       value: 0.0000015838743
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -8391222552659086748, guid: e57144d22a5ac394bac00b9ee3a9ccad, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e57144d22a5ac394bac00b9ee3a9ccad,
