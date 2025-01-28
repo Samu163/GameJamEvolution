@@ -120,7 +120,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1467965402211855242}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 1.5
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -136,7 +136,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 88
   m_CollisionDetection: 1
 --- !u!114 &2003186809732151620
@@ -156,14 +156,14 @@ MonoBehaviour:
   smoothTime: 0.3
   playerPhysicMaterial: {fileID: 13400000, guid: 2307850b62e525745a8f0f4412fafc6c,
     type: 2}
-  jumpForce: 7
+  jumpForce: 14
   groundCheck: {fileID: 8131617509199267660}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   boxSize: {x: 0.75, y: 0.25, z: 1}
   isGrounded: 0
-  wallJumpForce: 7
+  wallJumpForce: 10
   wallCheck: {fileID: 4054165917273520904}
   wallLayer:
     serializedVersion: 2

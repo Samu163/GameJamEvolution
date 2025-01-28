@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
         MovePlayer(movHorizontal * Time.fixedDeltaTime, jump, wallJump);
 
-        
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.15f, rb.velocity.z);
 
         jump = false;
         wallJump = false;
