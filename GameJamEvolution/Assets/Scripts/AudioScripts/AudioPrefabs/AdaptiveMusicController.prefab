@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1018186447555399628
 Transform:
@@ -44,6 +44,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b39649844595e4baf038101b889f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneConfigs:
+  - sceneName: LoadingScene
+    trackName: Track1
+    initialLayers: 0000000001000000
+  - sceneName: LevelSelector
+    trackName: Track1
+    initialLayers: 02000000
+  - sceneName: GameScene
+    trackName: Track1
+    initialLayers: 
+  - sceneName: GameScene2
+    trackName: Track1
+    initialLayers: 
+  - sceneName: GameScene3
+    trackName: Track1
+    initialLayers: 
+  sceneCrossFadeTime: 2
   currentTrackName: Track1
   musicLayers:
   - layerIndex: 0
