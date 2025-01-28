@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
                 LevelManager.Instance.ActivateRespawnEffects();
             }
 
-            RespawnPlayer();
+           
             
         }
 
@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
                 LevelManager.Instance.ActivateRespawnEffects();
             }
 
-            RespawnPlayer();
+            
            
         }
     }

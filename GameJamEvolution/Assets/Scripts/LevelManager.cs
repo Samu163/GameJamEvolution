@@ -431,7 +431,7 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
 
         Time.timeScale = 1;
-
+        player.RespawnPlayer();
         if (globalVolume != null) globalVolume.gameObject.SetActive(false);
         if (respawnText != null) respawnText.gameObject.SetActive(false);
     }
