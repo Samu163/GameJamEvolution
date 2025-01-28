@@ -10,9 +10,10 @@ public class Closet : Obstacle
     [SerializeField] private GameObject childColliderObject;
 
     private Collider childCollider;
-
+    public Animator animator;
     private void Start()
     {
+        Animator animator = GetComponent<Animator>();
         if (childColliderObject != null)
         {
             childCollider = childColliderObject.GetComponent<Collider>();
@@ -28,6 +29,7 @@ public class Closet : Obstacle
     {
         if (other.CompareTag("Player"))
         {
+            animator.SetTrigger("Attack");
             StartCoroutine(ActivateColliderTemporarily());
         }
     }
@@ -39,13 +41,14 @@ public class Closet : Obstacle
         {
             childCollider.enabled = true;
         }
-
+        animator.SetTrigger("Again");
         yield return new WaitForSeconds(activateDuration);
 
         if (childCollider != null)
         {
             childCollider.enabled = false;
         }
+       
     }
 
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
