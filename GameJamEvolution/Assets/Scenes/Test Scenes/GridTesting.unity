@@ -5092,6 +5092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3fd469a2c254044987f47cce9cac0a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraTweening: {fileID: 0}
   levels:
   - {fileID: 11400000, guid: d1cfcc56a208eb440ab10fbea5064d38, type: 2}
   - {fileID: 11400000, guid: d1cfcc56a208eb440ab10fbea5064d38, type: 2}
@@ -5103,7 +5104,25 @@ MonoBehaviour:
   obstaclesOnCurrentLevel: []
   groupInstantiatorManager: {fileID: 431514049}
   fallingPlatformsManager: {fileID: 0}
+  levelFinisher: {fileID: 0}
+  scoreText: {fileID: 0}
+  gameOverCanvas: {fileID: 0}
+  levelTimer: {fileID: 0}
   levelCount: 0
+  dissolveManager: {fileID: 0}
+  destroyManager: {fileID: 0}
+  globalVolume: {fileID: 0}
+  respawnText: {fileID: 0}
+  groundPrefab: {fileID: 0}
+  slidingGroundPrefab: {fileID: 0}
+  fallingPlatformPrefab: {fileID: 0}
+  lampPrefab: {fileID: 0}
+  closetPrefab: {fileID: 0}
+  cuadroPrefab: {fileID: 0}
+  cuadroLaserPrefab: {fileID: 0}
+  aspiradoraPrefab: {fileID: 0}
+  clockPrefab: {fileID: 0}
+  spikePrefab: {fileID: 0}
 --- !u!4 &1458853827
 Transform:
   m_ObjectHideFlags: 0
@@ -7483,6 +7502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cbbed45b479f046b617715d0526760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyManager: {fileID: 0}
+  levelTimer: {fileID: 0}
 --- !u!1 &2141468269
 GameObject:
   m_ObjectHideFlags: 0
