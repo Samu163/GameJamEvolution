@@ -51,6 +51,7 @@ MonoBehaviour:
   cellType: 2
   groupObstacle: 1
   isFallingPlatform: 0
+  isLaser: 0
   type: 8
 --- !u!1001 &2084461328837059625
 PrefabInstance:
@@ -68,7 +69,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 53aa8f6bac391b74387acbeccac689cd,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.96464
+      value: 1.109336
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 53aa8f6bac391b74387acbeccac689cd,
         type: 3}
