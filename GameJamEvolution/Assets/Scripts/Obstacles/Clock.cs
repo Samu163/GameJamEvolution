@@ -14,11 +14,13 @@ public class Clock : Obstacle
     public Vector2Int radiusSize;
     public Vector2Int radiusNoClock;
     public GameObject clockAttack;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Animator animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -36,6 +38,8 @@ public class Clock : Obstacle
 
         if (isAttacking)
         {
+
+            animator.SetBool("Attack",true);
             attackCollider.enabled = true;
             AugmentRadius();
 
@@ -46,8 +50,8 @@ public class Clock : Obstacle
                 clockAttack.transform.localScale = new Vector3(0, 0, 0);
                 attackCollider.enabled = false;
                 attackTimeCounter = 0;
-                
-           }
+                animator.SetBool("Attack", false);
+            }
         }
     }
 

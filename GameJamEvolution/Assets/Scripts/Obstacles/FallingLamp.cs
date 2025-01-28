@@ -16,12 +16,8 @@ public class FallingLamp : Obstacle
     private Rigidbody rb;
     private Collider childCollider;
 
-    public Animator animator;
-
     private void Start()
     {
-        Animator animator = GetComponent<Animator>();
-
         startPosition = transform.position;
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
@@ -30,16 +26,11 @@ public class FallingLamp : Obstacle
             childCollider = childColliderObject.GetComponent<Collider>();
             childCollider.enabled = false;
         }
-       
     }
 
     private void Update()
     {
         CheckForPlayer();
-        if (rb.velocity.y > 0)
-        {
-            animator.SetBool("Falling", false);
-        }
     }
 
     private void CheckForPlayer()
@@ -58,7 +49,6 @@ public class FallingLamp : Obstacle
 
     private IEnumerator Fall()
     {
-        animator.SetBool("Falling",true);
         yield return new WaitForSeconds(fallDelay);
         rb.isKinematic = false;
         rb.useGravity = true;
@@ -68,7 +58,6 @@ public class FallingLamp : Obstacle
         }
         yield return new WaitForSeconds(respawnDelay);
         Respawn();
-        
     }
 
     private void Respawn()
