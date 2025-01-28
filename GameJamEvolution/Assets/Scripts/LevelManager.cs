@@ -296,17 +296,8 @@ public class LevelManager : MonoBehaviour
                 {
                     for (int y = 0; y < 2; y++)
                     {
-                        var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
-                        ground.size = new Vector2Int(1, 1);
-                        ground.gridPos = new Vector2Int(12 + x, 2 + y);
-                        ground.cellType = GridSystem.CellType.Ground;
-                        ground.isFallingPlatform = false;
-                        ground.type = Obstacle.ObstacleType.Ground;
-                        Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
-                        ground.transform.position = worldPositionGround;
                         gridSystem.GetGrid()[12 + x, 2 + y].isOcupied = true;
                         gridSystem.GetGrid()[12 + x, 2 + y].type = GridSystem.CellType.Ocupied;
-                        obstaclesOnCurrentLevel.Add(ground);
                     }
                 }
 
@@ -314,17 +305,8 @@ public class LevelManager : MonoBehaviour
                 {
                     for (int y = 0; y < 1; y++)
                     {
-                        var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
-                        ground.size = new Vector2Int(1, 1);
-                        ground.gridPos = new Vector2Int(25 + x, 7 + y);
-                        ground.cellType = GridSystem.CellType.Ground;
-                        ground.isFallingPlatform = false;
-                        ground.type = Obstacle.ObstacleType.Ground;
-                        Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
-                        ground.transform.position = worldPositionGround;
                         gridSystem.GetGrid()[25 + x, 7 + y].isOcupied = true;
                         gridSystem.GetGrid()[25 + x, 7 + y].type = GridSystem.CellType.Ocupied;
-                        obstaclesOnCurrentLevel.Add(ground);
                     }
                 }
                 break;
@@ -333,17 +315,8 @@ public class LevelManager : MonoBehaviour
                 {
                     for (int y = 0; y < 5; y++)
                     {
-                        var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
-                        ground.size = new Vector2Int(1, 1);
-                        ground.gridPos = new Vector2Int(20 + x, 0 + y);
-                        ground.cellType = GridSystem.CellType.Ground;
-                        ground.isFallingPlatform = false;
-                        ground.type = Obstacle.ObstacleType.Ground;
-                        Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
-                        ground.transform.position = worldPositionGround;
                         gridSystem.GetGrid()[20 + x, 0 + y].isOcupied = true;
                         gridSystem.GetGrid()[20 + x, 0 + y].type = GridSystem.CellType.Ocupied;
-                        obstaclesOnCurrentLevel.Add(ground);
                     }
 
                 }
@@ -352,17 +325,8 @@ public class LevelManager : MonoBehaviour
                 {
                     for (int y = 0; y < 1; y++)
                     {
-                        var ground = Instantiate(groundPrefab, Vector3.zero, Quaternion.identity);
-                        ground.size = new Vector2Int(1, 1);
-                        ground.gridPos = new Vector2Int(31 + x, 9 + y);
-                        ground.cellType = GridSystem.CellType.Ground;
-                        ground.isFallingPlatform = false;
-                        ground.type = Obstacle.ObstacleType.Ground;
-                        Vector3 worldPositionGround = gridSystem.GridToWorldPosition(ground.gridPos);
-                        ground.transform.position = worldPositionGround;
                         gridSystem.GetGrid()[31 + x, 9 + y].isOcupied = true;
                         gridSystem.GetGrid()[31 + x, 9 + y].type = GridSystem.CellType.Ocupied;
-                        obstaclesOnCurrentLevel.Add(ground);
                     }
 
                 }
