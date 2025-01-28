@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class AdaptiveMusicController : MonoBehaviour
 {
@@ -22,6 +23,19 @@ public class AdaptiveMusicController : MonoBehaviour
         public int[] layersToEnable;
     }
 
+    [System.Serializable]
+    public class SceneTrackConfig
+    {
+        public string sceneName;
+        public string trackName;
+        [Tooltip("Initial layers to enable when entering this scene")]
+        public int[] initialLayers;
+    }
+
+    [Header("Scene Configuration")]
+    [SerializeField] private List<SceneTrackConfig> sceneConfigs = new List<SceneTrackConfig>();
+    [SerializeField] private float sceneCrossFadeTime = 2f;
+    
     [Header("Music Configuration")]
     [SerializeField] private string currentTrackName = "Track1";
     
@@ -32,6 +46,7 @@ public class AdaptiveMusicController : MonoBehaviour
     [SerializeField] private List<LevelLayerRule> levelRules = new List<LevelLayerRule>();
 
     private HashSet<int> activeLayerIndices = new HashSet<int>();
+    private string currentSceneName;
     
     [Header("Debug Info")]
     [SerializeField, ReadOnly] private int _deathCount = 0;
@@ -55,6 +70,7 @@ public class AdaptiveMusicController : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -62,16 +78,105 @@ public class AdaptiveMusicController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Start()
     {
+        currentSceneName = SceneManager.GetActiveScene().name;
+        InitializeSceneMusic(currentSceneName);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (currentSceneName != scene.name)
+        {
+            currentSceneName = scene.name;
+            HandleSceneTransition(scene.name);
+        }
+    }
+
+    private void HandleSceneTransition(string newSceneName)
+    {
+        var sceneConfig = sceneConfigs.Find(c => c.sceneName == newSceneName);
+        if (sceneConfig != null)
+        {
+            if (sceneConfig.trackName != currentTrackName)
+            {
+                // Crossfade to new track
+                StartCoroutine(CrossFadeToNewTrack(sceneConfig));
+            }
+            else
+            {
+                // Same track, just update layers
+                UpdateLayersForScene(sceneConfig);
+            }
+        }
+    }
+
+    private System.Collections.IEnumerator CrossFadeToNewTrack(SceneTrackConfig newConfig)
+    {
+        // Fade out current track
+        if (SoundTrackManager.Instance != null)
+        {
+            foreach (var layer in musicLayers)
+            {
+                SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layer.layerIndex, 0f, sceneCrossFadeTime);
+            }
+        }
+
+        yield return new WaitForSeconds(sceneCrossFadeTime);
+
+        // Change to new track
+        currentTrackName = newConfig.trackName;
         if (SoundTrackManager.Instance != null)
         {
             SoundTrackManager.Instance.PlayTrack(currentTrackName);
-            // Start with all layers faded out
+            UpdateLayersForScene(newConfig);
+        }
+    }
+
+    private void InitializeSceneMusic(string sceneName)
+    {
+        var sceneConfig = sceneConfigs.Find(c => c.sceneName == sceneName);
+        if (sceneConfig != null && SoundTrackManager.Instance != null)
+        {
+            currentTrackName = sceneConfig.trackName;
+            SoundTrackManager.Instance.PlayTrack(currentTrackName);
+            
+            // Initialize layers
             foreach (var layer in musicLayers)
             {
                 SoundTrackManager.Instance.FadeTrackLayer(currentTrackName, layer.layerIndex, 0f, 0f);
             }
+
+            // Enable initial layers for this scene
+            foreach (int layerIndex in sceneConfig.initialLayers)
+            {
+                EnableLayer(layerIndex);
+            }
+        }
+    }
+
+    private void UpdateLayersForScene(SceneTrackConfig sceneConfig)
+    {
+        // Disable all layers first
+        foreach (var layer in musicLayers)
+        {
+            DisableLayer(layer.layerIndex);
+        }
+
+        // Enable initial layers for this scene
+        foreach (int layerIndex in sceneConfig.initialLayers)
+        {
+            EnableLayer(layerIndex);
+        }
+
+        // If this is a gameplay scene, also apply level rules
+        if (sceneConfig.sceneName.Contains("Level") || sceneConfig.sceneName.Contains("Game"))
+        {
             UpdateLayersForCurrentLevel();
         }
     }
