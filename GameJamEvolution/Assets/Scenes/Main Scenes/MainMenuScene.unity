@@ -1026,7 +1026,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -60.9, y: -91.9}
+  m_AnchoredPosition: {x: -84.600006, y: -91.9}
   m_SizeDelta: {x: 311.435, y: 53.1607}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &277303607
@@ -1124,7 +1124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 2
-  hoverScale: 1.5
+  hoverScale: 1.25
   animationDuration: 0.5
 --- !u!1 &280110853
 GameObject:
@@ -1363,7 +1363,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -153.29999, y: -34.2}
+  m_AnchoredPosition: {x: -177, y: -34.2}
   m_SizeDelta: {x: 218.1226, y: 56.6622}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &305167866
@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 2
-  hoverScale: 1.5
+  hoverScale: 1.25
   animationDuration: 0.5
 --- !u!1 &326332693
 GameObject:
@@ -2912,7 +2912,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -198.29, y: 30.899998}
+  m_AnchoredPosition: {x: -221.98999, y: 30.899998}
   m_SizeDelta: {x: 213.79, y: 56.6622}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &799289331
@@ -3010,7 +3010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 2
-  hoverScale: 1.5
+  hoverScale: 1.25
   animationDuration: 0.5
 --- !u!1001 &800734436
 PrefabInstance:
@@ -4410,7 +4410,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -225.2, y: 97.9}
+  m_AnchoredPosition: {x: -248.9, y: 97.9}
   m_SizeDelta: {x: 223.9726, y: 56.6622}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203394268
@@ -4508,7 +4508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 2
-  hoverScale: 1.5
+  hoverScale: 1.25
   animationDuration: 0.5
 --- !u!1 &1291934272
 GameObject:
@@ -8057,7 +8057,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -51.942, y: -138.9}
+  m_AnchoredPosition: {x: -75.642006, y: -138.9}
   m_SizeDelta: {x: 122.5432, y: 40.517}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1482536568
@@ -8155,7 +8155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelIndex: 2
-  hoverScale: 1.5
+  hoverScale: 1.25
   animationDuration: 0.5
 --- !u!1001 &1526641852
 PrefabInstance:
