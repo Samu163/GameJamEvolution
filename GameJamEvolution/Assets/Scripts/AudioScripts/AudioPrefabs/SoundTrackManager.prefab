@@ -44,5 +44,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6268afd0e18d6954090f057520c1aa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicTracks: []
+  musicTracks:
+  - trackName: Track1
+    layers:
+    - name: clip1
+      clip: {fileID: 8300000, guid: be353b83352807648a8ccfdd2ccb74d9, type: 3}
+      volume: 1
+    - name: clip2
+      clip: {fileID: 8300000, guid: b895a56ed39aabe448581d0ba2f2b6a4, type: 3}
+      volume: 1
+    - name: clip3
+      clip: {fileID: 8300000, guid: 3d73b67ab2da5164cb8b3d78d660d8f1, type: 3}
+      volume: 1
+    - name: clip4
+      clip: {fileID: 8300000, guid: 66788928b63bb134f8a64f7554020adb, type: 3}
+      volume: 1
+    - name: clip5
+      clip: {fileID: 8300000, guid: 5e8db23777f0c7b418d6ea47411c2591, type: 3}
+      volume: 1
+    - name: clip6
+      clip: {fileID: 8300000, guid: c3ce622d061502943a1a66fdf08d7a13, type: 3}
+      volume: 1
+    - name: clip7
+      clip: {fileID: 8300000, guid: f93dd904cf77bad44958f963b11c5cd1, type: 3}
+      volume: 1
+    - name: clip8
+      clip: {fileID: 8300000, guid: 9d96c0b6f7e181b4abd415eacaa89ff8, type: 3}
+      volume: 1
   masterVolume: 1
+  defaultFadeTime: 1
+  scheduleAheadTime: 0.1

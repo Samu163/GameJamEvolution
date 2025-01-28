@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04c1c69a437b8b42a5a8163e1c36d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundGroups: []
-  crossFadeDuration: 0.5
+  soundGroups:
+  - {fileID: 11400000, guid: c26c01d08aae5d44d8dcdf24291b5a34, type: 2}
+  crossFadeDuration: 1
