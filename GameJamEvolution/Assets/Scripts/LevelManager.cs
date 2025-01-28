@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 using static SaveData;
 
@@ -22,6 +23,8 @@ public class LevelManager : MonoBehaviour
     public int levelCount;
     public DissolveManager dissolveManager;
     public DestroyManager destroyManager;
+    public Volume globalVolume; 
+    public TextMeshProUGUI respawnText;
 
     //Delegates for finish level
     public delegate void OnLevelFinished();
@@ -54,6 +57,8 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (globalVolume != null) globalVolume.gameObject.SetActive(false);
+        if (respawnText != null) respawnText.gameObject.SetActive(false);
         obstaclesOnCurrentLevel = new List<Obstacle>();
         levelCount = 0;
         onLevelFinished += InitLevel;
@@ -419,8 +424,23 @@ public class LevelManager : MonoBehaviour
         }
         
     }
+    private IEnumerator RespawnEffectsRoutine()
+    {
+        Time.timeScale = 0;
 
+        yield return new WaitForSecondsRealtime(0.5f);
 
+        Time.timeScale = 1;
+
+        if (globalVolume != null) globalVolume.gameObject.SetActive(false);
+        if (respawnText != null) respawnText.gameObject.SetActive(false);
+    }
+    public void ActivateRespawnEffects()
+    {
+        if (globalVolume != null) globalVolume.gameObject.SetActive(true);
+        if (respawnText != null) respawnText.gameObject.SetActive(true);
+        StartCoroutine(RespawnEffectsRoutine());
+    }
     public void GameOver()
     {
         scoreText.text = "Score: " + levelCount;

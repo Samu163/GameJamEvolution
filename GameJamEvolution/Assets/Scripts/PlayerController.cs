@@ -199,7 +199,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Death"))
         {
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.ActivateRespawnEffects();
+            }
+
             RespawnPlayer();
+            
         }
 
         if (collision.collider.CompareTag("SlideGround"))
@@ -221,7 +227,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Death"))
         {
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.ActivateRespawnEffects();
+            }
+
             RespawnPlayer();
+           
         }
     }
  
@@ -236,6 +248,8 @@ public class PlayerController : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionZ;
 
         isJumping = false;
+
+        
 
         if (AdaptiveMusicController.Instance != null)
         {
