@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Services.Leaderboards;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -60,7 +63,55 @@ public class GameManager : MonoBehaviour
     {
         return saveSystem.CheckSaveFile();
     }
+    public async void UpdatePlayerScore(int levelCount)
+    {
+        try
+        {
+            // Obtener la puntuación actual del leaderboard
+            var scores = await LeaderboardsService.Instance.GetPlayerScoreAsync("test");
 
+            var currentCloudScore = scores?.Score ?? 0; // Si no hay puntuación registrada, usa 0
+
+            // Comparar puntuaciones
+            if (levelCount > currentCloudScore)
+            {
+                await AddPlayerScoreToCloud(levelCount);
+            }
+            else
+            {
+                Debug.Log("No new high score. Cloud score remains: " + currentCloudScore);
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Error updating player score: " + e.Message);
+        }
+    }
+
+    private async Task AddPlayerScoreToCloud(int score)
+    {
+        try
+        {
+            string playerName = PlayerPrefs.GetString("PlayerName", "Guest");
+
+            var metadata = new Dictionary<string, object>
+            {
+                { "PlayerName", playerName }
+            };
+
+            await LeaderboardsService.Instance.AddPlayerScoreAsync(
+                "test",
+                score,
+                new AddPlayerScoreOptions { Metadata = metadata }
+            );
+
+            Debug.Log($"Updated leaderboard with score: {score} for player: {playerName}");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Failed to add player score: " + e.Message);
+        }
+    }
 
     public async void RegisterPlayerToLeaderboard(string playerName)
     {
