@@ -2,56 +2,107 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
+    public static SoundController Instance { get; private set; }
+
     [Header("Sound Settings")]
     [SerializeField] private float masterVolume = 1f;
     [SerializeField] private float musicVolume = 1f;
     [SerializeField] private float sfxVolume = 1f;
 
-    private void Start()
+    private void Awake()
     {
-        // Initialize volumes
-        if (SoundTrackManager.Instance != null)
+        if (Instance == null)
         {
-            SoundTrackManager.Instance.SetMasterVolume(musicVolume);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            LoadVolumeSettings();
         }
-        
-        if (SFXManager.Instance != null)
+        else
         {
-            // Assuming SFXManager has volume control
-            //SFXManager.Instance.SetVolume(sfxVolume);
-        }
-
-        if (EnvironmentSFXManager.Instance != null)
-        {
-            EnvironmentSFXManager.Instance.PlayEnvironmentSound("AmbientSound");
-
+            Destroy(gameObject);
         }
     }
 
-    // Volume Control Methods
+    private void Start()
+    {
+        // Apply initial volume settings
+        ApplyVolumeSettings();
+    }
+
+    private void LoadVolumeSettings()
+    {
+        masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        
+        #if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(this);
+        #endif
+    }
+
+    private void ApplyVolumeSettings()
+    {
+        // Calculate final volumes
+        float finalMusicVolume = musicVolume * masterVolume;
+        float finalSFXVolume = sfxVolume * masterVolume;
+
+        // Apply to music systems
+        if (SoundTrackManager.Instance != null)
+        {
+            SoundTrackManager.Instance.SetMasterVolume(finalMusicVolume);
+        }
+
+        // Apply to SFX systems
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.SetMasterVolume(finalSFXVolume);
+        }
+
+        // Apply to Environment SFX
+        if (EnvironmentSFXManager.Instance != null)
+        {
+            // We need to modify EnvironmentSFXManager to handle volume control
+            // For now, it will continue playing at default volume
+            EnvironmentSFXManager.Instance.PlayEnvironmentSound("AmbientSound");
+        }
+
+        // Log volume changes for debugging
+        Debug.Log($"Applying volumes - Master: {masterVolume}, Music: {musicVolume}, SFX: {sfxVolume}");
+        Debug.Log($"Final volumes - Music: {finalMusicVolume}, SFX: {finalSFXVolume}");
+
+        #if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(this);
+        #endif
+    }
+
     public void SetMasterVolume(float volume)
     {
         masterVolume = Mathf.Clamp01(volume);
-        SetMusicVolume(musicVolume);
-        SetSFXVolume(sfxVolume);
+        PlayerPrefs.SetFloat("MasterVolume", masterVolume);
+        PlayerPrefs.Save();
+        ApplyVolumeSettings();
+        Debug.Log($"Master Volume set to: {masterVolume}");
     }
 
     public void SetMusicVolume(float volume)
     {
         musicVolume = Mathf.Clamp01(volume);
-        if (SoundTrackManager.Instance != null)
-        {
-            SoundTrackManager.Instance.SetMasterVolume(musicVolume * masterVolume);
-        }
+        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        PlayerPrefs.Save();
+        ApplyVolumeSettings();
+        Debug.Log($"Music Volume set to: {musicVolume}");
     }
 
     public void SetSFXVolume(float volume)
     {
         sfxVolume = Mathf.Clamp01(volume);
-        if (SFXManager.Instance != null)
-        {
-            // Assuming SFXManager has volume control
-            // SFXManager.Instance.SetVolume(sfxVolume * masterVolume);
-        }
+        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
+        PlayerPrefs.Save();
+        ApplyVolumeSettings();
+        Debug.Log($"SFX Volume set to: {sfxVolume}");
     }
+
+    public float GetMasterVolume() => masterVolume;
+    public float GetMusicVolume() => musicVolume;
+    public float GetSFXVolume() => sfxVolume;
 } 

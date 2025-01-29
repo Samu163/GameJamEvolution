@@ -29,6 +29,13 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private RectTransform Settings;
     [SerializeField] private TMP_InputField usernameInput = null;
 
+    [Header("Audio Settings")]
+    [SerializeField] private Slider masterVolumeSlider;
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider sfxVolumeSlider;
+    
+    private SoundController soundController;
+
     private void Awake()
     {
         originalScale = howToPlay.transform.localScale;
@@ -36,8 +43,95 @@ public class MenuButtons : MonoBehaviour
         howToPlay.gameObject.SetActive(false);
         Settings.gameObject.SetActive(false);
         leaderBoard.gameObject.SetActive(false);
+        
+        // Initialize sound controller
+        soundController = FindObjectOfType<SoundController>();
+        if (soundController == null)
+        {
+            Debug.LogWarning("SoundController not found in scene!");
+        }
+        
+        // Verify slider references
+        if (masterVolumeSlider == null || musicVolumeSlider == null || sfxVolumeSlider == null)
+        {
+            Debug.LogError("One or more volume sliders are not assigned in MenuButtons!");
+            return;
+        }
+
+        // Initialize slider values and add listeners immediately
+        InitializeAudioSliders();
+        
         uiAnimatorManager.StartmenuAnim().onComplete += AddListeners;
     }
+
+    private void InitializeAudioSliders()
+    {
+        if (soundController != null)
+        {
+            Debug.Log("Initializing audio sliders...");
+            
+            // Remove any existing listeners first to prevent duplicates
+            masterVolumeSlider.onValueChanged.RemoveAllListeners();
+            musicVolumeSlider.onValueChanged.RemoveAllListeners();
+            sfxVolumeSlider.onValueChanged.RemoveAllListeners();
+
+            // Set initial values from SoundController
+            masterVolumeSlider.value = soundController.GetMasterVolume();
+            musicVolumeSlider.value = soundController.GetMusicVolume();
+            sfxVolumeSlider.value = soundController.GetSFXVolume();
+
+            Debug.Log($"Initial slider values - Master: {masterVolumeSlider.value}, Music: {musicVolumeSlider.value}, SFX: {sfxVolumeSlider.value}");
+
+            // Add listeners
+            masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
+            musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+            sfxVolumeSlider.onValueChanged.AddListener(OnSFXVolumeChanged);
+        }
+        else
+        {
+            Debug.LogError("SoundController is null during slider initialization!");
+        }
+    }
+
+    private void OnMasterVolumeChanged(float value)
+    {
+        Debug.Log($"Master slider value changed to: {value}");
+        if (soundController != null)
+        {
+            soundController.SetMasterVolume(value);
+        }
+        else
+        {
+            Debug.LogError("SoundController is null when trying to change master volume!");
+        }
+    }
+
+    private void OnMusicVolumeChanged(float value)
+    {
+        Debug.Log($"Music slider value changed to: {value}");
+        if (soundController != null)
+        {
+            soundController.SetMusicVolume(value);
+        }
+        else
+        {
+            Debug.LogError("SoundController is null when trying to change music volume!");
+        }
+    }
+
+    private void OnSFXVolumeChanged(float value)
+    {
+        Debug.Log($"SFX slider value changed to: {value}");
+        if (soundController != null)
+        {
+            soundController.SetSFXVolume(value);
+        }
+        else
+        {
+            Debug.LogError("SoundController is null when trying to change SFX volume!");
+        }
+    }
+
     private void AddListeners()
     {
         

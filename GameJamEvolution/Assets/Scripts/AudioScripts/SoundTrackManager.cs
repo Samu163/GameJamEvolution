@@ -161,27 +161,46 @@ public class SoundTrackManager : MonoBehaviour
         float startVolume = source.volume;
         float elapsed = 0;
 
+        // Get the layer's base volume
+        var track = musicTracks.Find(t => t.trackName == trackName);
+        if (track == null || layerIndex >= track.layers.Count) yield break;
+        
+        float layerBaseVolume = track.layers[layerIndex].volume;
+
         while (elapsed < fadeTime)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / fadeTime;
-            source.volume = Mathf.Lerp(startVolume, targetVolume * masterVolume, t);
+            // Calculate the target volume considering both the layer's base volume and master volume
+            float currentTargetVolume = targetVolume * layerBaseVolume * masterVolume;
+            source.volume = Mathf.Lerp(startVolume, currentTargetVolume, t);
             yield return null;
         }
 
-        source.volume = targetVolume * masterVolume;
+        source.volume = targetVolume * layerBaseVolume * masterVolume;
         trackFadeCoroutines[trackName].Remove(layerIndex);
     }
 
     public void SetMasterVolume(float volume)
     {
+        Debug.Log($"SoundTrackManager - Setting master volume to: {volume}");
         masterVolume = Mathf.Clamp01(volume);
-        foreach (var sources in trackSources.Values)
+        
+        if (string.IsNullOrEmpty(currentTrackName)) return;
+        
+        // Get the current track
+        var currentTrack = musicTracks.Find(t => t.trackName == currentTrackName);
+        if (currentTrack == null) return;
+
+        // Update all active sources with their proper layer volume * master volume
+        var sources = trackSources[currentTrackName];
+        for (int i = 0; i < sources.Count; i++)
         {
-            foreach (var source in sources)
+            if (i < currentTrack.layers.Count)
             {
-                float currentLayerVolume = source.volume / masterVolume;
-                source.volume = currentLayerVolume * masterVolume;
+                float layerVolume = currentTrack.layers[i].volume;
+                sources[i].volume = layerVolume * masterVolume;
+                Debug.Log($"Layer {i} volume set to: {sources[i].volume} (layer: {layerVolume} * master: {masterVolume})");
             }
         }
     }

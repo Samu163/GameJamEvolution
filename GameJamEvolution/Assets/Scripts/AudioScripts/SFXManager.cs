@@ -114,6 +114,7 @@ public class SFXManager : MonoBehaviour
     
     public void SetMasterVolume(float volume)
     {
+        Debug.Log($"SFXManager - Setting master volume to: {volume}");
         masterVolume = Mathf.Clamp01(volume);
         
         // Update all playing sources
@@ -127,7 +128,9 @@ public class SFXManager : MonoBehaviour
                     var sound = group.sounds.Find(s => s.clip == source.clip);
                     if (sound != null)
                     {
-                        source.volume = sound.volume * masterVolume;
+                        float baseVolume = sound.volume;
+                        source.volume = baseVolume * masterVolume;
+                        Debug.Log($"Updated SFX volume: {source.volume} (base: {baseVolume} * master: {masterVolume})");
                         break;
                     }
                 }
@@ -176,6 +179,7 @@ public class SFXManager : MonoBehaviour
             source.loop = sound.loop;
             source.playOnAwake = false;
             source.Play();
+            Debug.Log($"Playing sound {sound.name} at volume: {source.volume} (base: {sound.volume} * multiplier: {volumeMultiplier} * master: {masterVolume})");
         }
     }
     
