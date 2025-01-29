@@ -28,7 +28,7 @@ public class GroupInstantiatorManager : MonoBehaviour
         }
         else
         {
-            sizeX =  Random.Range(2, 7);
+            sizeX =  Random.Range(2, 6);
         }
         
         Vector2Int size = new Vector2Int(sizeX, sizeY);
