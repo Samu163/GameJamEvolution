@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
+using UnityEditor.Rendering;
+using Newtonsoft.Json;
+using Unity.VisualScripting;
 
 
 public class GameManager : MonoBehaviour
@@ -161,6 +164,40 @@ public class GameManager : MonoBehaviour
             Debug.LogError($"Failed to register player to leaderboard: {ex.Message}");
         }
     }
+
+    public async Task<string> GetPlayerNameFromCloud()
+    {
+        try
+        {
+            GetPlayerScoreOptions options = new GetPlayerScoreOptions
+            {
+                IncludeMetadata = true
+            };
+
+            var scores = await LeaderboardsService.Instance.GetPlayerScoreAsync("test", options);
+
+            if (scores != null && scores.Metadata is string metadataJson)
+            {
+                // Deserializar el string JSON a un diccionario
+                var metadata = JsonConvert.DeserializeObject<Dictionary<string, object>>(metadataJson);
+
+                if (metadata != null && metadata.TryGetValue("PlayerName", out object playerNameObj))
+                {
+                    if (playerNameObj is string playerName && !string.IsNullOrEmpty(playerName))
+                    {
+                        return playerName;
+                    }
+                }
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Failed to fetch player name from cloud: {e.Message}");
+        }
+
+        return "Guest"; // Si no se encuentra el nombre, retornar "Guest"
+    }
+
 
     public void SavePlayerName(string playerName)
     {

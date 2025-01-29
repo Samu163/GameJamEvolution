@@ -47,10 +47,21 @@ public class MenuButtons : MonoBehaviour
         exitButton.onClick.AddListener(() => Application.Quit());
     }
 
-    private void ShowNamePanel()
+    private async void ShowNamePanel()
     {
+        string cloudPlayerName = await GameManager.Instance.GetPlayerNameFromCloud();
+
+        if (!string.IsNullOrEmpty(cloudPlayerName) && cloudPlayerName != "Guest")
+        {
+            Debug.Log($"Player already has a name in the cloud: {cloudPlayerName}");
+            GameManager.Instance.LoadSceneRequest("LevelSelector");
+            return;
+        }
+
+
         nameBg.SetActive(true);
-        uiAnimatorManager.AnimateTitle(0, nameMenu).onComplete += () => saveNameButton.onClick.AddListener(() => RegisterPlayerAndLoadLevelSelector());
+        uiAnimatorManager.AnimateTitle(0, nameMenu).onComplete += () =>
+            saveNameButton.onClick.AddListener(() => RegisterPlayerAndLoadLevelSelector());
     }
 
     private void ShowLeaderBoard()
@@ -66,6 +77,11 @@ public class MenuButtons : MonoBehaviour
         if (string.IsNullOrEmpty(playerName) || playerName.Length < 3)
         {
             Debug.LogError("Player name must be at least 3 characters.");
+            return;
+        }
+        if (string.IsNullOrEmpty(playerName) || playerName.Length > 10)
+        {
+            Debug.LogError("Player name must have less than 10 characters.");
             return;
         }
 
