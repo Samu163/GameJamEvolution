@@ -25,7 +25,7 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Deactivate
-    clip: {fileID: 8300000, guid: c9fbd4807f5f3cb4cbda0872c9b2f443, type: 3}
+    clip: {fileID: 8300000, guid: 779bdf150bfc7a744bc463fdfe16bcb9, type: 3}
     volume: 0.1
     loop: 0
     source: {fileID: 0}
