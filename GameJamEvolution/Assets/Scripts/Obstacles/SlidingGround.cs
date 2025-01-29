@@ -6,10 +6,39 @@ public class SlidingGround : Obstacle
 {
     public int heightMargin = 5;
     public Vector2Int radiusSize;
+    private bool isPlayerOnGround = false;
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            isPlayerOnGround = true;
+            PlayObstacleSound("Start");
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            isPlayerOnGround = false;
+            PlayObstacleSound("Stop");
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && !isPlayerOnGround)
+        {
+            isPlayerOnGround = true;
+            PlayObstacleSound("Start");
+        }
+    }
 
     public override void RestartObstacle()
     {
         Debug.Log("No hace nada");
+        isPlayerOnGround = false;
     }
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
     {

@@ -49,19 +49,36 @@ public class FallingLamp : Obstacle
 
     private IEnumerator Fall()
     {
+        PlayObstacleSound("Shake");
         yield return new WaitForSeconds(fallDelay);
+        
+        PlayObstacleSound("Fall");
         rb.isKinematic = false;
         rb.useGravity = true;
         if (childCollider != null)
         {
             childCollider.enabled = true;
         }
+
         yield return new WaitForSeconds(respawnDelay);
         Respawn();
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.CompareTag("Player"))
+        {
+            PlayObstacleSound("Impact");
+            if (collision.gameObject.CompareTag("Player") && LevelManager.Instance != null)
+            {
+                LevelManager.Instance.ActivateRespawnEffects();
+            }
+        }
+    }
+
     private void Respawn()
     {
+        PlayObstacleSound("Reset");
         rb.isKinematic = true;
         rb.useGravity = false;
         transform.position = startPosition;
@@ -80,6 +97,7 @@ public class FallingLamp : Obstacle
 
     public override void RestartObstacle()
     {
+        PlayObstacleSound("Reset");
         rb.isKinematic = true;
         rb.useGravity = false;
         transform.position = startPosition;
