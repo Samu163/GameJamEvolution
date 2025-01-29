@@ -16,18 +16,15 @@ MonoBehaviour:
   sounds:
   - name: WindUp
     clip: {fileID: 8300000, guid: e3250950dc6c47441bc9b407e1a7f680, type: 3}
-    volume: 0.2
+    volume: 0.4
     loop: 0
-    source: {fileID: 0}
   - name: Hit
     clip: {fileID: 8300000, guid: f632515b2717a93488c3be68c088941b, type: 3}
     volume: 0.7
     loop: 0
-    source: {fileID: 0}
   - name: Reset
-    clip: {fileID: 8300000, guid: 2b4187e6fc5edb342be9b08436dad4bf, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 6e330a14d60850549b3feb9d3d9e8f05, type: 3}
+    volume: 0.2
     loop: 0
-    source: {fileID: 0}
   playSequentially: 0
   currentIndex: 0
