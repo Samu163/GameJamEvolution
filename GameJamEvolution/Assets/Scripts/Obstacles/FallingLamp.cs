@@ -15,6 +15,7 @@ public class FallingLamp : Obstacle
     private Vector3 startPosition;
     private Rigidbody rb;
     private Collider childCollider;
+    private bool isFalling = false;
 
     private void Start()
     {
@@ -30,7 +31,11 @@ public class FallingLamp : Obstacle
 
     private void Update()
     {
-        CheckForPlayer();
+        if (!isFalling)
+        {
+            CheckForPlayer();
+        }
+        
     }
 
     private void CheckForPlayer()
@@ -43,6 +48,7 @@ public class FallingLamp : Obstacle
             if (hit.collider.CompareTag("Player"))
             {
                 StartCoroutine(Fall());
+                isFalling = true;
             }
         }
     }
@@ -66,14 +72,7 @@ public class FallingLamp : Obstacle
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.CompareTag("Player"))
-        {
-            PlayObstacleSound("Impact");
-            if (collision.gameObject.CompareTag("Player") && LevelManager.Instance != null)
-            {
-                LevelManager.Instance.ActivateRespawnEffects();
-            }
-        }
+        
     }
 
     private void Respawn()
@@ -86,6 +85,7 @@ public class FallingLamp : Obstacle
         {
             childCollider.enabled = false;
         }
+        isFalling = false;
     }
 
     private void OnDrawGizmosSelected()
@@ -105,6 +105,7 @@ public class FallingLamp : Obstacle
         {
             childCollider.enabled = false;
         }
+        isFalling = false;
     }
 
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)

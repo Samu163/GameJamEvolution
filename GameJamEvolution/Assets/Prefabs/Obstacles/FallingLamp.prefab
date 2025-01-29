@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5589209232149532025}
   m_Layer: 7
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 6423056315464613539}
   m_Layer: 6
   m_Name: FallingLamp
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -199,7 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7399337277888797535}
   - component: {fileID: 2568537823093597158}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Damage
   m_TagString: Death
   m_Icon: {fileID: 0}
@@ -253,9 +253,9 @@ GameObject:
   - component: {fileID: 6117345955209067621}
   - component: {fileID: 7259144798041553430}
   - component: {fileID: 5265105898366009144}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
