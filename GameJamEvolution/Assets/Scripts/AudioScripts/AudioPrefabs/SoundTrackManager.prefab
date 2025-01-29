@@ -76,6 +76,9 @@ MonoBehaviour:
     - name: clip8
       clip: {fileID: 8300000, guid: 9d96c0b6f7e181b4abd415eacaa89ff8, type: 3}
       volume: 1
+    - name: clip9
+      clip: {fileID: 8300000, guid: 93a9148e3e1613b4895afefe0a95b524, type: 3}
+      volume: 1
   - trackName: Track2
     layers:
     - name: clip1

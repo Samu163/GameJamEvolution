@@ -87,6 +87,9 @@ MonoBehaviour:
   - layerIndex: 7
     targetVolume: 1
     fadeTime: 1
+  - layerIndex: 8
+    targetVolume: 1
+    fadeTime: 1
   levelRules:
   - minLevel: 0
     maxLevel: 0
@@ -99,10 +102,10 @@ MonoBehaviour:
     layersToEnable: 000000000200000003000000
   - minLevel: 3
     maxLevel: 3
-    layersToEnable: 00000000020000000300000004000000
+    layersToEnable: 0000000002000000030000000400000008000000
   - minLevel: 4
     maxLevel: 4
-    layersToEnable: 0000000002000000030000000400000005000000
+    layersToEnable: 000000000200000003000000040000000500000008000000
   - minLevel: 5
     maxLevel: 5
     layersToEnable: 0000000002000000030000000500000006000000
@@ -111,9 +114,12 @@ MonoBehaviour:
     layersToEnable: 0000000002000000030000000500000007000000
   - minLevel: 7
     maxLevel: 7
-    layersToEnable: 000000000200000003000000040000000600000007000000
+    layersToEnable: 000000000300000004000000060000000700000008000000
   - minLevel: 8
     maxLevel: 8
-    layersToEnable: 00000000020000000300000004000000050000000600000007000000
+    layersToEnable: 0000000002000000030000000400000005000000060000000700000008000000
+  - minLevel: 9
+    maxLevel: 10
+    layersToEnable: 0300000004000000050000000600000008000000
   _deathCount: 0
   _currentLevel: 0
