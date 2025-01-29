@@ -38,7 +38,7 @@ public class LevelTimer : MonoBehaviour
         }
         else
         {
-            timerText.text = "00:00";
+            timerText.text = string.Format("{0:00}:{1:00}", minutesRemaining, secondsRemaining);
         }
 
         if (timeRemaining <= 0)
