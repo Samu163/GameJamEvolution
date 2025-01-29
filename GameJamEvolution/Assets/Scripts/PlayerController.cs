@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isGrounded;
     private bool jump = false;
     private bool isJumping = true;
+    [SerializeField] private float gravityUp;
+    [SerializeField] private float gravityDown;
+    [SerializeField] private float gravity;
 
     [Header("Player Wall Jump")]
     [SerializeField] private float wallJumpForce;
@@ -133,22 +136,36 @@ public class PlayerController : MonoBehaviour
         
 
         MovePlayer(movHorizontal * Time.fixedDeltaTime, jump, wallJump);
+        if (isJumping && !isGrounded && !isTouchingWall && rb.velocity.y < 0.5f)
+        {
+            gravity = Mathf.Lerp(gravityUp, gravityDown, Time.fixedDeltaTime);
+        }
+        
 
-        if (rb.velocity.y > 0)
+        if (rb.velocity.y <= 0 && isTouchingWall)
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.1f, rb.velocity.z);
         }
-        else if (rb.velocity.y <= 0 && isTouchingWall)
+        else
         {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.1f, rb.velocity.z);
-        }
-        else if (rb.velocity.y <= 0)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.3f, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - gravity, rb.velocity.z);
         }
 
+            //if (rb.velocity.y > 0.5f)
+            //{
+            //    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - gravity, rb.velocity.z);
+            //}
+            //else if (rb.velocity.y <= 0 && isTouchingWall)
+            //{
+            //    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.1f, rb.velocity.z);
+            //}
+            //else if (rb.velocity.y <= 0.5f)
+            //{
+            //    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - gravity, rb.velocity.z);
+            //}
 
-        jump = false;
+
+            jump = false;
         wallJump = false;
     }
 

@@ -156,7 +156,7 @@ MonoBehaviour:
   smoothTime: 0.1
   playerPhysicMaterial: {fileID: 13400000, guid: 2307850b62e525745a8f0f4412fafc6c,
     type: 2}
-  jumpForce: 16
+  jumpForce: 25
   groundCheck: {fileID: 8131617509199267660}
   groundLayer:
     serializedVersion: 2
@@ -164,6 +164,9 @@ MonoBehaviour:
   boxSize: {x: 0.75, y: 0.25, z: 1}
   radiusSize: 0.3
   isGrounded: 0
+  gravityUp: 0.4
+  gravityDown: 5
+  gravity: 0
   wallJumpForce: 20
   wallCheck: {fileID: 4054165917273520904}
   wallLayer:
