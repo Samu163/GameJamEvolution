@@ -167,33 +167,28 @@ public class GameManager : MonoBehaviour
 
     public async Task<string> GetPlayerNameFromCloud()
     {
-        try
+
+        GetPlayerScoreOptions options = new GetPlayerScoreOptions
         {
-            GetPlayerScoreOptions options = new GetPlayerScoreOptions
+            IncludeMetadata = true
+        };
+
+        var scores = await LeaderboardsService.Instance.GetPlayerScoreAsync("test", options);
+
+        if (scores != null && scores.Metadata is string metadataJson)
+        {
+            // Deserializar el string JSON a un diccionario
+            var metadata = JsonConvert.DeserializeObject<Dictionary<string, object>>(metadataJson);
+
+            if (metadata != null && metadata.TryGetValue("PlayerName", out object playerNameObj))
             {
-                IncludeMetadata = true
-            };
-
-            var scores = await LeaderboardsService.Instance.GetPlayerScoreAsync("test", options);
-
-            if (scores != null && scores.Metadata is string metadataJson)
-            {
-                // Deserializar el string JSON a un diccionario
-                var metadata = JsonConvert.DeserializeObject<Dictionary<string, object>>(metadataJson);
-
-                if (metadata != null && metadata.TryGetValue("PlayerName", out object playerNameObj))
+                if (playerNameObj is string playerName && !string.IsNullOrEmpty(playerName))
                 {
-                    if (playerNameObj is string playerName && !string.IsNullOrEmpty(playerName))
-                    {
-                        return playerName;
-                    }
+                    return playerName;
                 }
             }
         }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Failed to fetch player name from cloud: {e.Message}");
-        }
+
 
         return "Guest"; // Si no se encuentra el nombre, retornar "Guest"
     }
