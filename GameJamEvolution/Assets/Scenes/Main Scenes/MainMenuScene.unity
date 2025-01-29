@@ -480,8 +480,8 @@ MonoBehaviour:
   uiAnimatorManager: {fileID: 1982583655}
   leaderboardsMenu: {fileID: 1827725885}
   fadeInController: {fileID: 1779724755}
-  Title: {fileID: 0}
-  animatorCamera: {fileID: 0}
+  Title: {fileID: 1039842250}
+  animatorCamera: {fileID: 280110858}
   nameBg: {fileID: 414744330}
   leaderBoard: {fileID: 1927918350}
   nameMenu: {fileID: 1627709591}
@@ -568,7 +568,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -37, y: 0}
-  m_SizeDelta: {x: 0, y: -482.72302}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &95095653
 MonoBehaviour:
@@ -5184,7 +5184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1194508141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10649,7 +10649,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1827725884
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10657,17 +10657,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1827725883}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.008207333, w: 0.9999663}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.41665882, y: 0.41665882, z: 0.41665882}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1927918350}
   m_Father: {fileID: 380951626}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.941}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.07220459, y: -0.0007019043}
   m_SizeDelta: {x: 1119.9998, y: 629.8352}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1827725885
@@ -10692,8 +10692,9 @@ MonoBehaviour:
   nextButton: {fileID: 160069599}
   prevButton: {fileID: 988131955}
   closeButton: {fileID: 1727468783}
-  cameraAnimator: {fileID: 0}
-  menuButtons: {fileID: 0}
+  cameraAnimator: {fileID: 280110858}
+  menuButtons: {fileID: 92989729}
+  leaderboardPanel: {fileID: 1827725884}
 --- !u!1001 &1829871631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12073,7 +12074,7 @@ PrefabInstance:
     - target: {fileID: 918761293799127805, guid: 216ab29ada8bc024998a30dc391aab66,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 918761293799127805, guid: 216ab29ada8bc024998a30dc391aab66,
         type: 3}
@@ -12083,12 +12084,12 @@ PrefabInstance:
     - target: {fileID: 918761293799127805, guid: 216ab29ada8bc024998a30dc391aab66,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 918761293799127805, guid: 216ab29ada8bc024998a30dc391aab66,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 900
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 918761293799127805, guid: 216ab29ada8bc024998a30dc391aab66,
         type: 3}
@@ -12133,12 +12134,12 @@ PrefabInstance:
     - target: {fileID: 918761293799127805, guid: 216ab29ada8bc024998a30dc391aab66,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 450
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 918761293799127805, guid: 216ab29ada8bc024998a30dc391aab66,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 918761293799127805, guid: 216ab29ada8bc024998a30dc391aab66,
         type: 3}
