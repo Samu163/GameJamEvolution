@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e3e1f0acf3a4234186a7383d60e5503, type: 3}
+  m_Name: Laser
+  m_EditorClassIdentifier: 
+  groupName: Laser
+  sounds:
+  - name: Charge
+    clip: {fileID: 8300000, guid: f15af3641b27c5d4babcab11f9612bf3, type: 3}
+    volume: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Beam
+    clip: {fileID: 8300000, guid: c9fbd4807f5f3cb4cbda0872c9b2f443, type: 3}
+    volume: 0.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Deactivate
+    clip: {fileID: 8300000, guid: db13420fa98736645adc2cdc3f74a26d, type: 3}
+    volume: 0.2
+    loop: 0
+    source: {fileID: 0}
+  playSequentially: 0
+  currentIndex: 0
