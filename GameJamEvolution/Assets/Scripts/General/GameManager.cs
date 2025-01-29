@@ -10,6 +10,7 @@ using Unity.Services.Authentication;
 using UnityEditor.Rendering;
 using Newtonsoft.Json;
 using Unity.VisualScripting;
+using Unity.Services.Leaderboards.Exceptions;
 
 
 public class GameManager : MonoBehaviour
@@ -165,32 +166,44 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public async Task<string> GetPlayerNameFromCloud()
+   public async Task<string> GetPlayerNameFromCloud()
     {
-
-        GetPlayerScoreOptions options = new GetPlayerScoreOptions
+        try
         {
-            IncludeMetadata = true
-        };
-
-        var scores = await LeaderboardsService.Instance.GetPlayerScoreAsync("test", options);
-
-        if (scores != null && scores.Metadata is string metadataJson)
-        {
-            // Deserializar el string JSON a un diccionario
-            var metadata = JsonConvert.DeserializeObject<Dictionary<string, object>>(metadataJson);
-
-            if (metadata != null && metadata.TryGetValue("PlayerName", out object playerNameObj))
+            GetPlayerScoreOptions options = new GetPlayerScoreOptions
             {
-                if (playerNameObj is string playerName && !string.IsNullOrEmpty(playerName))
+                IncludeMetadata = true
+            };
+
+            var scores = await LeaderboardsService.Instance.GetPlayerScoreAsync("test", options);
+
+            if (scores != null && scores.Metadata is string metadataJson)
+            {
+                // Deserializar el string JSON a un diccionario
+                var metadata = JsonConvert.DeserializeObject<Dictionary<string, object>>(metadataJson);
+
+                if (metadata != null && metadata.TryGetValue("PlayerName", out object playerNameObj))
                 {
-                    return playerName;
+                    if (playerNameObj is string playerName && !string.IsNullOrEmpty(playerName))
+                    {
+                        return playerName; // Si el jugador ya tiene un nombre, lo devolvemos
+                    }
                 }
             }
+
+            return "Guest"; // Si no hay metadatos o el nombre no está en ellos
         }
+        catch (LeaderboardsException e)
+        {
+            if (e.ErrorCode == 404)  // Manejar el error 404 correctamente
+            {
+                Debug.LogWarning("Jugador no encontrado en el leaderboard. Se pedirá un nombre.");
+                return "Guest"; 
+            }
 
-
-        return "Guest"; // Si no se encuentra el nombre, retornar "Guest"
+            Debug.LogError($"Error obteniendo el nombre del jugador: {e.Message}");
+            return "Guest"; 
+        }
     }
 
 

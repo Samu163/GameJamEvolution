@@ -4,7 +4,6 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
-using UnityEditor.Animations;
 
 public class DestroyManager : MonoBehaviour
 {
