@@ -479,6 +479,8 @@ MonoBehaviour:
   closeSettingsButton: {fileID: 1526859508}
   uiAnimatorManager: {fileID: 1982583655}
   leaderboardsMenu: {fileID: 1827725885}
+  Title: {fileID: 1039842250}
+  animatorCamera: {fileID: 280110858}
   nameBg: {fileID: 414744330}
   leaderBoard: {fileID: 1927918350}
   nameMenu: {fileID: 1627709591}
@@ -1144,6 +1146,89 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160069597}
   m_CullTransparentMesh: 1
+--- !u!1001 &166065716
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4626
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4626
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.4626
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.59
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.29
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.47
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6087614
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7933534
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -105
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8c4cf26cf848a7a4686d1cf9c4955518,
+        type: 3}
+      propertyPath: m_Name
+      value: MESA
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8c4cf26cf848a7a4686d1cf9c4955518, type: 3}
 --- !u!1 &178973741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2049,13 +2134,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280110853}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018872013, y: -0.13177046, z: -0.001817493, w: 0.99109894}
-  m_LocalPosition: {x: 1.8, y: -0.2, z: -4.15}
+  m_LocalRotation: {x: 0.067025825, y: -0.03182409, z: 0.0048011923, w: 0.997232}
+  m_LocalPosition: {x: 1.823, y: 0.417, z: -5.16}
   m_LocalScale: {x: 2.4686, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -2.171, y: -15.148, z: 0.079}
+  m_LocalEulerAnglesHint: {x: 7.7, y: -3.635, z: 0.307}
 --- !u!114 &280110857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11948,6 +12033,8 @@ MonoBehaviour:
   nextButton: {fileID: 160069599}
   prevButton: {fileID: 988131955}
   closeButton: {fileID: 1727468783}
+  cameraAnimator: {fileID: 280110858}
+  menuButtons: {fileID: 92989729}
 --- !u!1001 &1829871631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13862,3 +13949,4 @@ SceneRoots:
   - {fileID: 1579417646}
   - {fileID: 1907325754}
   - {fileID: 155304347}
+  - {fileID: 166065716}

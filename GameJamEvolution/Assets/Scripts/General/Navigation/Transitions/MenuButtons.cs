@@ -21,7 +21,8 @@ public class MenuButtons : MonoBehaviour
     public UIAnimatorManager uiAnimatorManager;
     public LeaderboardsMenu leaderboardsMenu;
     private Vector3 originalScale;
-
+    [SerializeField] private GameObject Title;
+    [SerializeField] private Animator animatorCamera;
     [SerializeField] private GameObject nameBg;
     [SerializeField] private RectTransform leaderBoard;
     [SerializeField] private RectTransform nameMenu;
@@ -79,8 +80,10 @@ public class MenuButtons : MonoBehaviour
 
     private void ShowLeaderBoard()
     {
+        animatorCamera.SetBool("isLookingTable",true);
         leaderboardsMenu.Open();
         uiAnimatorManager.AnimateTitle(0, leaderBoard);
+        HideAllButtons(false);
     }
 
     private void ShowHowToPlay()
@@ -146,6 +149,18 @@ public class MenuButtons : MonoBehaviour
         GameManager.Instance.RegisterPlayerToLeaderboard(playerName); 
         GameManager.Instance.LoadSceneRequest("LevelSelector"); 
     }
-
+    public void HideAllButtons(bool condition)
+    {
+        newGameButton.gameObject.SetActive(condition);
+        continueButton.gameObject.SetActive(condition);
+        settingsButton.gameObject.SetActive(condition);
+        exitButton.gameObject.SetActive(condition);
+        saveNameButton.gameObject.SetActive(condition);
+        showLeaderBoardButton.gameObject.SetActive(condition);
+        howToPlayButton.gameObject.SetActive(condition);
+        closeButton.gameObject.SetActive(condition);
+        closeSettingsButton.gameObject.SetActive(condition);
+        Title.gameObject.SetActive(condition);
+    }
 
 }
