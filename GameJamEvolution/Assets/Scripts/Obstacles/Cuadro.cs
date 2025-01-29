@@ -5,13 +5,40 @@ using UnityEngine;
 public class Cuadro : Obstacle
 {
     public Laser laser;
+    private bool hasStarted = false;
+
+    private void Start()
+    {
+        if (isLaser && laser != null)
+        {
+            PlayObstacleSound("Activate");
+            hasStarted = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayObstacleSound("Hit");
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.ActivateRespawnEffects();
+            }
+        }
+    }
+
     public override void RestartObstacle()
     {
         if (isLaser && laser != null)
         {
             laser.RestartLaser();
+            if (!hasStarted)
+            {
+                PlayObstacleSound("Activate");
+                hasStarted = true;
+            }
         }
-        
     }
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
     {
