@@ -29,10 +29,14 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private RectTransform howToPlay;
     [SerializeField] private RectTransform Settings;
     [SerializeField] private TMP_InputField usernameInput = null;
+    private float originalHowToPlayPositionY;
+    private float originalSettingsPositionY;
 
     private void Awake()
     {
         originalScale = howToPlay.transform.localScale;
+        originalHowToPlayPositionY = howToPlay.anchoredPosition.y;
+        originalSettingsPositionY = Settings.anchoredPosition.y;
         nameBg.SetActive(false);
         howToPlay.gameObject.SetActive(false);
         Settings.gameObject.SetActive(false);
@@ -89,13 +93,40 @@ public class MenuButtons : MonoBehaviour
     private void ShowHowToPlay()
     {
         howToPlay.gameObject.transform.localScale = originalScale;
-        uiAnimatorManager.AnimateTitle(0, howToPlay);
+        
+        Vector2 startPosition = howToPlay.anchoredPosition;
+        startPosition.y = 500.0f;
+        howToPlay.anchoredPosition = startPosition;
+
+        howToPlay.DOAnchorPosY(originalHowToPlayPositionY - 30.0f, 1.6f)
+                 .SetEase(Ease.OutSine)
+                 .SetDelay(0)
+                 .OnComplete(() =>
+                 {
+                     howToPlay.DOAnchorPosY(originalHowToPlayPositionY, 0.3f)
+                              .SetEase(Ease.InSine);
+                 });
+
+        
         howToPlay.gameObject.SetActive(true);
     }
     private void ShowSettings()
     {
         Settings.gameObject.transform.localScale = originalScale;
-        uiAnimatorManager.AnimateTitle(0, Settings);
+        Vector2 startPosition = Settings.anchoredPosition;
+        startPosition.y = 500.0f;
+        Settings.anchoredPosition = startPosition;
+
+        Settings.DOAnchorPosY(originalSettingsPositionY - 30.0f, 1.6f)
+                 .SetEase(Ease.OutSine)
+                 .SetDelay(0)
+                 .OnComplete(() =>
+                 {
+                     Settings.DOAnchorPosY(originalSettingsPositionY, 0.3f)
+                              .SetEase(Ease.InSine);
+                 });
+
+
         Settings.gameObject.SetActive(true);
     }
     private void CloseHowToPlay()
