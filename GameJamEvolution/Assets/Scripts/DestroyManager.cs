@@ -25,6 +25,11 @@ public class DestroyManager : MonoBehaviour
     [SerializeField] public float maxRecharge;
     [SerializeField] private float timeToRest = 10;
 
+    [SerializeField] private float targetProgress = 0;
+    [SerializeField] private float fillSpeed = 0.25f;
+
+    [SerializeField] private ParticleSystem particles;
+
     public LevelTimer levelTimer;
 
     [Header("Visual Settings")]
@@ -59,7 +64,20 @@ public class DestroyManager : MonoBehaviour
             destroyButton.interactable = true;
         }
 
-        rechargeBar.value = Mathf.Lerp(rechargeValue / 5, rechargeBar.value, Time.deltaTime);
+        if (rechargeBar.value < targetProgress)
+        {
+            rechargeBar.value += fillSpeed * Time.deltaTime;
+            if (!particles.isPlaying)
+            {
+                particles.Play();
+            }
+        }
+        else
+        {
+            particles.Stop();
+        }
+
+        targetProgress = Mathf.Lerp(rechargeValue / 5, rechargeBar.value, Time.deltaTime);
 
         mouseScreenPos = Input.mousePosition;
         mouseScreenPos.z = 40;
