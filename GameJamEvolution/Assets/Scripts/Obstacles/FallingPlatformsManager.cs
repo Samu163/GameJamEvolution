@@ -13,6 +13,18 @@ public class FallingPlatformsManager : MonoBehaviour
         StartCoroutine(waitToRespawn(platform));
     }
 
+    public void RestartFallingPlatforms()
+    {
+        StopAllCoroutines();
+        for (int i = 0; i < platformsList.Count; i++)
+        {
+            platformsList[i].SetActive(true);
+            platformsList[i].transform.position = platformsList[i].GetComponent<FallingPlatform>().startPosition;
+            platformsList[i].GetComponent<Rigidbody>().useGravity = false;
+            platformsList[i].GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
     IEnumerator waitToRespawn(GameObject platform)
     {
         yield return new WaitForSeconds(respawnDelay);
