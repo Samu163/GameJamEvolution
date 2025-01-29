@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 using Unity.Services.Leaderboards;
 using Newtonsoft.Json;
-
+using DG.Tweening;
 public class LeaderboardsMenu : Panel
 {
     [SerializeField] private int playersPerPage = 25;
@@ -18,6 +18,8 @@ public class LeaderboardsMenu : Panel
     [SerializeField] private Button closeButton = null;
     [SerializeField] private Animator cameraAnimator;
     [SerializeField] private GameObject menuButtons;
+    [SerializeField] private RectTransform leaderboardPanel;
+
 
     private int currentPage = 1;
     private int totalPages = 0;
@@ -45,6 +47,15 @@ public class LeaderboardsMenu : Panel
         currentPage = 1;
         totalPages = 0;
         LoadPlayers(1);
+
+        if (leaderboardPanel != null)
+        {
+            leaderboardPanel.localPosition = new Vector3(leaderboardPanel.localPosition.x, -20f, leaderboardPanel.localPosition.z);
+            leaderboardPanel.localRotation = Quaternion.Euler(-10f, 0f, 0f);
+
+            leaderboardPanel.DOLocalMoveY(0f, 0.6f).SetEase(Ease.OutBack);
+            leaderboardPanel.DOLocalRotate(Vector3.zero, 0.6f).SetEase(Ease.OutBack);
+        }
     }
 
     private void AddScore()
