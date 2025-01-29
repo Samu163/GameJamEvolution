@@ -10,18 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e3e1f0acf3a4234186a7383d60e5503, type: 3}
-  m_Name: Death
+  m_Name: Clock
   m_EditorClassIdentifier: 
-  groupName: Death
+  groupName: Clock
   sounds:
-  - name: clip1
-    clip: {fileID: 8300000, guid: bcbefb3c8a8fe01459f280666ccb2298, type: 3}
-    volume: 1
+  - name: WindUp
+    clip: {fileID: 8300000, guid: e3250950dc6c47441bc9b407e1a7f680, type: 3}
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
-  - name: clip2
-    clip: {fileID: 8300000, guid: c781ce7f16751794fb9d61a448d31967, type: 3}
-    volume: 1
+  - name: Hit
+    clip: {fileID: 8300000, guid: f632515b2717a93488c3be68c088941b, type: 3}
+    volume: 0.7
+    loop: 0
+    source: {fileID: 0}
+  - name: Reset
+    clip: {fileID: 8300000, guid: 2b4187e6fc5edb342be9b08436dad4bf, type: 3}
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   playSequentially: 0

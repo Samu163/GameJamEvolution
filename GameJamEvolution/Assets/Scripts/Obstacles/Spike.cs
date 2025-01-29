@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Spike : Obstacle
 {
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayObstacleSound("Hit");
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.ActivateRespawnEffects();
+            }
+        }
+    }
+
     public override void RestartObstacle()
     {
         Debug.Log("No hace nada");

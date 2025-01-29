@@ -34,11 +34,11 @@ public class Clock : Obstacle
         if (attackTimeCounter >= attackTime)
         {
             isAttacking = true;
+            PlayObstacleSound("WindUp");
         }
 
         if (isAttacking)
         {
-
             animator.SetBool("Attack",true);
             attackCollider.enabled = true;
             AugmentRadius();
@@ -51,6 +51,7 @@ public class Clock : Obstacle
                 attackCollider.enabled = false;
                 attackTimeCounter = 0;
                 animator.SetBool("Attack", false);
+                PlayObstacleSound("Reset");
             }
         }
     }
@@ -70,6 +71,18 @@ public class Clock : Obstacle
         Gizmos.DrawWireSphere(attackCollider.transform.position, attackCollider.radius);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            PlayObstacleSound("Hit");
+            if (LevelManager.Instance != null)
+            {
+                LevelManager.Instance.ActivateRespawnEffects();
+            }
+        }
+    }
+
     public override void RestartObstacle()
     {
         isAttacking = false;
@@ -77,6 +90,7 @@ public class Clock : Obstacle
         clockAttack.transform.localScale = new Vector3(0, 0, 0);
         attackCollider.enabled = false;
         attackTimeCounter = 0;
+        PlayObstacleSound("Reset");
     }
 
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)

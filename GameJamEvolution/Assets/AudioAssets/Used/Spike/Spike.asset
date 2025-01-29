@@ -10,18 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e3e1f0acf3a4234186a7383d60e5503, type: 3}
-  m_Name: Death
+  m_Name: Spike
   m_EditorClassIdentifier: 
-  groupName: Death
+  groupName: Spike
   sounds:
-  - name: clip1
-    clip: {fileID: 8300000, guid: bcbefb3c8a8fe01459f280666ccb2298, type: 3}
-    volume: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: clip2
-    clip: {fileID: 8300000, guid: c781ce7f16751794fb9d61a448d31967, type: 3}
-    volume: 1
+  - name: Hit
+    clip: {fileID: 8300000, guid: cce2d2ce5682a294b9549cd1c7820020, type: 3}
+    volume: 0.8
     loop: 0
     source: {fileID: 0}
   playSequentially: 0
