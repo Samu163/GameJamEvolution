@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Vector3 boxSize;
+    [SerializeField] private float radiusSize;
     [SerializeField] private bool isGrounded;
     private bool jump = false;
     private bool isJumping = true;
@@ -53,45 +54,26 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position;
-       // animator = GetComponent<Animator>();
+        animator.SetBool("isWalking", false);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
+        //isGrounded = Physics.CheckBox(groundCheck.position, boxSize, Quaternion.identity, groundLayer);
+        isGrounded = Physics.CheckSphere(groundCheck.position, radiusSize, groundLayer);
+        animator.SetBool("isGrounded", isGrounded);
+        isTouchingWall = Physics.CheckBox(wallCheck.position, boxSizeWall, Quaternion.identity, wallLayer);
 
         if (rb.velocity.y < 0)
         {
             animator.SetBool("isJumping", false);
         }
-        if (Input.GetKey(KeyCode.Z))
-        {
-           
-            currentMovSpeed = movSpeedRunning;
-          
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
-            currentMovSpeed = movSpeed;
-     
-        }
 
-        if (Input.GetKey(KeyCode.Z) && !isJumping && isGrounded && !isTouchingWall)
-        {
-            animator.SetBool("isRunning", true);
-        }
+        movHorizontal = Input.GetAxisRaw("Horizontal") * movSpeedRunning;
 
-        movHorizontal = Input.GetAxisRaw("Horizontal") * currentMovSpeed;
-
-        if (movHorizontal != 0 && !Input.GetKey(KeyCode.Z))
-        {
-            animator.SetBool("isWalking", true);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
+        
 
 
         if (Input.GetButtonDown("Jump"))
@@ -108,16 +90,25 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
         }
 
-        isGrounded = Physics.CheckBox(groundCheck.position, boxSize, Quaternion.identity, groundLayer);
-        animator.SetBool("isGrounded", isGrounded);
-        isTouchingWall = Physics.CheckBox(wallCheck.position, boxSizeWall, Quaternion.identity, wallLayer);
+        
 
-        bool isWallHanging = isTouchingWall && !isGrounded;
-        animator.SetBool("isWallHanging", isWallHanging);
-
-        if(isWallHanging)
+        if (movHorizontal != 0 && !isTouchingWall)
         {
+            animator.SetBool("isRunning", true);
+        }
+        else if (movHorizontal == 0 || isTouchingWall)
+        {
+            animator.SetBool("isRunning", false);
+        }
+
+        if (isTouchingWall && !isGrounded)
+        {
+            animator.SetBool("isWallHanging", true);
             animator.SetBool("isJumping", false);
+        }
+        else if (!isTouchingWall && isGrounded)
+        {
+            animator.SetBool("isWallHanging", false);
         }
     
         
@@ -139,7 +130,19 @@ public class PlayerController : MonoBehaviour
 
         MovePlayer(movHorizontal * Time.fixedDeltaTime, jump, wallJump);
 
-        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.15f, rb.velocity.z);
+        if (rb.velocity.y > 0)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.1f, rb.velocity.z);
+        }
+        else if (rb.velocity.y <= 0 && isTouchingWall)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.1f, rb.velocity.z);
+        }
+        else if (rb.velocity.y <= 0)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.3f, rb.velocity.z);
+        }
+
 
         jump = false;
         wallJump = false;
@@ -189,6 +192,7 @@ public class PlayerController : MonoBehaviour
             canWallJump = false;
             isWallJumping = true;
             animator.SetBool("isWallJumping", true);
+            animator.SetBool("isWallHanging", false);
             
             // Play wall jump sound
             if (SFXManager.Instance != null)
@@ -223,7 +227,7 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(groundCheck.position, boxSize);
+        Gizmos.DrawWireSphere(groundCheck.position, radiusSize);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(wallCheck.position, boxSizeWall);
     }
