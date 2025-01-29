@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicTracks:
+  - trackName: Track0
+    layers:
+    - name: clip1
+      clip: {fileID: 8300000, guid: 569637f58ac5e1c47b3d4a297ffd4b0c, type: 3}
+      volume: 1
   - trackName: Track1
     layers:
     - name: clip1
