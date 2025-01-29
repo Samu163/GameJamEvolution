@@ -18,16 +18,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e4f427158c01fd040948ccb6bd7c0d09, type: 3}
     volume: 0.8
     loop: 0
-    source: {fileID: 0}
   - name: Slam
     clip: {fileID: 8300000, guid: 00e9e7bfcc7c0a040b0b695bcb5949f9, type: 3}
     volume: 0.3
     loop: 0
-    source: {fileID: 0}
   - name: Close
     clip: {fileID: 8300000, guid: 2323a360b58bd2247a7f38c22c7b0316, type: 3}
     volume: 0.8
     loop: 0
-    source: {fileID: 0}
   playSequentially: 0
   currentIndex: 0

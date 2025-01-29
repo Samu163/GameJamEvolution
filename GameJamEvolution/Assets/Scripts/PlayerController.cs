@@ -61,6 +61,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            rb.MovePosition(startPosition);
+        }
         //isGrounded = Physics.CheckBox(groundCheck.position, boxSize, Quaternion.identity, groundLayer);
         isGrounded = Physics.CheckSphere(groundCheck.position, radiusSize, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
@@ -287,7 +291,7 @@ public class PlayerController : MonoBehaviour
  
     public void RespawnPlayer()
     {
-        transform.position = startPosition;
+        rb.MovePosition(startPosition);
 
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
