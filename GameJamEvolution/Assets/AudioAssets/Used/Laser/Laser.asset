@@ -20,13 +20,13 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: Beam
-    clip: {fileID: 8300000, guid: c9fbd4807f5f3cb4cbda0872c9b2f443, type: 3}
+    clip: {fileID: 8300000, guid: 82afd1c0dfc58d04099f9f880b9881a1, type: 3}
     volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: Deactivate
-    clip: {fileID: 8300000, guid: db13420fa98736645adc2cdc3f74a26d, type: 3}
-    volume: 0.2
+    clip: {fileID: 8300000, guid: c9fbd4807f5f3cb4cbda0872c9b2f443, type: 3}
+    volume: 0.1
     loop: 0
     source: {fileID: 0}
   playSequentially: 0
