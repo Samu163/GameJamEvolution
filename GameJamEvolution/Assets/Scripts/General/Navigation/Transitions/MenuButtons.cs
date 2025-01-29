@@ -17,6 +17,7 @@ public class MenuButtons : MonoBehaviour
     public Button showLeaderBoardButton;
     public Button howToPlayButton;
     public Button closeButton;
+    public Button closeSettingsButton;
     public UIAnimatorManager uiAnimatorManager;
     public LeaderboardsMenu leaderboardsMenu;
     private Vector3 originalScale;
@@ -25,6 +26,7 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private RectTransform leaderBoard;
     [SerializeField] private RectTransform nameMenu;
     [SerializeField] private RectTransform howToPlay;
+    [SerializeField] private RectTransform Settings;
     [SerializeField] private TMP_InputField usernameInput = null;
 
     private void Awake()
@@ -32,6 +34,7 @@ public class MenuButtons : MonoBehaviour
         originalScale = howToPlay.transform.localScale;
         nameBg.SetActive(false);
         howToPlay.gameObject.SetActive(false);
+        Settings.gameObject.SetActive(false);
         leaderBoard.gameObject.SetActive(false);
         uiAnimatorManager.StartmenuAnim().onComplete += AddListeners;
     }
@@ -49,10 +52,11 @@ public class MenuButtons : MonoBehaviour
         newGameButton.onClick.AddListener(() => ShowNamePanel());
         continueButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("GameScene"));
         continueButton.onClick.AddListener(() => GameManager.Instance.isLoadingGame = true);
-        settingsButton.onClick.AddListener(() => GameManager.Instance.LoadScreenRequest("SettingsScreen"));
+        settingsButton.onClick.AddListener(() => ShowSettings());
         showLeaderBoardButton.onClick.AddListener(() => ShowLeaderBoard());
         howToPlayButton.onClick.AddListener(() => ShowHowToPlay());
         closeButton.onClick.AddListener(() => CloseHowToPlay());
+        closeSettingsButton.onClick.AddListener(() => CloseSettings());
         exitButton.onClick.AddListener(() => Application.Quit());
     }
 
@@ -85,7 +89,12 @@ public class MenuButtons : MonoBehaviour
         uiAnimatorManager.AnimateTitle(0, howToPlay);
         howToPlay.gameObject.SetActive(true);
     }
-
+    private void ShowSettings()
+    {
+        Settings.gameObject.transform.localScale = originalScale;
+        uiAnimatorManager.AnimateTitle(0, Settings);
+        Settings.gameObject.SetActive(true);
+    }
     private void CloseHowToPlay()
     {
         //howToPlay.gameObject.transform.DOScale(originalScale * 0, 0.5f).SetEase(Ease.OutBack);
@@ -99,6 +108,22 @@ public class MenuButtons : MonoBehaviour
                  .OnComplete(() =>
                  {
                      howToPlay.DOAnchorPosY(startPosition.y, 1f)
+                              .SetEase(Ease.InSine);
+                 });
+    }
+    private void CloseSettings()
+    {
+        //howToPlay.gameObject.transform.DOScale(originalScale * 0, 0.5f).SetEase(Ease.OutBack);
+
+        float originalPositionY = Settings.anchoredPosition.y;
+        Vector2 startPosition = Settings.anchoredPosition;
+        startPosition.y = 500.0f;
+
+        Settings.DOAnchorPosY(originalPositionY - 30f, 0.5f)
+                 .SetEase(Ease.OutSine)
+                 .OnComplete(() =>
+                 {
+                     Settings.DOAnchorPosY(startPosition.y, 1f)
                               .SetEase(Ease.InSine);
                  });
     }
