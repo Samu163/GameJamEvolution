@@ -95,7 +95,10 @@ public class Laser : MonoBehaviour
             {
                 collisionParticles.transform.position = hit.point;
                 if (!collisionParticles.isPlaying)
+                {
                     collisionParticles.Play();
+                    PlayObstacleSound("Impact", 0.3f);
+                }
             }
         }
         else
@@ -154,6 +157,9 @@ public class Laser : MonoBehaviour
             if (collisionParticles != null)
                 collisionParticles.Stop();
 
+            PlayObstacleSound("Deactivate");
+            StopObstacleSound("Beam");
+
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
@@ -170,9 +176,14 @@ public class Laser : MonoBehaviour
                 activationParticles.Play();
             }
 
+            PlayObstacleSound("Charge");
+
             laserRenderer.enabled = true;
             SetLaserOpacity(0.2f);
             yield return new WaitForSeconds(1f);
+
+            PlayObstacleSound("Activate");
+            PlayObstacleSound("Beam", 0.5f);
 
             SetLaserOpacity(1f);
             laserCollider.enabled = true;

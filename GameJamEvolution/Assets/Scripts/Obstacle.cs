@@ -26,10 +26,32 @@ public abstract class Obstacle : MonoBehaviour
     }
     public ObstacleType type;
 
+    protected void PlayObstacleSound(string soundName, float volumeMultiplier = 1f)
+    {
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.PlaySpecificEffect(type.ToString(), soundName, volumeMultiplier);
+        }
+    }
+
+    protected void PlayObstacleSoundGroup(float volumeMultiplier = 1f)
+    {
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.PlayEffect(type.ToString(), volumeMultiplier);
+        }
+    }
+
+    protected void StopObstacleSound(string soundName)
+    {
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.StopEffect(type.ToString(), soundName);
+        }
+    }
 
     public bool Init(GridSystem gridSystem)
     {
-        
         if (gridSystem.TryPlaceObstacle(size,this, out Vector2Int position))
         {
             Vector3 worldPosition = gridSystem.GridToWorldPosition(position);
@@ -39,11 +61,12 @@ public abstract class Obstacle : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No se pudo colocar el obst·culo. El nivel est· lleno.");
-            Destroy(gameObject); // Destruir el GameObject si no puede colocarse
+            Debug.LogWarning("No se pudo colocar el obst√°culo. El nivel est√° lleno.");
+            Destroy(gameObject);
             return false;
         }
     }
+
     public abstract List<Vector2Int> SpawnPreference(List<Vector2Int> validPositions, GridSystem.Cell[,] grid, Vector2 groupSize);
 
     public abstract void RestartObstacle();

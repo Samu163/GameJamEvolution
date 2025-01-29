@@ -15,12 +15,19 @@ public class FallingPlatform : Obstacle
     [SerializeField] private Transform checkSphere;
     [SerializeField] private float checkRadius;
     private bool isRestarting = false;
+    private bool isFalling = false;
+    private bool hasFallen = false;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
+    private Rigidbody rb;
 
 
     private void Start()
     {
         startPosition = transform.position;
-        
+        rb = GetComponent<Rigidbody>();
+        originalPosition = transform.position;
+        originalRotation = transform.rotation;
     }
 
     private void Update()
@@ -60,14 +67,45 @@ public class FallingPlatform : Obstacle
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && !isFalling && !hasFallen)
+        {
+            StartCoroutine(StartFalling());
+        }
+        else if (isFalling && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            PlayObstacleSound("Impact");
+            isFalling = false;
+            hasFallen = true;
+            rb.isKinematic = true;
+            rb.velocity = Vector3.zero;
+        }
+    }
+
+    private IEnumerator StartFalling()
+    {
+        PlayObstacleSound("Crack");
+        isFalling = true;
+        yield return new WaitForSeconds(fallDelay);
+        
+        PlayObstacleSound("Fall");
+        rb.isKinematic = false;
+        rb.useGravity = true;
+    }
+
     public override void RestartObstacle()
     {
-        transform.position = startPosition;
-        GetComponent<Rigidbody>().useGravity = false;
-        GetComponent<Rigidbody>().isKinematic = true;
-        gameObject.SetActive(true);
-        touchPlayer = false;
-        isRestarting = true;
+        if (originalPosition != Vector3.zero)
+        {
+            transform.position = originalPosition;
+            transform.rotation = originalRotation;
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            isFalling = false;
+            hasFallen = false;
+            PlayObstacleSound("Reset");
+        }
     }
 
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
