@@ -56,7 +56,7 @@ public class Laser : MonoBehaviour
             {
                 if (SFXManager.Instance != null)
                 {
-                    SFXManager.Instance.PlaySpecificEffect("Laser", "Beam", 0.5f);
+                    SFXManager.Instance.PlaySpecificEffect("Laser", "Beam");
                     isBeamSoundPlaying = true;
                 }
             }

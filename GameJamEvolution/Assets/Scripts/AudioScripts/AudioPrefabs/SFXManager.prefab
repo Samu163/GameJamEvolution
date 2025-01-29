@@ -54,4 +54,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 305ef85befa91a448899426f2e03d40f, type: 2}
   - {fileID: 11400000, guid: 9fd651949b890f94e821b748fdbb1e15, type: 2}
   - {fileID: 11400000, guid: 011fbb34e620cbd419f3b830912f29da, type: 2}
+  - {fileID: 11400000, guid: 01afa92abd14e6048b3ad5fa2185460b, type: 2}
+  - {fileID: 11400000, guid: 1687166163f94324ea5f90e15d8ee3e4, type: 2}
   masterVolume: 1

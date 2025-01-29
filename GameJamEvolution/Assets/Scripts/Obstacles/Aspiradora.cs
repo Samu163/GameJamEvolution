@@ -16,28 +16,35 @@ public class Aspiradora : Obstacle
     // Update is called once per frame
     void Update()
     {
-
         if (!isAspiring)
         {
             particles.SetActive(false);
             aspirationTimeCounter += Time.deltaTime;
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.StopEffect("Aspiradora", "Suction");
+            }
         }
         else if (isAspiring)
         {
             particles.SetActive(true);
             aspirationTimeCounter -= Time.deltaTime;
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlaySpecificEffect("Aspiradora", "Suction");
+            }
         }
 
         if (aspirationTimeCounter >= aspirationTime)
         {
             isAspiring = true;
+            PlayObstacleSound("Start");
         }
         else if (aspirationTimeCounter <= 0)
         {
             isAspiring = false;
+            PlayObstacleSound("Stop");
         }
-
-
     }
 
     private void OnTriggerStay(Collider other)
@@ -57,6 +64,10 @@ public class Aspiradora : Obstacle
         aspirationTimeCounter = 0;
         isAspiring = false;
         particles.SetActive(false);
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.StopEffect("Aspiradora", "Suction");
+        }
     }
 
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)

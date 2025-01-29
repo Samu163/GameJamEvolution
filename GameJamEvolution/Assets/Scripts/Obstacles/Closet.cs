@@ -21,7 +21,7 @@ public class Closet : Obstacle
         }
         else
         {
-            Debug.LogError("No se asignó el objeto del Collider hijo en el inspector.");
+            Debug.LogError("No se asignï¿½ el objeto del Collider hijo en el inspector.");
         }
     }
 
@@ -30,6 +30,7 @@ public class Closet : Obstacle
         if (other.CompareTag("Player"))
         {
             animator.SetTrigger("Attack");
+            PlayObstacleSound("Open");
             StartCoroutine(ActivateColliderTemporarily());
         }
     }
@@ -40,6 +41,7 @@ public class Closet : Obstacle
         if (childCollider != null)
         {
             childCollider.enabled = true;
+            PlayObstacleSound("Slam");
         }
         animator.SetTrigger("Again");
         yield return new WaitForSeconds(activateDuration);
@@ -47,8 +49,8 @@ public class Closet : Obstacle
         if (childCollider != null)
         {
             childCollider.enabled = false;
+            PlayObstacleSound("Close");
         }
-       
     }
 
     public override void RestartObstacle()
@@ -56,6 +58,7 @@ public class Closet : Obstacle
         if (childCollider != null)
         {
             childCollider.enabled = false;
+            PlayObstacleSound("Close");
         }
     }
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
