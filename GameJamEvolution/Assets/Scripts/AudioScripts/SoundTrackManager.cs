@@ -166,18 +166,31 @@ public class SoundTrackManager : MonoBehaviour
         if (track == null || layerIndex >= track.layers.Count) yield break;
         
         float layerBaseVolume = track.layers[layerIndex].volume;
+        bool isActivating = targetVolume > 0;
+
+        // If we're activating the layer, start playing it
+        if (isActivating && !source.isPlaying)
+        {
+            source.Play();
+        }
 
         while (elapsed < fadeTime)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / fadeTime;
-            // Calculate the target volume considering both the layer's base volume and master volume
             float currentTargetVolume = targetVolume * layerBaseVolume * masterVolume;
             source.volume = Mathf.Lerp(startVolume, currentTargetVolume, t);
             yield return null;
         }
 
         source.volume = targetVolume * layerBaseVolume * masterVolume;
+        
+        // If we're deactivating the layer, stop playing it
+        if (!isActivating)
+        {
+            source.Stop();
+        }
+
         trackFadeCoroutines[trackName].Remove(layerIndex);
     }
 
@@ -196,11 +209,15 @@ public class SoundTrackManager : MonoBehaviour
         var sources = trackSources[currentTrackName];
         for (int i = 0; i < sources.Count; i++)
         {
-            if (i < currentTrack.layers.Count)
+            if (i < currentTrack.layers.Count && sources[i].isPlaying)
             {
                 float layerVolume = currentTrack.layers[i].volume;
-                sources[i].volume = layerVolume * masterVolume;
-                Debug.Log($"Layer {i} volume set to: {sources[i].volume} (layer: {layerVolume} * master: {masterVolume})");
+                // Only adjust volume if the source is already playing
+                if (sources[i].volume > 0)
+                {
+                    sources[i].volume = layerVolume * masterVolume;
+                    Debug.Log($"Layer {i} volume adjusted to: {sources[i].volume} (layer: {layerVolume} * master: {masterVolume})");
+                }
             }
         }
     }
