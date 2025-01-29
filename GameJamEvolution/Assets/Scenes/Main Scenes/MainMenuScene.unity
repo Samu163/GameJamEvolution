@@ -10694,7 +10694,7 @@ MonoBehaviour:
   closeButton: {fileID: 1727468783}
   cameraAnimator: {fileID: 280110858}
   menuButtons: {fileID: 92989729}
-  leaderboardPanel: {fileID: 1827725884}
+  leaderboardPanel: {fileID: 1927918350}
 --- !u!1001 &1829871631
 PrefabInstance:
   m_ObjectHideFlags: 0
