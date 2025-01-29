@@ -46,11 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneConfigs:
   - sceneName: LoadingScene
-    trackName: Track1
-    initialLayers: 0000000001000000
-  - sceneName: LevelSelector
-    trackName: Track1
-    initialLayers: 02000000
+    trackName: Track0
+    initialLayers: 00000000
   - sceneName: GameScene
     trackName: Track1
     initialLayers: 
@@ -61,7 +58,7 @@ MonoBehaviour:
     trackName: Track1
     initialLayers: 
   sceneCrossFadeTime: 2
-  currentTrackName: Track1
+  currentTrackName: Track0
   musicLayers:
   - layerIndex: 0
     targetVolume: 1

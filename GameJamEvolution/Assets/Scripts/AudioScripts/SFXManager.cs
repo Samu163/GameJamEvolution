@@ -61,11 +61,12 @@ public class SFXManager : MonoBehaviour
         {
             foreach (var sound in group.sounds)
             {
-                sound.source = gameObject.AddComponent<AudioSource>();
-                sound.source.clip = sound.clip;
-                sound.source.volume = sound.volume;
-                sound.source.loop = sound.loop;
-                sound.source.playOnAwake = false;
+                // We don't need to create individual sources for each sound anymore
+                // Just validate the sound settings
+                if (sound.clip == null)
+                {
+                    Debug.LogWarning($"Sound '{sound.name}' has no audio clip assigned!");
+                }
             }
         }
     }
@@ -120,7 +121,16 @@ public class SFXManager : MonoBehaviour
         {
             if (source.isPlaying)
             {
-                source.volume = source.volume * masterVolume;
+                // Find the original sound to get its base volume
+                foreach (var group in soundGroups)
+                {
+                    var sound = group.sounds.Find(s => s.clip == source.clip);
+                    if (sound != null)
+                    {
+                        source.volume = sound.volume * masterVolume;
+                        break;
+                    }
+                }
             }
         }
     }
@@ -154,15 +164,17 @@ public class SFXManager : MonoBehaviour
         }
     }
     
-    protected void PlaySound(Sound sound, float volume)
+    protected void PlaySound(Sound sound, float volumeMultiplier)
     {
-        if (sound == null) return;
+        if (sound == null || sound.clip == null) return;
 
         AudioSource source = GetAvailableSource();
         if (source != null)
         {
             source.clip = sound.clip;
-            source.volume = volume * masterVolume;
+            source.volume = sound.volume * volumeMultiplier * masterVolume;
+            source.loop = sound.loop;
+            source.playOnAwake = false;
             source.Play();
         }
     }
@@ -173,9 +185,17 @@ public class SFXManager : MonoBehaviour
         if (group == null) return;
         
         var sound = group.GetSpecificSound(soundName);
-        if (sound != null && sound.source != null)
+        if (sound != null)
         {
-            sound.source.Stop();
+            // Stop all pool sources playing this sound
+            foreach (var source in audioSourcePool)
+            {
+                if (source.clip == sound.clip)
+                {
+                    source.Stop();
+                }
+            }
+            
             if (soundCooldowns.ContainsKey(sound.name))
             {
                 soundCooldowns.Remove(sound.name);
@@ -185,15 +205,9 @@ public class SFXManager : MonoBehaviour
     
     public void StopAllEffects()
     {
-        foreach (var group in soundGroups)
+        foreach (var source in audioSourcePool)
         {
-            foreach (var sound in group.sounds)
-            {
-                if (sound.source != null)
-                {
-                    sound.source.Stop();
-                }
-            }
+            source.Stop();
         }
         soundCooldowns.Clear();
     }
