@@ -16,6 +16,8 @@ public class LeaderboardsMenu : Panel
     [SerializeField] private Button nextButton = null;
     [SerializeField] private Button prevButton = null;
     [SerializeField] private Button closeButton = null;
+    [SerializeField] private Animator cameraAnimator;
+    [SerializeField] private GameObject menuButtons;
 
     private int currentPage = 1;
     private int totalPages = 0;
@@ -145,6 +147,8 @@ public class LeaderboardsMenu : Panel
 
     private void ClosePanel()
     {
+        cameraAnimator.SetBool("isLookingTable", false);
+        menuButtons.GetComponent<MenuButtons>().HideAllButtons(true);
         Close();
     }
 
