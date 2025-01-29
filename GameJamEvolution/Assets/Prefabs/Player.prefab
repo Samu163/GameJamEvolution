@@ -153,17 +153,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movSpeed: 5
   movSpeedRunning: 8
-  smoothTime: 0.3
+  smoothTime: 0.1
   playerPhysicMaterial: {fileID: 13400000, guid: 2307850b62e525745a8f0f4412fafc6c,
     type: 2}
-  jumpForce: 14
+  jumpForce: 16
   groundCheck: {fileID: 8131617509199267660}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   boxSize: {x: 0.75, y: 0.25, z: 1}
+  radiusSize: 0.3
   isGrounded: 0
-  wallJumpForce: 10
+  wallJumpForce: 20
   wallCheck: {fileID: 4054165917273520904}
   wallLayer:
     serializedVersion: 2
@@ -198,7 +199,7 @@ Transform:
   m_GameObject: {fileID: 2373557178026484789}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.198, y: 0, z: 0}
+  m_LocalPosition: {x: 0.102, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -229,7 +230,7 @@ Transform:
   m_GameObject: {fileID: 8194752413661762557}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.883, z: 0}
+  m_LocalPosition: {x: -0.143, y: -0.883, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
