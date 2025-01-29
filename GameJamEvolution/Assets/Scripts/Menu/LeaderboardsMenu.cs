@@ -51,7 +51,7 @@ public class LeaderboardsMenu : Panel
         if (leaderboardPanel != null)
         {
             leaderboardPanel.localPosition = new Vector3(leaderboardPanel.localPosition.x, -20f, leaderboardPanel.localPosition.z);
-            leaderboardPanel.localRotation = Quaternion.Euler(-10f, 0f, 0f);
+            leaderboardPanel.localRotation = Quaternion.Euler(0f, 0f, -700f);
 
             leaderboardPanel.DOLocalMoveY(0f, 0.6f).SetEase(Ease.OutBack);
             leaderboardPanel.DOLocalRotate(Vector3.zero, 0.6f).SetEase(Ease.OutBack);

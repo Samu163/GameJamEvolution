@@ -193,7 +193,7 @@ public class MenuButtons : MonoBehaviour
     {
         animatorCamera.SetBool("isLookingTable",true);
         leaderboardsMenu.Open();
-        uiAnimatorManager.AnimateTitle(0, leaderBoard);
+        //uiAnimatorManager.AnimateTitle(0, leaderBoard);
         HideAllButtons(false);
     }
 
