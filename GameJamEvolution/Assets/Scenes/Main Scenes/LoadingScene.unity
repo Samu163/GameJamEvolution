@@ -323,51 +323,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
-        type: 3}
-      propertyPath: currentTrackName
-      value: Track0
-      objectReference: {fileID: 0}
-    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
-        type: 3}
-      propertyPath: sceneConfigs.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
-        type: 3}
-      propertyPath: sceneConfigs.Array.data[0].trackName
-      value: Track0
-      objectReference: {fileID: 0}
-    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
-        type: 3}
-      propertyPath: sceneConfigs.Array.data[1].sceneName
-      value: GameScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
-        type: 3}
-      propertyPath: sceneConfigs.Array.data[2].sceneName
-      value: GameScene2
-      objectReference: {fileID: 0}
-    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
-        type: 3}
-      propertyPath: sceneConfigs.Array.data[3].sceneName
-      value: GameScene3
-      objectReference: {fileID: 0}
-    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
-        type: 3}
-      propertyPath: sceneConfigs.Array.data[4].sceneName
-      value: LevelSelector
-      objectReference: {fileID: 0}
-    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
-        type: 3}
-      propertyPath: sceneConfigs.Array.data[0].initialLayers.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
-        type: 3}
-      propertyPath: sceneConfigs.Array.data[1].initialLayers.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1018186447555399628, guid: 4893265b16f13cd44844ebcc68697a02,
         type: 3}
       propertyPath: m_LocalPosition.x

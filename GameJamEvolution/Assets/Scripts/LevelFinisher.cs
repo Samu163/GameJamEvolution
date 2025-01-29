@@ -6,6 +6,7 @@ public class LevelFinisher : MonoBehaviour
 {
     public DestroyManager destroyManager;
     public LevelTimer levelTimer;
+    public bool isRespawning;
     private Collider collider;
 
     private void Awake()
@@ -15,9 +16,13 @@ public class LevelFinisher : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isRespawning)
         {
-            LevelManager.Instance.FinishLevel();
+            if (!isRespawning)
+            {
+                LevelManager.Instance.FinishLevel();    
+            }
+            isRespawning = true;
             levelTimer.timeRemaining += 20;
             if (destroyManager.rechargeValue < destroyManager.maxRecharge)
             {
@@ -29,6 +34,6 @@ public class LevelFinisher : MonoBehaviour
 
     public void EnableCollider(bool condition)
     {
-        collider.enabled = condition;
+        //collider.enabled = condition;
     }
 }

@@ -446,7 +446,7 @@ public class LevelManager : MonoBehaviour
 
     public void FinishLevel()
     {
-        levelFinisher.EnableCollider(false);
+        
         cameraTweening.DOCameraAnimation(onLevelFinished);
         GameManager.Instance.UpdatePlayerScore(levelCount);
         RestartObstacles();
@@ -456,7 +456,7 @@ public class LevelManager : MonoBehaviour
 
         SpawnLevelObstacles(levelCount);
         player.RespawnPlayer();
-        levelFinisher.EnableCollider(true);
+        levelFinisher.isRespawning = false;
         levelCount++;
     }
 

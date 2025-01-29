@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 
-public class UISFXManager : MonoBehaviour  // Just renamed from SFXManager
+public class UISFXManager : MonoBehaviour
 {
-    public static UISFXManager Instance { get; private set; }  // Changed to UISFXManager
+    public static UISFXManager Instance { get; private set; }
     
     [SerializeField] private List<SoundGroup> soundGroups = new List<SoundGroup>();
     private Dictionary<string, float> soundCooldowns = new Dictionary<string, float>();
@@ -14,7 +14,7 @@ public class UISFXManager : MonoBehaviour  // Just renamed from SFXManager
     private List<AudioSource> audioSourcePool = new List<AudioSource>();
     private const int AUDIO_SOURCE_POOL_SIZE = 10;
 
-     private void Awake()
+    private void Awake()
     {
         if (Instance == null)
         {
@@ -60,11 +60,10 @@ public class UISFXManager : MonoBehaviour  // Just renamed from SFXManager
         {
             foreach (var sound in group.sounds)
             {
-                sound.source = gameObject.AddComponent<AudioSource>();
-                sound.source.clip = sound.clip;
-                sound.source.volume = sound.volume;
-                sound.source.loop = sound.loop;
-                sound.source.playOnAwake = false;
+                if (sound.clip == null)
+                {
+                    Debug.LogWarning($"Sound '{sound.name}' has no audio clip assigned!");
+                }
             }
         }
     }
@@ -119,7 +118,15 @@ public class UISFXManager : MonoBehaviour  // Just renamed from SFXManager
         {
             if (source.isPlaying)
             {
-                source.volume = source.volume * masterVolume;
+                foreach (var group in soundGroups)
+                {
+                    var sound = group.sounds.Find(s => s.clip == source.clip);
+                    if (sound != null)
+                    {
+                        source.volume = sound.volume * masterVolume;
+                        break;
+                    }
+                }
             }
         }
     }
@@ -153,15 +160,17 @@ public class UISFXManager : MonoBehaviour  // Just renamed from SFXManager
         }
     }
     
-    protected void PlaySound(Sound sound, float volume)
+    protected void PlaySound(Sound sound, float volumeMultiplier)
     {
-        if (sound == null) return;
+        if (sound == null || sound.clip == null) return;
 
         AudioSource source = GetAvailableSource();
         if (source != null)
         {
             source.clip = sound.clip;
-            source.volume = volume * masterVolume;
+            source.volume = sound.volume * volumeMultiplier * masterVolume;
+            source.loop = sound.loop;
+            source.playOnAwake = false;
             source.Play();
         }
     }
@@ -172,9 +181,17 @@ public class UISFXManager : MonoBehaviour  // Just renamed from SFXManager
         if (group == null) return;
         
         var sound = group.GetSpecificSound(soundName);
-        if (sound != null && sound.source != null)
+        if (sound != null)
         {
-            sound.source.Stop();
+            // Stop all pool sources playing this sound
+            foreach (var source in audioSourcePool)
+            {
+                if (source.clip == sound.clip)
+                {
+                    source.Stop();
+                }
+            }
+            
             if (soundCooldowns.ContainsKey(sound.name))
             {
                 soundCooldowns.Remove(sound.name);
@@ -184,15 +201,9 @@ public class UISFXManager : MonoBehaviour  // Just renamed from SFXManager
     
     public void StopAllEffects()
     {
-        foreach (var group in soundGroups)
+        foreach (var source in audioSourcePool)
         {
-            foreach (var sound in group.sounds)
-            {
-                if (sound.source != null)
-                {
-                    sound.source.Stop();
-                }
-            }
+            source.Stop();
         }
         soundCooldowns.Clear();
     }
