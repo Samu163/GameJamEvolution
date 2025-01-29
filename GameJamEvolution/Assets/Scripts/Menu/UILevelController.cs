@@ -45,23 +45,26 @@ public class UILevelController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        switch (levelIndex)
-        {
-            case 1:
-                GameManager.Instance.sceneID = 0;
-                GameManager.Instance.LoadSceneRequest("GameScene");
-                break;
-            case 2:
-                GameManager.Instance.sceneID = 1;
-                GameManager.Instance.LoadSceneRequest("GameScene2");
-                break;
-            case 3:
-                GameManager.Instance.sceneID = 2;
-                GameManager.Instance.LoadSceneRequest("GameScene3");
-                break;
-            default:
-                Debug.LogWarning("Invalid level index");
-                break;
-        }
+        FadeInController.instance.StartFadeIn(() => {
+            switch (levelIndex)
+            {
+                case 1:
+                    GameManager.Instance.sceneID = 0;
+                    GameManager.Instance.LoadSceneRequest("GameScene");
+                    break;
+                case 2:
+                    GameManager.Instance.sceneID = 1;
+                    GameManager.Instance.LoadSceneRequest("GameScene2");
+                    break;
+                case 3:
+                    GameManager.Instance.sceneID = 2;
+                    GameManager.Instance.LoadSceneRequest("GameScene3");
+                    break;
+                default:
+                    Debug.LogWarning("Invalid level index");
+                    break;
+            }
+        });
+       
     }
 }

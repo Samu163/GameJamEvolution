@@ -20,6 +20,8 @@ public class MenuButtons : MonoBehaviour
     public Button closeSettingsButton;
     public UIAnimatorManager uiAnimatorManager;
     public LeaderboardsMenu leaderboardsMenu;
+    public FadeInController fadeInController;
+
     private Vector3 originalScale;
     [SerializeField] private GameObject Title;
     [SerializeField] private Animator animatorCamera;
@@ -34,6 +36,7 @@ public class MenuButtons : MonoBehaviour
 
     private void Awake()
     {
+        fadeInController.fadeImage.gameObject.SetActive(false);
         originalScale = howToPlay.transform.localScale;
         originalHowToPlayPositionY = howToPlay.anchoredPosition.y;
         originalSettingsPositionY = Settings.anchoredPosition.y;
@@ -55,7 +58,7 @@ public class MenuButtons : MonoBehaviour
             continueButton.interactable = false;
         }
         newGameButton.onClick.AddListener(() => ShowNamePanel());
-        continueButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("GameScene"));
+        continueButton.onClick.AddListener(() => LoadGame());
         continueButton.onClick.AddListener(() => GameManager.Instance.isLoadingGame = true);
         settingsButton.onClick.AddListener(() => ShowSettings());
         showLeaderBoardButton.onClick.AddListener(() => ShowLeaderBoard());
@@ -81,6 +84,16 @@ public class MenuButtons : MonoBehaviour
         uiAnimatorManager.AnimateTitle(0, nameMenu).onComplete += () =>
             saveNameButton.onClick.AddListener(() => RegisterPlayerAndLoadLevelSelector());
     }
+
+     public void LoadGame()
+    {
+        FadeInController.instance.StartFadeIn(() =>
+        {
+            fadeInController.ResetAlpha(0, false);
+            GameManager.Instance.LoadSceneRequest("LevelSelector");
+        });
+    }
+
 
     private void ShowLeaderBoard()
     {
