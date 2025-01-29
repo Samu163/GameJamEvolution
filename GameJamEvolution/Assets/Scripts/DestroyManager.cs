@@ -162,6 +162,7 @@ public class DestroyManager : MonoBehaviour
     {
         destroyMode = true;
         rechargeValue = 0;
+        rechargeBar.value = 0;
     }
 
     private void OnDrawGizmos()

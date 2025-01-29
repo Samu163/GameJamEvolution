@@ -47,7 +47,9 @@ public class FallingPlatform : Obstacle
     IEnumerator Fall()
     {
         // Wait for 1 second
+        PlayObstacleSound("Crack");
         yield return new WaitForSeconds(fallDelay);
+        PlayObstacleSound("Fall");
         if (!isRestarting )
         {
             // Set the platform's rigidbody to kinematic
@@ -67,45 +69,17 @@ public class FallingPlatform : Obstacle
 
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && !isFalling && !hasFallen)
-        {
-            StartCoroutine(StartFalling());
-        }
-        else if (isFalling && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            PlayObstacleSound("Impact");
-            isFalling = false;
-            hasFallen = true;
-            rb.isKinematic = true;
-            rb.velocity = Vector3.zero;
-        }
-    }
-
-    private IEnumerator StartFalling()
-    {
-        PlayObstacleSound("Crack");
-        isFalling = true;
-        yield return new WaitForSeconds(fallDelay);
-        
-        PlayObstacleSound("Fall");
-        rb.isKinematic = false;
-        rb.useGravity = true;
-    }
-
     public override void RestartObstacle()
     {
-        if (originalPosition != Vector3.zero)
-        {
-            transform.position = originalPosition;
-            transform.rotation = originalRotation;
-            rb.isKinematic = true;
-            rb.useGravity = false;
-            isFalling = false;
-            hasFallen = false;
-            PlayObstacleSound("Reset");
-        }
+        transform.position = originalPosition;
+        transform.rotation = originalRotation;
+        rb.isKinematic = true;
+        rb.useGravity = false;
+        isFalling = false;
+        hasFallen = false;
+        StopAllCoroutines();
+        SendMessageUpwards("RestartFallingPlatforms");
+        PlayObstacleSound("Reset");
     }
 
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
