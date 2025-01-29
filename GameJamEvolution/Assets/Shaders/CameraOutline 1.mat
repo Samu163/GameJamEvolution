@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CameraOutline
+  m_Name: CameraOutline 1
   m_Shader: {fileID: -6465566751694194690, guid: 69d6d2a185b255146a5272e1c35f94ba,
     type: 3}
   m_Parent: {fileID: 0}
@@ -43,7 +43,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Outline_Color: {r: 1, g: 0.5086929, b: 0, a: 0}
+    - _Outline_Color: {r: 1, g: 0, b: 0.7981167, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6878285274183995627
 MonoBehaviour:
