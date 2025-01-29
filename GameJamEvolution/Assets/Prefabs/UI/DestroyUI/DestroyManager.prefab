@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7726080583341051306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2491505139986869125}
+  - component: {fileID: 5154125221634510739}
+  m_Layer: 0
+  m_Name: DestroyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2491505139986869125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7726080583341051306}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.601848, y: 3.732996, z: -0.37148973}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5154125221634510739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7726080583341051306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b53c73cf5c77948bfae6efa1845f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridSystem: {fileID: 0}
+  destroyWidth: 3
+  destroyHeight: 3
+  destroyMode: 0
+  mouseScreenPos: {x: 0, y: 0, z: 0}
+  mouseWorldPos: {x: 0, y: 0, z: 0}
+  gridPosition: {x: 0, y: 0}
+  debugGridPosition: {x: 0, y: 0, z: 0}
+  destroyButton: {fileID: 0}
+  rechargeBar: {fileID: 0}
+  rechargeValue: 0
+  maxRecharge: 5
+  timeToRest: 10
+  targetProgress: 0
+  fillSpeed: 0.25
+  particles: {fileID: 0}
+  levelTimer: {fileID: 0}
+  destroyImageObject: {fileID: 0}
+  canvas: {fileID: 0}
+  animator: {fileID: 0}
+  flash: {fileID: 0}
+  globalVolume: {fileID: 0}
