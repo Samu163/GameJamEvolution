@@ -16,23 +16,19 @@ MonoBehaviour:
   sounds:
   - name: clip1
     clip: {fileID: 8300000, guid: bf6c756773a93664fbe832cbc471e1ae, type: 3}
-    volume: 0.7
+    volume: 1
     loop: 0
-    source: {fileID: 0}
   - name: clip2
     clip: {fileID: 8300000, guid: aa1c54c948768834da225aa4d3f59722, type: 3}
-    volume: 0.7
+    volume: 1
     loop: 0
-    source: {fileID: 0}
   - name: clip3
     clip: {fileID: 8300000, guid: 939eab869c6c5384c966ce52e7441df1, type: 3}
-    volume: 0.7
+    volume: 1
     loop: 0
-    source: {fileID: 0}
   - name: clip4
     clip: {fileID: 8300000, guid: cdd8877b0b88de6449ff41a79577babd, type: 3}
-    volume: 0.7
+    volume: 1
     loop: 0
-    source: {fileID: 0}
   playSequentially: 1
-  currentIndex: 0
+  currentIndex: 3

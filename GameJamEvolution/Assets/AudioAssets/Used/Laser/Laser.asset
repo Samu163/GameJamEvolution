@@ -16,18 +16,15 @@ MonoBehaviour:
   sounds:
   - name: Charge
     clip: {fileID: 8300000, guid: f15af3641b27c5d4babcab11f9612bf3, type: 3}
-    volume: 0.4
+    volume: 0.5
     loop: 0
-    source: {fileID: 0}
   - name: Beam
     clip: {fileID: 8300000, guid: 82afd1c0dfc58d04099f9f880b9881a1, type: 3}
-    volume: 0.1
+    volume: 0.3
     loop: 0
-    source: {fileID: 0}
   - name: Deactivate
     clip: {fileID: 8300000, guid: 779bdf150bfc7a744bc463fdfe16bcb9, type: 3}
-    volume: 0.1
+    volume: 0.4
     loop: 0
-    source: {fileID: 0}
   playSequentially: 0
   currentIndex: 0

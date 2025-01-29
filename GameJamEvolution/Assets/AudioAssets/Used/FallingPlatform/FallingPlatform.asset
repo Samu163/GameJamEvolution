@@ -18,21 +18,17 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1b1d9d7e21c7ab14d91b453f2ec39f00, type: 3}
     volume: 1
     loop: 0
-    source: {fileID: 0}
   - name: Fall
     clip: {fileID: 8300000, guid: 27fb980d9999d794d8f56741852e9b81, type: 3}
-    volume: 0.9
+    volume: 0.8
     loop: 0
-    source: {fileID: 0}
   - name: Impact
     clip: {fileID: 8300000, guid: a77a3bc26445e8b4abdd695770e09792, type: 3}
-    volume: 0.9
+    volume: 0.8
     loop: 0
-    source: {fileID: 0}
   - name: Reset
     clip: {fileID: 8300000, guid: 040916107d9b3ed49ba97215c74a119a, type: 3}
-    volume: 0.5
+    volume: 0.4
     loop: 0
-    source: {fileID: 0}
   playSequentially: 0
   currentIndex: 0
