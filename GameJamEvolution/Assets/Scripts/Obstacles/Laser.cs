@@ -19,6 +19,9 @@ public class Laser : MonoBehaviour
     public ParticleSystem activationParticles;
     public ParticleSystem collisionParticles;
 
+    [Header("Audio Settings")]
+    private bool isBeamSoundPlaying = false;
+
     private CapsuleCollider laserCollider;
     private Vector3 currentLaserDirection;
     private Vector3 particleStartPosition;
@@ -48,12 +51,38 @@ public class Laser : MonoBehaviour
         if (laserRenderer.enabled)
         {
             FireLaser();
+            // Start playing beam sound if not already playing and conditions are met
+            if (!isBeamSoundPlaying && laserCollider.enabled && currentLaserOpacity >= 1f)
+            {
+                if (SFXManager.Instance != null)
+                {
+                    SFXManager.Instance.PlaySpecificEffect("Laser", "Beam", 0.5f);
+                    isBeamSoundPlaying = true;
+                }
+            }
+            // Stop beam sound if conditions are not met
+            else if (isBeamSoundPlaying && (!laserCollider.enabled || currentLaserOpacity < 1f))
+            {
+                if (SFXManager.Instance != null)
+                {
+                    SFXManager.Instance.StopEffect("Laser", "Beam");
+                    isBeamSoundPlaying = false;
+                }
+            }
+        }
+        else if (!laserRenderer.enabled && isBeamSoundPlaying)
+        {
+            // Stop beam sound when laser is disabled
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.StopEffect("Laser", "Beam");
+                isBeamSoundPlaying = false;
+            }
         }
     }
 
     public void RestartLaser()
     {
-
         if (laserRenderer != null)
         {
             laserRenderer.enabled = false;
@@ -74,12 +103,21 @@ public class Laser : MonoBehaviour
             collisionParticles.Stop();
         }
 
+        // Stop beam sound if it's playing
+        if (isBeamSoundPlaying)
+        {
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.StopEffect("Laser", "Beam");
+                isBeamSoundPlaying = false;
+            }
+        }
+
         StopAllCoroutines();
         StartCoroutine(LaserCycle());
     }
 
-
-        private void FireLaser()
+    private void FireLaser()
     {
         if (laserRenderer == null || laserCollider == null) return;
 
@@ -97,7 +135,6 @@ public class Laser : MonoBehaviour
                 if (!collisionParticles.isPlaying)
                 {
                     collisionParticles.Play();
-                    PlayObstacleSound("Impact", 0.3f);
                 }
             }
         }
@@ -150,6 +187,7 @@ public class Laser : MonoBehaviour
         {
             laserRenderer.enabled = false;
             laserCollider.enabled = false;
+            SetLaserOpacity(0f);
 
             if (activationParticles != null)
                 activationParticles.Stop();
@@ -157,8 +195,10 @@ public class Laser : MonoBehaviour
             if (collisionParticles != null)
                 collisionParticles.Stop();
 
-            PlayObstacleSound("Deactivate");
-            StopObstacleSound("Beam");
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlaySpecificEffect("Laser", "Deactivate");
+            }
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
@@ -176,14 +216,14 @@ public class Laser : MonoBehaviour
                 activationParticles.Play();
             }
 
-            PlayObstacleSound("Charge");
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlaySpecificEffect("Laser", "Charge");
+            }
 
             laserRenderer.enabled = true;
             SetLaserOpacity(0.2f);
             yield return new WaitForSeconds(1f);
-
-            PlayObstacleSound("Activate");
-            PlayObstacleSound("Beam", 0.5f);
 
             SetLaserOpacity(1f);
             laserCollider.enabled = true;
@@ -201,7 +241,6 @@ public class Laser : MonoBehaviour
 
         if (laserRenderer != null)
         {
-           
             Gradient gradient = laserRenderer.colorGradient;
             GradientColorKey[] colorKeys = gradient.colorKeys;
             GradientAlphaKey[] alphaKeys = new GradientAlphaKey[colorKeys.Length];
