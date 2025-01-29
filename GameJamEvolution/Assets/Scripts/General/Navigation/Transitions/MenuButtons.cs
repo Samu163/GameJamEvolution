@@ -49,14 +49,14 @@ public class MenuButtons : MonoBehaviour
 
     private async void ShowNamePanel()
     {
-        string cloudPlayerName = await GameManager.Instance.GetPlayerNameFromCloud();
+        //string cloudPlayerName = await GameManager.Instance.GetPlayerNameFromCloud();
 
-        if (!string.IsNullOrEmpty(cloudPlayerName) && cloudPlayerName != "Guest")
-        {
-            Debug.Log($"Player already has a name in the cloud: {cloudPlayerName}");
-            GameManager.Instance.LoadSceneRequest("LevelSelector");
-            return;
-        }
+        //if (!string.IsNullOrEmpty(cloudPlayerName) && cloudPlayerName != "Guest")
+        //{
+        //    Debug.Log($"Player already has a name in the cloud: {cloudPlayerName}");
+        //    GameManager.Instance.LoadSceneRequest("LevelSelector");
+        //    return;
+        //}
 
 
         nameBg.SetActive(true);
