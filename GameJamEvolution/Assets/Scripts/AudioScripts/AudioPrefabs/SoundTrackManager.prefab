@@ -48,7 +48,7 @@ MonoBehaviour:
   - trackName: Track0
     layers:
     - name: clip1
-      clip: {fileID: 8300000, guid: 569637f58ac5e1c47b3d4a297ffd4b0c, type: 3}
+      clip: {fileID: 8300000, guid: ef05b9c8b0022cd418b76f5ccc6b7e3c, type: 3}
       volume: 1
   - trackName: Track1
     layers:
@@ -76,6 +76,11 @@ MonoBehaviour:
     - name: clip8
       clip: {fileID: 8300000, guid: 9d96c0b6f7e181b4abd415eacaa89ff8, type: 3}
       volume: 1
+  - trackName: Track2
+    layers:
+    - name: clip1
+      clip: {fileID: 8300000, guid: b13a480f2476130458ee49dfb1a53b61, type: 3}
+      volume: 1
   masterVolume: 1
   defaultFadeTime: 1
-  scheduleAheadTime: 0.1
+  scheduleAheadTime: 0.2

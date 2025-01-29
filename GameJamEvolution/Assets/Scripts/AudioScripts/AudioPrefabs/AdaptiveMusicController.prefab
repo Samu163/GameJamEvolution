@@ -48,6 +48,9 @@ MonoBehaviour:
   - sceneName: LoadingScene
     trackName: Track0
     initialLayers: 00000000
+  - sceneName: MainMenuScene
+    trackName: Track2
+    initialLayers: 00000000
   - sceneName: GameScene
     trackName: Track1
     initialLayers: 
@@ -57,7 +60,7 @@ MonoBehaviour:
   - sceneName: GameScene3
     trackName: Track1
     initialLayers: 
-  sceneCrossFadeTime: 2
+  sceneCrossFadeTime: 1
   currentTrackName: Track0
   musicLayers:
   - layerIndex: 0
