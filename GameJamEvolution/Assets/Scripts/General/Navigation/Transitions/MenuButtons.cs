@@ -20,14 +20,19 @@ public class MenuButtons : MonoBehaviour
     public Button closeSettingsButton;
     public UIAnimatorManager uiAnimatorManager;
     public LeaderboardsMenu leaderboardsMenu;
-    private Vector3 originalScale;
+    public FadeInController fadeInController;
 
+    private Vector3 originalScale;
+    [SerializeField] private GameObject Title;
+    [SerializeField] private Animator animatorCamera;
     [SerializeField] private GameObject nameBg;
     [SerializeField] private RectTransform leaderBoard;
     [SerializeField] private RectTransform nameMenu;
     [SerializeField] private RectTransform howToPlay;
     [SerializeField] private RectTransform Settings;
     [SerializeField] private TMP_InputField usernameInput = null;
+    private float originalHowToPlayPositionY;
+    private float originalSettingsPositionY;
 
     [Header("Audio Settings")]
     [SerializeField] private Slider masterVolumeSlider;
@@ -38,7 +43,10 @@ public class MenuButtons : MonoBehaviour
 
     private void Awake()
     {
+        fadeInController.fadeImage.gameObject.SetActive(false);
         originalScale = howToPlay.transform.localScale;
+        originalHowToPlayPositionY = howToPlay.anchoredPosition.y;
+        originalSettingsPositionY = Settings.anchoredPosition.y;
         nameBg.SetActive(false);
         howToPlay.gameObject.SetActive(false);
         Settings.gameObject.SetActive(false);
@@ -144,7 +152,7 @@ public class MenuButtons : MonoBehaviour
             continueButton.interactable = false;
         }
         newGameButton.onClick.AddListener(() => ShowNamePanel());
-        continueButton.onClick.AddListener(() => GameManager.Instance.LoadSceneRequest("GameScene"));
+        continueButton.onClick.AddListener(() => LoadGame());
         continueButton.onClick.AddListener(() => GameManager.Instance.isLoadingGame = true);
         settingsButton.onClick.AddListener(() => ShowSettings());
         showLeaderBoardButton.onClick.AddListener(() => ShowLeaderBoard());
@@ -171,22 +179,61 @@ public class MenuButtons : MonoBehaviour
             saveNameButton.onClick.AddListener(() => RegisterPlayerAndLoadLevelSelector());
     }
 
+     public void LoadGame()
+    {
+        FadeInController.instance.StartFadeIn(() =>
+        {
+            fadeInController.ResetAlpha(0, false);
+            GameManager.Instance.LoadSceneRequest("LevelSelector");
+        });
+    }
+
+
     private void ShowLeaderBoard()
     {
+        animatorCamera.SetBool("isLookingTable",true);
         leaderboardsMenu.Open();
         uiAnimatorManager.AnimateTitle(0, leaderBoard);
+        HideAllButtons(false);
     }
 
     private void ShowHowToPlay()
     {
         howToPlay.gameObject.transform.localScale = originalScale;
-        uiAnimatorManager.AnimateTitle(0, howToPlay);
+        
+        Vector2 startPosition = howToPlay.anchoredPosition;
+        startPosition.y = 500.0f;
+        howToPlay.anchoredPosition = startPosition;
+
+        howToPlay.DOAnchorPosY(originalHowToPlayPositionY - 30.0f, 1.6f)
+                 .SetEase(Ease.OutSine)
+                 .SetDelay(0)
+                 .OnComplete(() =>
+                 {
+                     howToPlay.DOAnchorPosY(originalHowToPlayPositionY, 0.3f)
+                              .SetEase(Ease.InSine);
+                 });
+
+        
         howToPlay.gameObject.SetActive(true);
     }
     private void ShowSettings()
     {
         Settings.gameObject.transform.localScale = originalScale;
-        uiAnimatorManager.AnimateTitle(0, Settings);
+        Vector2 startPosition = Settings.anchoredPosition;
+        startPosition.y = 500.0f;
+        Settings.anchoredPosition = startPosition;
+
+        Settings.DOAnchorPosY(originalSettingsPositionY - 30.0f, 1.6f)
+                 .SetEase(Ease.OutSine)
+                 .SetDelay(0)
+                 .OnComplete(() =>
+                 {
+                     Settings.DOAnchorPosY(originalSettingsPositionY, 0.3f)
+                              .SetEase(Ease.InSine);
+                 });
+
+
         Settings.gameObject.SetActive(true);
     }
     private void CloseHowToPlay()
@@ -240,6 +287,18 @@ public class MenuButtons : MonoBehaviour
         GameManager.Instance.RegisterPlayerToLeaderboard(playerName); 
         GameManager.Instance.LoadSceneRequest("LevelSelector"); 
     }
-
+    public void HideAllButtons(bool condition)
+    {
+        newGameButton.gameObject.SetActive(condition);
+        continueButton.gameObject.SetActive(condition);
+        settingsButton.gameObject.SetActive(condition);
+        exitButton.gameObject.SetActive(condition);
+        saveNameButton.gameObject.SetActive(condition);
+        showLeaderBoardButton.gameObject.SetActive(condition);
+        howToPlayButton.gameObject.SetActive(condition);
+        closeButton.gameObject.SetActive(condition);
+        closeSettingsButton.gameObject.SetActive(condition);
+        Title.gameObject.SetActive(condition);
+    }
 
 }
