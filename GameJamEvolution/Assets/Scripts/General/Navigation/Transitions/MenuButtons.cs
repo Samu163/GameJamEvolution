@@ -21,6 +21,8 @@ public class MenuButtons : MonoBehaviour
     public UIAnimatorManager uiAnimatorManager;
     public LeaderboardsMenu leaderboardsMenu;
     public FadeInController fadeInController;
+    public GameObject cartera;
+    public Transform carteraPos;
 
     private Vector3 originalScale;
     [SerializeField] private GameObject Title;
@@ -181,7 +183,7 @@ public class MenuButtons : MonoBehaviour
             saveNameButton.onClick.AddListener(() => RegisterPlayerAndLoadLevelSelector());
     }
 
-     public void LoadGame()
+    public void LoadGame()
     {
         FadeInController.instance.StartFadeIn(() =>
         {
