@@ -4423,6 +4423,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: DestroyButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1238080714356302571, guid: 530cb718037c0d04b82de25334605d35,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 870458547}
+    - target: {fileID: 1238080714356302571, guid: 530cb718037c0d04b82de25334605d35,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ActivateDestroyMode
+      objectReference: {fileID: 0}
     - target: {fileID: 5543433780019922389, guid: 530cb718037c0d04b82de25334605d35,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4522,6 +4532,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743273072405191128, guid: 530cb718037c0d04b82de25334605d35,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2133077303}
+    - target: {fileID: 6743273072405191128, guid: 530cb718037c0d04b82de25334605d35,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2133077303}
+    - target: {fileID: 6743273072405191128, guid: 530cb718037c0d04b82de25334605d35,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2133077303}
+    - target: {fileID: 6743273072405191128, guid: 530cb718037c0d04b82de25334605d35,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowOutline
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743273072405191128, guid: 530cb718037c0d04b82de25334605d35,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HideOutline
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743273072405191128, guid: 530cb718037c0d04b82de25334605d35,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HideOutline
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9699,7 +9739,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cbbed45b479f046b617715d0526760, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyManager: {fileID: 0}
+  destroyManager: {fileID: 870458547}
   levelTimer: {fileID: 1524508259}
   isRespawning: 0
 --- !u!65 &2045898318
@@ -10446,6 +10486,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2133077301}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2133077303 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2990951601113690912, guid: f6f1ad5e843cbf741889cfb2a86ee871,
+    type: 3}
+  m_PrefabInstance: {fileID: 2133077301}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f4ff3f5c0e63442b3ccc101dd4852b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2142840398
 GameObject:
   m_ObjectHideFlags: 0

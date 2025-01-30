@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private Vector3 boxSizeWall;
+    [SerializeField] private float radiusWallCheckSize;
     [SerializeField] private bool isTouchingWall;
     [SerializeField] private bool canWallJump = true;
     private bool wallJump = false;
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour
         //isGrounded = Physics.CheckBox(groundCheck.position, boxSize, Quaternion.identity, groundLayer);
         isGrounded = Physics.CheckSphere(groundCheck.position, radiusSize, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
-        isTouchingWall = Physics.CheckBox(wallCheck.position, boxSizeWall, Quaternion.identity, wallLayer);
+        isTouchingWall = Physics.CheckSphere(wallCheck.position, radiusWallCheckSize, wallLayer);
 
         if (rb.velocity.y < 0)
         {
@@ -99,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
         
 
-        if (movHorizontal != 0 && !isTouchingWall)
+        if (movHorizontal != 0 && !isTouchingWall && isGrounded)
         {
             animator.SetBool("isRunning", true);
         }
@@ -150,19 +151,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - gravity, rb.velocity.z);
         }
-
-            //if (rb.velocity.y > 0.5f)
-            //{
-            //    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - gravity, rb.velocity.z);
-            //}
-            //else if (rb.velocity.y <= 0 && isTouchingWall)
-            //{
-            //    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - 0.1f, rb.velocity.z);
-            //}
-            //else if (rb.velocity.y <= 0.5f)
-            //{
-            //    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - gravity, rb.velocity.z);
-            //}
 
 
             jump = false;
@@ -250,7 +238,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, radiusSize);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(wallCheck.position, boxSizeWall);
+        Gizmos.DrawWireSphere(wallCheck.position, radiusWallCheckSize);
     }
 
     private void OnCollisionEnter(Collision collision)
