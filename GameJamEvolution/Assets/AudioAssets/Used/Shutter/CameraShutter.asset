@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e3e1f0acf3a4234186a7383d60e5503, type: 3}
-  m_Name: DeathImpact
+  m_Name: CameraShutter
   m_EditorClassIdentifier: 
-  groupName: DeathImpact
+  groupName: CameraShutter
   sounds:
   - name: clip1
-    clip: {fileID: 8300000, guid: 051151a20987f124b92262e1c3186467, type: 3}
+    clip: {fileID: 8300000, guid: d1861eb5bbaf464418d0849bd914adf6, type: 3}
     volume: 1
     loop: 0
   playSequentially: 0
