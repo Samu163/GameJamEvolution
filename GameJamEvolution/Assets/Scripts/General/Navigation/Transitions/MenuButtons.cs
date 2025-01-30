@@ -27,6 +27,7 @@ public class MenuButtons : MonoBehaviour
     [SerializeField] private Animator animatorCamera;
     [SerializeField] private GameObject nameBg;
     [SerializeField] private RectTransform leaderBoard;
+    [SerializeField] private RectTransform leaderBoardMemebers;
     [SerializeField] private RectTransform nameMenu;
     [SerializeField] private RectTransform howToPlay;
     [SerializeField] private RectTransform Settings;
@@ -192,7 +193,13 @@ public class MenuButtons : MonoBehaviour
     private void ShowLeaderBoard()
     {
         animatorCamera.SetBool("isLookingTable",true);
-        leaderboardsMenu.Open();
+        leaderBoardMemebers.gameObject.SetActive(false);
+        leaderBoard.gameObject.SetActive(true);
+        uiAnimatorManager.AnimateLeaderBoard(0, leaderBoard).onComplete += () =>
+        {
+            leaderboardsMenu.Open();
+            leaderBoardMemebers.gameObject.SetActive(true);
+        };
         //uiAnimatorManager.AnimateTitle(0, leaderBoard);
         HideAllButtons(false);
     }
@@ -218,11 +225,11 @@ public class MenuButtons : MonoBehaviour
         Vector2 startPosition = howToPlay.anchoredPosition;
         startPosition.y = 500.0f;
 
-        howToPlay.DOAnchorPosY(originalPositionY - 30f, 0.5f)
+        howToPlay.DOAnchorPosY(originalPositionY - 30f, 0.25f)
                  .SetEase(Ease.OutSine)
                  .OnComplete(() =>
                  {
-                     howToPlay.DOAnchorPosY(startPosition.y, 1f)
+                     howToPlay.DOAnchorPosY(startPosition.y, 0.5f)
                               .SetEase(Ease.InSine);
                  });
     }
@@ -235,11 +242,11 @@ public class MenuButtons : MonoBehaviour
         Vector2 startPosition = Settings.anchoredPosition;
         startPosition.y = 500.0f;
 
-        Settings.DOAnchorPosY(originalPositionY - 30f, 0.5f)
+        Settings.DOAnchorPosY(originalPositionY - 30f, 0.25f)
                  .SetEase(Ease.OutSine)
                  .OnComplete(() =>
                  {
-                     Settings.DOAnchorPosY(startPosition.y, 1f)
+                     Settings.DOAnchorPosY(startPosition.y, 0.5f)
                               .SetEase(Ease.InSine);
                  });
     }
@@ -290,19 +297,19 @@ public class MenuButtons : MonoBehaviour
 
     IEnumerator waitToLookPostHowToPlay()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         howToPlay.gameObject.transform.localScale = originalScale;
 
         Vector2 startPosition = howToPlay.anchoredPosition;
         startPosition.y = 500.0f;
         howToPlay.anchoredPosition = startPosition;
 
-        howToPlay.DOAnchorPosY(originalHowToPlayPositionY - 30.0f, 1.6f)
+        howToPlay.DOAnchorPosY(originalHowToPlayPositionY - 30.0f, 0.6f)
                  .SetEase(Ease.OutSine)
                  .SetDelay(0)
                  .OnComplete(() =>
                  {
-                     howToPlay.DOAnchorPosY(originalHowToPlayPositionY, 0.3f)
+                     howToPlay.DOAnchorPosY(originalHowToPlayPositionY, 0.15f)
                               .SetEase(Ease.InSine);
                  });
 
@@ -312,18 +319,18 @@ public class MenuButtons : MonoBehaviour
 
     IEnumerator waitToLookPostSettings()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         Settings.gameObject.transform.localScale = originalScale;
         Vector2 startPosition = Settings.anchoredPosition;
         startPosition.y = 500.0f;
         Settings.anchoredPosition = startPosition;
 
-        Settings.DOAnchorPosY(originalSettingsPositionY - 30.0f, 1.6f)
+        Settings.DOAnchorPosY(originalSettingsPositionY - 30.0f, 0.6f)
                  .SetEase(Ease.OutSine)
                  .SetDelay(0)
                  .OnComplete(() =>
                  {
-                     Settings.DOAnchorPosY(originalSettingsPositionY, 0.3f)
+                     Settings.DOAnchorPosY(originalSettingsPositionY, 0.15f)
                               .SetEase(Ease.InSine);
                  });
 
@@ -335,7 +342,7 @@ public class MenuButtons : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         animatorCamera.SetBool("isLookingPost", false);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         HideAllButtonsExceptClose(true);
     }
 }

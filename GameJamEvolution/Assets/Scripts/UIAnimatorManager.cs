@@ -69,4 +69,19 @@ public class UIAnimatorManager : MonoBehaviour
         sequence.AppendInterval(delay * 2 + 0.6f);
         return sequence;
     }
+
+    public Sequence AnimateLeaderBoard(float delay, RectTransform leaderboardPanel) 
+    {
+
+        Sequence sequence = DOTween.Sequence();
+        leaderboardPanel.localPosition = new Vector3(leaderboardPanel.localPosition.x, -20f, leaderboardPanel.localPosition.z);
+        leaderboardPanel.localRotation = Quaternion.Euler(0f, 0f, -700f);
+
+        sequence.Append(leaderboardPanel.DOLocalMoveY(0f, 0.6f).SetEase(Ease.OutBack))
+        .Join(leaderboardPanel.DOLocalRotate(Vector3.zero, 0.6f).SetEase(Ease.OutBack));
+
+        return sequence;
+
+
+    }
 }

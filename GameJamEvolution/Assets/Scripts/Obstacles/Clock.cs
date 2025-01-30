@@ -15,12 +15,12 @@ public class Clock : Obstacle
     public Vector2Int radiusNoClock;
     public GameObject clockAttack;
     public Animator animator;
+    private bool hasPlayedWindUpSound = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        Animator animator = GetComponent<Animator>();
-
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -31,20 +31,21 @@ public class Clock : Obstacle
             attackTimeCounter += Time.deltaTime;
         }
         
-        if (attackTimeCounter >= attackTime)
+        // Only play wind up sound when transitioning from not attacking to attacking
+        if (attackTimeCounter >= attackTime && !isAttacking)
         {
             isAttacking = true;
             PlayObstacleSound("WindUp");
+            animator.SetBool("Attack", true);
+            attackCollider.enabled = true;
         }
 
         if (isAttacking)
         {
-            animator.SetBool("Attack",true);
-            attackCollider.enabled = true;
             AugmentRadius();
 
-           if (attackCollider.radius >= attackMaxRadius)
-           {
+            if (attackCollider.radius >= attackMaxRadius)
+            {
                 isAttacking = false;
                 attackCollider.radius = 0f;
                 clockAttack.transform.localScale = new Vector3(0, 0, 0);
@@ -90,6 +91,7 @@ public class Clock : Obstacle
         clockAttack.transform.localScale = new Vector3(0, 0, 0);
         attackCollider.enabled = false;
         attackTimeCounter = 0;
+        hasPlayedWindUpSound = false;
         PlayObstacleSound("Reset");
     }
 

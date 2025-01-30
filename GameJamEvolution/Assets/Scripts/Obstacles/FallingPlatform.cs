@@ -20,6 +20,7 @@ public class FallingPlatform : Obstacle
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private Rigidbody rb;
+    private bool isCoroutineRunning = false;
 
 
     private void Start()
@@ -32,26 +33,41 @@ public class FallingPlatform : Obstacle
 
     private void Update()
     {
-        touchPlayer = Physics.CheckSphere(checkSphere.position, checkRadius, playerLayer);
-
-        if (touchPlayer)
+        if (!isFalling && !isCoroutineRunning)
         {
-            StartCoroutine(Fall());
-        }
+            touchPlayer = Physics.CheckSphere(checkSphere.position, checkRadius, playerLayer);
 
-        touchPlayer = false;
+            if (touchPlayer)
+            {
+                StartCoroutine(Fall());
+            }
+
+            touchPlayer = false;
+        }
     }
 
     
 
     IEnumerator Fall()
     {
-        // Wait for 1 second
-        PlayObstacleSound("Crack");
-        yield return new WaitForSeconds(fallDelay);
-        PlayObstacleSound("Fall");
-        if (!isRestarting )
+        if (isCoroutineRunning || isFalling) yield break;
+        
+        isCoroutineRunning = true;
+        isFalling = true;
+        
+        // Play crack sound only once at the start
+        if (!hasFallen)
         {
+            PlayObstacleSound("Crack");
+            hasFallen = true;
+        }
+        
+        yield return new WaitForSeconds(fallDelay);
+        
+        if (!isRestarting)
+        {
+            // Play fall sound only if we're actually going to fall
+            PlayObstacleSound("Fall");
             // Set the platform's rigidbody to kinematic
             GetComponent<Rigidbody>().useGravity = true;
             GetComponent<Rigidbody>().isKinematic = false;
@@ -61,12 +77,13 @@ public class FallingPlatform : Obstacle
             SendMessageUpwards("Respawn", gameObject);
             gameObject.SetActive(false);
         }
-        else if (isRestarting)
+        
+        isCoroutineRunning = false;
+        
+        if (isRestarting)
         {
             isRestarting = false;
         }
-
-
     }
 
     public override void RestartObstacle()
@@ -77,6 +94,7 @@ public class FallingPlatform : Obstacle
         rb.useGravity = false;
         isFalling = false;
         hasFallen = false;
+        isCoroutineRunning = false;
         StopAllCoroutines();
         SendMessageUpwards("RestartFallingPlatforms");
         PlayObstacleSound("Reset");
