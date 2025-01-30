@@ -68,6 +68,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(waitToLagForFade());
         if (GameManager.Instance.isLoadingGame)
         {
             LoadProgress();
@@ -75,6 +76,12 @@ public class LevelManager : MonoBehaviour
         }
 
         CreateLevel(GameManager.Instance.sceneID);
+    }
+
+    IEnumerator waitToLagForFade()
+    {
+        yield return new WaitForSeconds(2f);
+        FadeInController.instance.StartFadeOut();
     }
 
     public void LoadProgress()

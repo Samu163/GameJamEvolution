@@ -153,6 +153,7 @@ public class MenuButtons : MonoBehaviour
             continueButton.interactable = false;
         }
         newGameButton.onClick.AddListener(() => ShowNamePanel());
+
         continueButton.onClick.AddListener(() => LoadGame());
         continueButton.onClick.AddListener(() => GameManager.Instance.isLoadingGame = true);
         settingsButton.onClick.AddListener(() => ShowSettings());
@@ -266,6 +267,7 @@ public class MenuButtons : MonoBehaviour
             return;
         }
 
+        
         GameManager.Instance.SavePlayerName(playerName); 
         GameManager.Instance.RegisterPlayerToLeaderboard(playerName); 
         GameManager.Instance.LoadSceneRequest("LevelSelector"); 

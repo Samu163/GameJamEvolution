@@ -6,7 +6,7 @@ public class FadeInController : MonoBehaviour
 {
     public Image fadeImage;
     public static FadeInController instance;
-    public float fadeDuration = 2.0f;
+    public float fadeDuration = 5.0f;
 
     private void Awake()
     {
