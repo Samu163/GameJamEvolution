@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Wall
   - End
+  - Lantern
   layers:
   - Default
   - TransparentFX
