@@ -5910,7 +5910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 1424387434}
-  fadeDuration: 1.28
+  fadeDuration: 1
 --- !u!1 &1964235048
 GameObject:
   m_ObjectHideFlags: 0
