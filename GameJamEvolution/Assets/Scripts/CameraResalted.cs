@@ -46,6 +46,7 @@ public class CameraResalted : MonoBehaviour
         if (destroyButton.interactable)
         {
             cameraOutlineNoSelected.SetActive(true);
+            isHovering = false;
         }
     }
 
