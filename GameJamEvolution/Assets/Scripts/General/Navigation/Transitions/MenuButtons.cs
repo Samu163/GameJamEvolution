@@ -171,7 +171,6 @@ public class MenuButtons : MonoBehaviour
         if (!string.IsNullOrEmpty(cloudPlayerName) && cloudPlayerName != "Guest")
         {
             Debug.Log($"Player already has a name in the cloud: {cloudPlayerName}");
-            FadeInController.instance.StartFadeIn();
             GameManager.Instance.LoadSceneRequest("LevelSelector");
             return;
         }
@@ -268,7 +267,7 @@ public class MenuButtons : MonoBehaviour
             return;
         }
 
-        FadeInController.instance.StartFadeIn();
+        
         GameManager.Instance.SavePlayerName(playerName); 
         GameManager.Instance.RegisterPlayerToLeaderboard(playerName); 
         GameManager.Instance.LoadSceneRequest("LevelSelector"); 
