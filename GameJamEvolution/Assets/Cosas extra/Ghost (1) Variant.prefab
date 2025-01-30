@@ -31,17 +31,17 @@ PrefabInstance:
     - target: {fileID: 2437087979099926777, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.98
+      value: -30.059563
       objectReference: {fileID: 0}
     - target: {fileID: 2437087979099926777, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2437087979099926777, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.61
+      value: 4.5708356
       objectReference: {fileID: 0}
     - target: {fileID: 2437087979099926777, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
         type: 3}
@@ -85,6 +85,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7860628627979505003, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860628627979505003, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3478465ce02013e439f0b406c7a74f9c, type: 2}
@@ -102,6 +107,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 0.4339623
+      objectReference: {fileID: 0}
+    - target: {fileID: 8353759990838863344, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 8.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 8353759990838863344, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
+        type: 3}
+      propertyPath: m_Lightmapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8353759990838863344, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
+        type: 3}
+      propertyPath: m_ShadowRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8353759990838863344, guid: cf6f620c27c8200419c8c9ef7c13f0bf,
+        type: 3}
+      propertyPath: m_Shadows.m_Type
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -159,7 +184,7 @@ Animator:
   m_GameObject: {fileID: 2287329545890201522}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d643a5790157ee429cef76412618b0f, type: 2}
+  m_Controller: {fileID: 9100000, guid: c2a7d15643b9b3e4091af0f850aab33f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
