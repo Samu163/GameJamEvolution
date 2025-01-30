@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
     public DissolveManager dissolveManager;
     public DestroyManager destroyManager;
     public Volume globalVolume; 
+    public Volume globalVolumeOliver; 
     public TextMeshProUGUI respawnText;
 
     //Delegates for finish level
@@ -425,6 +426,7 @@ public class LevelManager : MonoBehaviour
         player.RespawnPlayer();
         if (globalVolume != null) globalVolume.gameObject.SetActive(false);
         if (respawnText != null) respawnText.gameObject.SetActive(false);
+        globalVolumeOliver.gameObject.SetActive(true);
     }
     public void ActivateRespawnEffects()
     {

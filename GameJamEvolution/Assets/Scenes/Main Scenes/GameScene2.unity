@@ -1757,7 +1757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &308239746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9442,6 +9442,7 @@ MonoBehaviour:
   dissolveManager: {fileID: 159583314}
   destroyManager: {fileID: 870458547}
   globalVolume: {fileID: 1795175346}
+  globalVolumeOliver: {fileID: 0}
   respawnText: {fileID: 778845001}
   groundPrefab: {fileID: 4310189401775640786, guid: 2c9dc1fbc5c5b5049aac45836a5e7f89,
     type: 3}

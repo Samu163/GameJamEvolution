@@ -54,11 +54,11 @@ public class UILevelController : MonoBehaviour
                     break;
                 case 2:
                     GameManager.Instance.sceneID = 1;
-                    GameManager.Instance.LoadSceneRequest("GameScene2");
+                    GameManager.Instance.LoadSceneRequest("GameScene2Nueva");
                     break;
                 case 3:
                     GameManager.Instance.sceneID = 2;
-                    GameManager.Instance.LoadSceneRequest("GameScene3");
+                    GameManager.Instance.LoadSceneRequest("GameScene3Nueva");
                     break;
                 default:
                     Debug.LogWarning("Invalid level index");
