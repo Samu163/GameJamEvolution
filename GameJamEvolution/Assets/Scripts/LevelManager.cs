@@ -57,6 +57,7 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
         if (globalVolume != null) globalVolume.gameObject.SetActive(false);
         if (respawnText != null) respawnText.gameObject.SetActive(false);
         obstaclesOnCurrentLevel = new List<Obstacle>();
@@ -68,6 +69,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        FadeInController.instance.fadeImage.gameObject.SetActive(true);
         StartCoroutine(waitToLagForFade());
         if (GameManager.Instance.isLoadingGame)
         {
@@ -81,7 +83,7 @@ public class LevelManager : MonoBehaviour
     IEnumerator waitToLagForFade()
     {
         yield return new WaitForSeconds(2f);
-        FadeInController.instance.StartFadeOut();
+        FadeInController.instance.StartFadeOut(()=>FadeInController.instance.fadeImage.gameObject.SetActive(false));
     }
 
     public void LoadProgress()
