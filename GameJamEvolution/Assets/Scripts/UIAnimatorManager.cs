@@ -33,16 +33,16 @@ public class UIAnimatorManager : MonoBehaviour
             originalPositionsX.Add(rectTransform.anchoredPosition.x);
 
             Vector2 startPosition = rectTransform.anchoredPosition;
-            startPosition.x = -500.0f;
+            startPosition.x = -700.0f;
             rectTransform.anchoredPosition = startPosition;
             float delay = 0.3f * i; 
             float overshootDistance = 30.0f; 
 
             Sequence buttonSequence = DOTween.Sequence();
             buttonSequence
-                .Append(rectTransform.DOAnchorPosX(originalPositionsX[i] + overshootDistance, 0.6f) 
+                .Append(rectTransform.DOAnchorPosX(originalPositionsX[i] + overshootDistance, 0.7f) 
                                       .SetEase(Ease.OutSine))
-                .Append(rectTransform.DOAnchorPosX(originalPositionsX[i], 0.3f) 
+                .Append(rectTransform.DOAnchorPosX(originalPositionsX[i], 0.4f) 
                                       .SetEase(Ease.InSine))
                 .SetDelay(delay); 
         }
