@@ -70,18 +70,27 @@ public class UIAnimatorManager : MonoBehaviour
         return sequence;
     }
 
-    public Sequence AnimateLeaderBoard(float delay, RectTransform leaderboardPanel) 
+    public Sequence AnimateLeaderBoard(float delay, RectTransform leaderboardPanel)
     {
+        float originalPositionY = leaderboardPanel.anchoredPosition.y;
+        Vector2 startPosition = leaderboardPanel.anchoredPosition;
+        startPosition.y = 1500.0f;
+        leaderboardPanel.anchoredPosition = startPosition;
+        leaderboardPanel.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0);
 
         Sequence sequence = DOTween.Sequence();
-        leaderboardPanel.localPosition = new Vector3(leaderboardPanel.localPosition.x, -20f, leaderboardPanel.localPosition.z);
-        leaderboardPanel.localRotation = Quaternion.Euler(0f, 0f, -700f);
 
-        sequence.Append(leaderboardPanel.DOLocalMoveY(0f, 0.6f).SetEase(Ease.OutBack))
-        .Join(leaderboardPanel.DOLocalRotate(Vector3.zero, 0.6f).SetEase(Ease.OutBack));
+        sequence.Append(leaderboardPanel.DOAnchorPosY(originalPositionY, 0.4f)
+            .SetEase(Ease.OutSine)
+            .SetDelay(delay));
+
+        sequence.Join(leaderboardPanel.DORotate(new Vector3(0, 0, 360), 0.4f, RotateMode.FastBeyond360)
+                    .SetEase(Ease.OutSine)); // Giro constante
+        sequence.Join(leaderboardPanel.DOScale(new Vector3(0.8f, 0.8f, 0.8f), 0.3f));
+
+        //sequence.Append(leaderboardPanel.DOAnchorPosY(originalPositionY, 0.3f)
+        //    .SetEase(Ease.InSine));
 
         return sequence;
-
-
     }
 }

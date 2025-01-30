@@ -193,9 +193,10 @@ public class MenuButtons : MonoBehaviour
     private void ShowLeaderBoard()
     {
         animatorCamera.SetBool("isLookingTable",true);
+
         leaderBoardMemebers.gameObject.SetActive(false);
         leaderBoard.gameObject.SetActive(true);
-        uiAnimatorManager.AnimateLeaderBoard(0, leaderBoard).onComplete += () =>
+        uiAnimatorManager.AnimateLeaderBoard(1.0f, leaderBoard).onComplete += () =>
         {
             leaderboardsMenu.Open();
             leaderBoardMemebers.gameObject.SetActive(true);
