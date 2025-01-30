@@ -502,26 +502,19 @@ public class LevelManager : MonoBehaviour
                 {
                     if (i >= obstaclesOnCurrentLevel.Count) return;
                     Vector2Int obstacleGridPos = gridPosition + new Vector2Int(j, k);
-                    for (int z = 0; z < obstaclesOnCurrentLevel[i].size.x; z++)
+                    if (obstaclesOnCurrentLevel[i].gridPos == obstacleGridPos)
                     {
-                        for (int t = 0; t < obstaclesOnCurrentLevel[i].size.y; t++)
+                        Obstacle obstacle = obstaclesOnCurrentLevel[i];
+                        obstaclesOnCurrentLevel.RemoveAt(i);
+
+                        dissolveManager.StartDissolve(obstacle.gameObject, () =>
                         {
-                            Vector2Int sizeCheck = new Vector2Int(obstaclesOnCurrentLevel[i].gridPos.x + z, obstaclesOnCurrentLevel[i].gridPos.y + t);
-                            if (sizeCheck == obstacleGridPos)
-                            {
-                                Obstacle obstacle = obstaclesOnCurrentLevel[i];
-                                obstaclesOnCurrentLevel.RemoveAt(i);
+                            gridSystem.DestroyObstacle(obstacleGridPos, obstacle.size);
+                            Destroy(obstacle.gameObject);
+                        });
 
-                                dissolveManager.StartDissolve(obstacle.gameObject, () =>
-                                {
-                                    gridSystem.DestroyObstacle(sizeCheck, obstacle.size);
-                                    Destroy(obstacle.gameObject);
-                                });
-
-                            }
-                        }
                     }
-                    
+
                 }
             }
 
