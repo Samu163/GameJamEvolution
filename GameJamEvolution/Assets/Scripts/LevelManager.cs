@@ -302,34 +302,6 @@ public class LevelManager : MonoBehaviour
             case 0:
                 break;
             case 1:
-                for (int x = 0; x < 5; x++)
-                {
-                    for (int y = 0; y < 2; y++)
-                    {
-                        gridSystem.GetGrid()[11 + x, 2 + y].isOcupied = true;
-                        gridSystem.GetGrid()[11 + x, 2 + y].type = GridSystem.CellType.Ocupied;
-                    }
-                }
-
-                for (int x = 0; x < 4; x++)
-                {
-                    for (int y = 0; y < 1; y++)
-                    {
-                        gridSystem.GetGrid()[22 + x, 6 + y].isOcupied = true;
-                        gridSystem.GetGrid()[22 + x, 6 + y].type = GridSystem.CellType.Ocupied;
-                    }
-                }
-
-                for (int x = 0; x < 2; x++)
-                {
-                    for (int y = 0; y < 1; y++)
-                    {
-                        gridSystem.GetGrid()[31 + x, 8 + y].isOcupied = true;
-                        gridSystem.GetGrid()[31 + x, 8 + y].type = GridSystem.CellType.Ocupied;
-                    }
-                }
-                break;
-            case 2:
                 for (int x = 0; x < 7; x++)
                 {
                     for (int y = 0; y < 5; y++)
@@ -348,6 +320,36 @@ public class LevelManager : MonoBehaviour
                         gridSystem.GetGrid()[30 + x, 7 + y].type = GridSystem.CellType.Ocupied;
                     }
 
+                }
+                break;
+            case 2:
+                
+
+                for (int x = 0; x < 5; x++)
+                {
+                    for (int y = 0; y < 2; y++)
+                    {
+                        gridSystem.GetGrid()[11 + x, 2 + y].isOcupied = true;
+                        gridSystem.GetGrid()[11 + x, 2 + y].type = GridSystem.CellType.Ocupied;
+                    }
+                }
+
+                for (int x = 0; x < 6; x++)
+                {
+                    for (int y = 0; y < 1; y++)
+                    {
+                        gridSystem.GetGrid()[20 + x, 6 + y].isOcupied = true;
+                        gridSystem.GetGrid()[20 + x, 6 + y].type = GridSystem.CellType.Ocupied;
+                    }
+                }
+
+                for (int x = 0; x < 2; x++)
+                {
+                    for (int y = 0; y < 1; y++)
+                    {
+                        gridSystem.GetGrid()[31 + x, 8 + y].isOcupied = true;
+                        gridSystem.GetGrid()[31 + x, 8 + y].type = GridSystem.CellType.Ocupied;
+                    }
                 }
                 break;
         }
