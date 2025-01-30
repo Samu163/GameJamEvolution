@@ -8020,7 +8020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 752764008}
-  timeRemaining: 20
+  timeRemaining: 25
   minutesRemaining: 0
   secondsRemaining: 0
 --- !u!1 &1534682335
