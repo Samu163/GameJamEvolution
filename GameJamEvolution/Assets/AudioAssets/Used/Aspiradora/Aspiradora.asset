@@ -16,8 +16,7 @@ MonoBehaviour:
   sounds:
   - name: Suction
     clip: {fileID: 8300000, guid: 36b9d1a91d2b93949b114f1408e5c7cf, type: 3}
-    volume: 0.4
+    volume: 0.2
     loop: 0
-    source: {fileID: 0}
   playSequentially: 0
   currentIndex: 0
