@@ -92,34 +92,34 @@ MonoBehaviour:
     fadeTime: 1
   levelRules:
   - minLevel: 0
-    maxLevel: 0
-    layersToEnable: 00000000
-  - minLevel: 1
     maxLevel: 1
-    layersToEnable: 0000000001000000
+    layersToEnable: 00000000
   - minLevel: 2
-    maxLevel: 2
-    layersToEnable: 000000000200000003000000
-  - minLevel: 3
     maxLevel: 3
-    layersToEnable: 0000000002000000030000000400000008000000
-  - minLevel: 4
+    layersToEnable: 0000000001000000
+  - minLevel: 3
     maxLevel: 4
-    layersToEnable: 000000000200000003000000040000000500000008000000
-  - minLevel: 5
+    layersToEnable: 000000000200000003000000
+  - minLevel: 4
     maxLevel: 5
-    layersToEnable: 0000000002000000030000000500000006000000
+    layersToEnable: 0000000002000000030000000400000008000000
   - minLevel: 6
-    maxLevel: 6
-    layersToEnable: 0000000002000000030000000500000007000000
-  - minLevel: 7
     maxLevel: 7
-    layersToEnable: 000000000300000004000000060000000700000008000000
+    layersToEnable: 000000000200000003000000040000000500000008000000
   - minLevel: 8
-    maxLevel: 8
+    maxLevel: 9
+    layersToEnable: 0000000002000000030000000500000006000000
+  - minLevel: 10
+    maxLevel: 11
+    layersToEnable: 0000000002000000030000000500000007000000
+  - minLevel: 11
+    maxLevel: 12
+    layersToEnable: 000000000300000004000000060000000700000008000000
+  - minLevel: 12
+    maxLevel: 13
     layersToEnable: 0000000002000000030000000400000005000000060000000700000008000000
-  - minLevel: 9
-    maxLevel: 10
+  - minLevel: 13
+    maxLevel: 14
     layersToEnable: 0300000004000000050000000600000008000000
   _deathCount: 0
   _currentLevel: 0

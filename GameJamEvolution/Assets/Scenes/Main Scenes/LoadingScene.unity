@@ -415,6 +415,101 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[0].maxLevel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[1].maxLevel
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[1].minLevel
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[2].maxLevel
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[2].minLevel
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[3].maxLevel
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[3].minLevel
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[4].maxLevel
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[4].minLevel
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[5].maxLevel
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[5].minLevel
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[6].maxLevel
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[6].minLevel
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[7].maxLevel
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[7].minLevel
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[8].maxLevel
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[8].minLevel
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[9].maxLevel
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 707460598334932827, guid: 4893265b16f13cd44844ebcc68697a02,
+        type: 3}
+      propertyPath: levelRules.Array.data[9].minLevel
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1018186447555399628, guid: 4893265b16f13cd44844ebcc68697a02,
         type: 3}
       propertyPath: m_LocalPosition.x
