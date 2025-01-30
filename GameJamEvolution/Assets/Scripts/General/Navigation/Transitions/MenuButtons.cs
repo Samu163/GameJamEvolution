@@ -199,46 +199,20 @@ public class MenuButtons : MonoBehaviour
 
     private void ShowHowToPlay()
     {
-        howToPlay.gameObject.transform.localScale = originalScale;
-        
-        Vector2 startPosition = howToPlay.anchoredPosition;
-        startPosition.y = 500.0f;
-        howToPlay.anchoredPosition = startPosition;
-
-        howToPlay.DOAnchorPosY(originalHowToPlayPositionY - 30.0f, 1.6f)
-                 .SetEase(Ease.OutSine)
-                 .SetDelay(0)
-                 .OnComplete(() =>
-                 {
-                     howToPlay.DOAnchorPosY(originalHowToPlayPositionY, 0.3f)
-                              .SetEase(Ease.InSine);
-                 });
-
-        
-        howToPlay.gameObject.SetActive(true);
+        animatorCamera.SetBool("isLookingPost", true);
+        StartCoroutine(waitToLookPostHowToPlay());
+        HideAllButtonsExceptClose(false);
     }
     private void ShowSettings()
     {
-        Settings.gameObject.transform.localScale = originalScale;
-        Vector2 startPosition = Settings.anchoredPosition;
-        startPosition.y = 500.0f;
-        Settings.anchoredPosition = startPosition;
-
-        Settings.DOAnchorPosY(originalSettingsPositionY - 30.0f, 1.6f)
-                 .SetEase(Ease.OutSine)
-                 .SetDelay(0)
-                 .OnComplete(() =>
-                 {
-                     Settings.DOAnchorPosY(originalSettingsPositionY, 0.3f)
-                              .SetEase(Ease.InSine);
-                 });
-
-
-        Settings.gameObject.SetActive(true);
+        animatorCamera.SetBool("isLookingPost", true);
+        StartCoroutine(waitToLookPostSettings());
+        HideAllButtonsExceptClose(false);
     }
     private void CloseHowToPlay()
     {
-        //howToPlay.gameObject.transform.DOScale(originalScale * 0, 0.5f).SetEase(Ease.OutBack);
+        StartCoroutine(waitClosePost());
+        
 
         float originalPositionY = howToPlay.anchoredPosition.y;
         Vector2 startPosition = howToPlay.anchoredPosition;
@@ -254,7 +228,8 @@ public class MenuButtons : MonoBehaviour
     }
     private void CloseSettings()
     {
-        //howToPlay.gameObject.transform.DOScale(originalScale * 0, 0.5f).SetEase(Ease.OutBack);
+        StartCoroutine(waitClosePost());
+        
 
         float originalPositionY = Settings.anchoredPosition.y;
         Vector2 startPosition = Settings.anchoredPosition;
@@ -301,4 +276,66 @@ public class MenuButtons : MonoBehaviour
         Title.gameObject.SetActive(condition);
     }
 
+    public void HideAllButtonsExceptClose(bool condition)
+    {
+        newGameButton.gameObject.SetActive(condition);
+        continueButton.gameObject.SetActive(condition);
+        settingsButton.gameObject.SetActive(condition);
+        exitButton.gameObject.SetActive(condition);
+        saveNameButton.gameObject.SetActive(condition);
+        showLeaderBoardButton.gameObject.SetActive(condition);
+        howToPlayButton.gameObject.SetActive(condition);
+        Title.gameObject.SetActive(condition);
+    }
+
+    IEnumerator waitToLookPostHowToPlay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        howToPlay.gameObject.transform.localScale = originalScale;
+
+        Vector2 startPosition = howToPlay.anchoredPosition;
+        startPosition.y = 500.0f;
+        howToPlay.anchoredPosition = startPosition;
+
+        howToPlay.DOAnchorPosY(originalHowToPlayPositionY - 30.0f, 1.6f)
+                 .SetEase(Ease.OutSine)
+                 .SetDelay(0)
+                 .OnComplete(() =>
+                 {
+                     howToPlay.DOAnchorPosY(originalHowToPlayPositionY, 0.3f)
+                              .SetEase(Ease.InSine);
+                 });
+
+
+        howToPlay.gameObject.SetActive(true);
+    }
+
+    IEnumerator waitToLookPostSettings()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Settings.gameObject.transform.localScale = originalScale;
+        Vector2 startPosition = Settings.anchoredPosition;
+        startPosition.y = 500.0f;
+        Settings.anchoredPosition = startPosition;
+
+        Settings.DOAnchorPosY(originalSettingsPositionY - 30.0f, 1.6f)
+                 .SetEase(Ease.OutSine)
+                 .SetDelay(0)
+                 .OnComplete(() =>
+                 {
+                     Settings.DOAnchorPosY(originalSettingsPositionY, 0.3f)
+                              .SetEase(Ease.InSine);
+                 });
+
+
+        Settings.gameObject.SetActive(true);
+    }
+
+    IEnumerator waitClosePost()
+    {
+        yield return new WaitForSeconds(1f);
+        animatorCamera.SetBool("isLookingPost", false);
+        yield return new WaitForSeconds(1.5f);
+        HideAllButtonsExceptClose(true);
+    }
 }
