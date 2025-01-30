@@ -347,9 +347,6 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnLevelObstacles(int index)
     {
-        PlayerPathChecker pathChecker = new PlayerPathChecker(gridSystem);
-        Vector2Int start = new Vector2Int(0, 0);
-        Vector2Int end = new Vector2Int(gridSystem.gridWidth - 1, gridSystem.gridHeight - 1);
         int levelIndex;
 
         if (levelCount == 0)
@@ -363,50 +360,40 @@ public class LevelManager : MonoBehaviour
 
         var obstaclePrefab = levels[levelIndex].obstaclesToSpawn[0];
 
-        
         bool placedSuccessfully = false;
-        int maxAttempts = 10; 
+        int maxAttempts = 10;
         int attempts = 0;
+
+        Obstacle lastObstacleInstance = null;
 
         while (!placedSuccessfully && attempts < maxAttempts)
         {
             if (obstaclePrefab.groupObstacle)
             {
                 groupInstantiatorManager.InstantiateGroupObstacles(obstaclePrefab, gridSystem);
-
-                if (pathChecker.IsPathClear(start, end))
-                {
-                    placedSuccessfully = true;
-                }
-                else
-                {
-                    Debug.LogWarning($"Grupo {obstaclePrefab.name} bloqueó el camino. Reintentando...");
-                    groupInstantiatorManager.DestroyLastGroup(gridSystem);
-                }
+                placedSuccessfully = true; // Se coloca sin comprobar si bloquea el camino
             }
             else
             {
-                Obstacle obstacleInstance = Instantiate(obstaclePrefab, Vector3.zero, Quaternion.identity);
+                if (lastObstacleInstance != null)
+                {
+                    DestroyObstacle(lastObstacleInstance.gridPos, lastObstacleInstance.size);
+                    Destroy(lastObstacleInstance.gameObject);
+                }
 
-                bool placed = obstacleInstance.Init(gridSystem);
+                lastObstacleInstance = Instantiate(obstaclePrefab, Vector3.zero, Quaternion.identity);
+                bool placed = lastObstacleInstance.Init(gridSystem);
 
                 if (placed)
                 {
-                    if (pathChecker.IsPathClear(start, end))
-                    {
-                        placedSuccessfully = true;
-                        obstaclesOnCurrentLevel.Add(obstacleInstance);
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Obstáculo {obstaclePrefab.name} bloqueó el camino. Reintentando...");
-                        DestroyObstacle(obstacleInstance.gridPos, obstacleInstance.size);
-                    }
+                    placedSuccessfully = true;
+                    obstaclesOnCurrentLevel.Add(lastObstacleInstance);
                 }
                 else
                 {
                     Debug.LogWarning($"No se pudo colocar el obstáculo {obstaclePrefab.name}. No hay posiciones válidas.");
-                    Destroy(obstacleInstance.gameObject);
+                    Destroy(lastObstacleInstance.gameObject);
+                    lastObstacleInstance = null;
                 }
             }
 
@@ -417,8 +404,8 @@ public class LevelManager : MonoBehaviour
         {
             Debug.LogError($"No se pudo colocar el obstáculo o grupo {obstaclePrefab.name} después de {maxAttempts} intentos.");
         }
-        
     }
+
     private IEnumerator RespawnEffectsRoutine()
     {
         Time.timeScale = 0;
