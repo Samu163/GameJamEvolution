@@ -143,6 +143,12 @@ public class DestroyManager : MonoBehaviour
     {
         if (destroyMode)
         {
+            // Play camera shutter sound
+            if (SFXManager.Instance != null)
+            {
+                SFXManager.Instance.PlayEffect("CameraShutter", 1f);
+            }
+
             flash.SetActive(true);
             animator.SetTrigger("Flash");
 
@@ -159,6 +165,12 @@ public class DestroyManager : MonoBehaviour
     }
     public void ActivateDestroyMode()
     {
+        // Play camera ready sound
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.PlayEffect("CameraReady", 1f);
+        }
+
         destroyMode = true;
         rechargeValue = 0;
         rechargeBar.value = 0;

@@ -16,7 +16,7 @@ MonoBehaviour:
   sounds:
   - name: clip1
     clip: {fileID: 8300000, guid: 50b045d7597d2114d9964b3a7fe081fe, type: 3}
-    volume: 0.4
+    volume: 0.6
     loop: 0
   playSequentially: 0
   currentIndex: 0
