@@ -250,10 +250,11 @@ public class PlayerController : MonoBehaviour
                 LevelManager.Instance.ActivateRespawnEffects();
             }
 
-            // Play death sound
+            // Play both death sounds
             if (SFXManager.Instance != null)
             {
                 SFXManager.Instance.PlayEffect("Death", 1f);
+                SFXManager.Instance.PlayEffect("DeathImpact", 1f);
             }
         }
 
@@ -306,7 +307,11 @@ public class PlayerController : MonoBehaviour
 
         isJumping = false;
 
-        
+        // Play respawn sound
+        if (SFXManager.Instance != null)
+        {
+            SFXManager.Instance.PlayEffect("Respawn", 1f);
+        }
 
         if (AdaptiveMusicController.Instance != null)
         {
