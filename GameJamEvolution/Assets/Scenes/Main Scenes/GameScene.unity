@@ -1229,7 +1229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 825962338}
-  timeRemaining: 25
+  timeRemaining: 20
   minutesRemaining: 0
   secondsRemaining: 0
 --- !u!1 &155352814
@@ -2528,16 +2528,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317327195}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.351941, y: -3.28, z: 24.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.14125273, y: 0.90675974, z: -0.045678284, w: 0.39464924}
+  m_LocalPosition: {x: -14.192918, y: -3.484455, z: -82.51899}
+  m_LocalScale: {x: 3.0008051, y: 3.0008054, z: 3.0008051}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 501796036}
   - {fileID: 1610270905}
   - {fileID: 2008174526}
   - {fileID: 1941409260}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1576686510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &320248945 stripped
 RectTransform:
@@ -11863,7 +11863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.56}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6306396, y: -14.734144}
+  m_AnchoredPosition: {x: -1.6306396, y: -14.734146}
   m_SizeDelta: {x: 45, y: 72}
   m_Pivot: {x: 0.185, y: 0.45}
 --- !u!114 &1126144674
@@ -11984,7 +11984,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1510371321513125128, guid: c43fe5b9d3217ad4486a29f9fe5252fa,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 317327196}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c43fe5b9d3217ad4486a29f9fe5252fa, type: 3}
 --- !u!1 &1130848389
@@ -14930,6 +14934,12 @@ Transform:
   - {fileID: 211288524}
   m_Father: {fileID: 446675250}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1576686510 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1510371321513125128, guid: c43fe5b9d3217ad4486a29f9fe5252fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1128241835}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1581719856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15101,6 +15111,8 @@ MonoBehaviour:
   destroyManager: {fileID: 1087516657}
   levelTimer: {fileID: 134200614}
   isRespawning: 0
+  Timeadded: 11.5
+  gainRecharge: 4
 --- !u!65 &1603134658
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32538,6 +32550,11 @@ PrefabInstance:
       objectReference: {fileID: 1225264204}
     - target: {fileID: 5154125221634510739, guid: 108d9ea55606897478ee3ecfdd623848,
         type: 3}
+      propertyPath: fillSpeed
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154125221634510739, guid: 108d9ea55606897478ee3ecfdd623848,
+        type: 3}
       propertyPath: particles
       value: 
       objectReference: {fileID: 813439338}
@@ -32551,6 +32568,16 @@ PrefabInstance:
       propertyPath: levelTimer
       value: 
       objectReference: {fileID: 134200614}
+    - target: {fileID: 5154125221634510739, guid: 108d9ea55606897478ee3ecfdd623848,
+        type: 3}
+      propertyPath: timeToRest
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154125221634510739, guid: 108d9ea55606897478ee3ecfdd623848,
+        type: 3}
+      propertyPath: maxRecharge
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5154125221634510739, guid: 108d9ea55606897478ee3ecfdd623848,
         type: 3}
       propertyPath: rechargeBar
@@ -32910,7 +32937,6 @@ SceneRoots:
   - {fileID: 1787193478}
   - {fileID: 1581719856}
   - {fileID: 1838390524}
-  - {fileID: 317327196}
   - {fileID: 1128241835}
   - {fileID: 1648549790}
   - {fileID: 1409834626}

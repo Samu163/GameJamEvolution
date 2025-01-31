@@ -9806,6 +9806,8 @@ MonoBehaviour:
   destroyManager: {fileID: 1087516657}
   levelTimer: {fileID: 134200614}
   isRespawning: 0
+  Timeadded: 16.5
+  gainRecharge: 5
 --- !u!65 &576905781
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13433,7 +13435,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0.30208302, b: 1, a: 1}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -13670,7 +13672,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.56}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6306396, y: -14.734144}
+  m_AnchoredPosition: {x: -1.6306396, y: -14.734146}
   m_SizeDelta: {x: 45, y: 72}
   m_Pivot: {x: 0.185, y: 0.45}
 --- !u!114 &1126144674
@@ -34586,6 +34588,16 @@ PrefabInstance:
       propertyPath: levelTimer
       value: 
       objectReference: {fileID: 134200614}
+    - target: {fileID: 5154125221634510739, guid: 108d9ea55606897478ee3ecfdd623848,
+        type: 3}
+      propertyPath: timeToRest
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154125221634510739, guid: 108d9ea55606897478ee3ecfdd623848,
+        type: 3}
+      propertyPath: maxRecharge
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5154125221634510739, guid: 108d9ea55606897478ee3ecfdd623848,
         type: 3}
       propertyPath: rechargeBar

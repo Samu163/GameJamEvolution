@@ -58,14 +58,23 @@ public class DestroyManager : MonoBehaviour
         {
             destroyButton.interactable = false;
         }
-        else if (rechargeValue == maxRecharge && levelTimer.timeRemaining > timeToRest)
+        else if (rechargeValue >= maxRecharge && levelTimer.timeRemaining -2 > timeToRest)
         {
             destroyButton.interactable = true;
         }
 
-        if (rechargeBar.value < targetProgress)
+        if (rechargeBar.value < targetProgress/10)
         {
             rechargeBar.value += fillSpeed * Time.deltaTime;
+            if (!particles.isPlaying)
+            {
+                particles.Play();
+            }
+        }
+
+        if (rechargeBar.value > targetProgress / 10)
+        {
+            rechargeBar.value -= fillSpeed * Time.deltaTime;
             if (!particles.isPlaying)
             {
                 particles.Play();
@@ -76,7 +85,7 @@ public class DestroyManager : MonoBehaviour
             particles.Stop();
         }
 
-        targetProgress = Mathf.Lerp(rechargeValue / 5, rechargeBar.value, Time.deltaTime);
+        targetProgress = Mathf.Lerp(rechargeValue, rechargeBar.value, Time.deltaTime);
 
         mouseScreenPos = Input.mousePosition;
         mouseScreenPos.z = 40;

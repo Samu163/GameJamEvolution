@@ -8,7 +8,8 @@ public class LevelFinisher : MonoBehaviour
     public LevelTimer levelTimer;
     public bool isRespawning;
     private Collider collider;
-
+    public float Timeadded = 10;
+    public float gainRecharge = 8;
     private void Awake()
     {
         collider = GetComponent<Collider>();
@@ -23,10 +24,10 @@ public class LevelFinisher : MonoBehaviour
                 LevelManager.Instance.FinishLevel();    
             }
             isRespawning = true;
-            levelTimer.timeRemaining += 20;
+            levelTimer.timeRemaining += Timeadded;
             if (destroyManager.rechargeValue < destroyManager.maxRecharge)
             {
-                destroyManager.rechargeValue++;
+                destroyManager.rechargeValue = destroyManager.rechargeValue + gainRecharge;
             }
             
         }
