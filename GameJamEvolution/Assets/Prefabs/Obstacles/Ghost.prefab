@@ -193,6 +193,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3796974353474561415, guid: 9c8a7060b2e3ab048b3962355011436a,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3796974353474561415, guid: 9c8a7060b2e3ab048b3962355011436a,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: edab663982701534a9d8a465018c783d, type: 2}
@@ -261,6 +266,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1655111398340214845}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c8a7060b2e3ab048b3962355011436a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8554312331163465980}
   m_SourcePrefab: {fileID: 100100000, guid: 9c8a7060b2e3ab048b3962355011436a, type: 3}
 --- !u!4 &2437087979099926777 stripped
 Transform:
@@ -293,8 +302,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.9252404
-  m_Center: {x: 1.1474916, y: -0.88780075, z: 0}
+  m_Radius: 1.2449195
+  m_Center: {x: 1.0444152, y: -0.88780075, z: 0}
 --- !u!54 &3371885221030276396
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -335,3 +344,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 5
+--- !u!95 &8554312331163465980
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069649780944693827}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 95ede769dd44fd344b8f924ae08b290c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

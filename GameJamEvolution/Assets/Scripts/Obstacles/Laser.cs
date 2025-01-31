@@ -26,7 +26,7 @@ public class Laser : MonoBehaviour
     private Vector3 currentLaserDirection;
     private Vector3 particleStartPosition;
     private float currentLaserOpacity = 0f;
-
+    public float coldownLaser = 2f;
     private void Start()
     {
         laserRenderer.enabled = false;
@@ -208,7 +208,7 @@ public class Laser : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(currentLaserDirection);
             }
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(coldownLaser);
 
             if (activationParticles != null)
             {

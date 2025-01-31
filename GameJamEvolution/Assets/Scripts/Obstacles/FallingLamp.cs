@@ -11,14 +11,21 @@ public class FallingLamp : Obstacle
     [SerializeField] private float raycastDistance = 2.0f;
     [SerializeField] private Transform raycastOrigin;
     [SerializeField] private GameObject childColliderObject;
+    [SerializeField] private float moveUpSpeed = 2.0f;
 
     private Vector3 startPosition;
     private Rigidbody rb;
     private Collider childCollider;
     private bool isFalling = false;
-
+    private bool isMovingUp = false;
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+        {
+            Debug.LogError("Player not found! Make sure the player has the tag 'Player'.");
+        }
         startPosition = transform.position;
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
@@ -31,15 +38,41 @@ public class FallingLamp : Obstacle
 
     private void Update()
     {
-        if (!isFalling)
+        if (!isFalling && !isMovingUp)
         {
             CheckForPlayer();
         }
-        
+    }
+    private IEnumerator MoveToStartPosition()
+    {
+        isMovingUp = true;
+        PlayObstacleSound("Reset");
+
+        rb.isKinematic = true;
+        rb.useGravity = false;
+
+        Vector3 initialPosition = transform.position;
+
+        while (Vector3.Distance(transform.position, startPosition) > 0.05f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, startPosition, moveUpSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        transform.position = startPosition;
+        isFalling = false;
+        isMovingUp = false;
+
+        if (childCollider != null)
+        {
+            childCollider.enabled = false;
+        }
     }
 
     private void CheckForPlayer()
     {
+        if (isFalling || isMovingUp) return; // Prevent multiple triggers
+
         Vector3 origin = raycastOrigin != null ? raycastOrigin.position : transform.position;
         Ray ray = new Ray(origin, Vector3.down);
 
@@ -48,31 +81,32 @@ public class FallingLamp : Obstacle
             if (hit.collider.CompareTag("Player"))
             {
                 StartCoroutine(Fall());
-                isFalling = true;
             }
         }
     }
+    private GameObject player;
 
+
+
+ 
     private IEnumerator Fall()
     {
+        isFalling = true;
         PlayObstacleSound("Shake");
         yield return new WaitForSeconds(fallDelay);
-        
+
         PlayObstacleSound("Fall");
         rb.isKinematic = false;
         rb.useGravity = true;
+
         if (childCollider != null)
         {
             childCollider.enabled = true;
         }
 
         yield return new WaitForSeconds(respawnDelay);
-        Respawn();
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        
+        StartCoroutine(MoveToStartPosition());
     }
 
     private void Respawn()
@@ -97,17 +131,8 @@ public class FallingLamp : Obstacle
 
     public override void RestartObstacle()
     {
-        PlayObstacleSound("Reset");
-        rb.isKinematic = true;
-        rb.useGravity = false;
-        transform.position = startPosition;
-        if (childCollider != null)
-        {
-            childCollider.enabled = false;
-        }
-        isFalling = false;
+        StartCoroutine(MoveToStartPosition());
     }
-
     public override List<Vector2Int> SpawnPreference(List<Vector2Int> availablePositions, GridSystem.Cell[,] grid, Vector2 size)
     {
         List<Vector2Int> possiblePositions = new List<Vector2Int>();
